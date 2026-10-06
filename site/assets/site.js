@@ -6,12 +6,11 @@
    Any link that still contains "REPLACE" is treated as not ready:
    its buttons say "Checkout opening soon — join the launch list".
 
-   Perch: the live link https://buy.stripe.com/28EaEY3ch4gc2TN61f5wI00
-   charges $32.99 + $5.99 shipping, but the site says $32.00 with free
-   shipping. It stays switched off here until that link is fixed.
+   Note: the perch link currently charges $32.99 + $5.99 shipping in
+   Stripe, while the site shows $32.00 with free shipping.
    ============================================================ */
 const PAYMENT_LINKS = {
-  "window-perch": "https://buy.stripe.com/REPLACE_WITH_PERCH_LINK",
+  "window-perch": "https://buy.stripe.com/28EaEY3ch4gc2TN61f5wI00",
   "fur-lifter": "https://buy.stripe.com/fZu00k9AF5kg1PJ75j5wI01",
   "cozy-window-bundle": "https://buy.stripe.com/9B6aEY7sx7soeCvblz5wI02",
 };
