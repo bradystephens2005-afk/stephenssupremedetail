@@ -29,4 +29,4 @@ node tests/site.test.mjs
 ## Swap in a real photo
 
 Put the photo in `images/`, then change that entry's `file`, `w` and `h` in `IMAGES` in `build.py`.
-When every drawing is replaced, set `PLACEHOLDER_ART = False` to remove the note under the gallery.
+The note under each gallery lists which pictures are still drawings, and disappears once they are all photos.

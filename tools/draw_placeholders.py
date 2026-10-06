@@ -66,23 +66,22 @@ def cup(x, y, r=24):
 
 
 def perch(cx, top, scale=1.0, cat=True):
-    """A cordless perch seen from inside the room, optionally with a loafing cat."""
+    """The perch seen from inside the room: two upright brackets on the glass,
+    each held by two suction cups, with the bed reaching out from their base."""
     s = scale
     g = [f'<g transform="translate({cx} {top}) scale({s})">']
-    # upper cups and arms (behind the bed)
-    g.append(f'<path d="M-180 10 L-200 -50 M180 10 L200 -50" stroke="{STEEL}" stroke-width="7" stroke-linecap="round"/>')
-    g.append(cup(-200, -62) + cup(200, -62))
-    # lower cups and arms
-    g.append(f'<path d="M-215 70 L-160 160 M215 70 L160 160" stroke="{STEEL}" stroke-width="7" stroke-linecap="round"/>')
-    g.append(cup(-160, 172) + cup(160, 172))
-    # the bed: top surface, then front lip
-    g.append(f'<path d="M-185 0 H185 L225 58 H-225 Z" fill="{FLEECE}"/>')
-    g.append(f'<path d="M-185 0 H185" stroke="{FLEECE_DK}" stroke-width="3"/>')
-    g.append(f'<rect x="-228" y="56" width="456" height="34" rx="12" fill="{FLEECE_DK}"/>')
-    g.append(f'<rect x="-228" y="56" width="456" height="34" rx="12" fill="none" stroke="{STEEL}" stroke-width="6"/>')
-    g.append(f'<path d="M-200 73 H200" stroke="{HONEY}" stroke-opacity=".55" stroke-width="2" stroke-dasharray="7 7"/>')
+    for x in (-196, 196):
+        g.append(cup(x, -118, 34) + cup(x, -42, 34))
+        g.append(f'<rect x="{x - 20}" y="-146" width="40" height="186" rx="8" fill="#F6F8FA" stroke="#B9C8D0" stroke-width="3"/>')
+        g.append(f'<circle cx="{x}" cy="-118" r="5" fill="{STEEL}"/><circle cx="{x}" cy="-42" r="5" fill="{STEEL}"/>')
+    # the bed: top surface, then front lip, with the frame running along its edges
+    g.append(f'<path d="M-192 22 H192 L236 80 H-236 Z" fill="{FLEECE}"/>')
+    g.append(f'<path d="M-192 22 H192" stroke="{FLEECE_DK}" stroke-width="3"/>')
+    g.append(f'<rect x="-240" y="78" width="480" height="30" rx="12" fill="{FLEECE_DK}"/>')
+    g.append(f'<path d="M-196 34 L-236 92 M196 34 L236 92" stroke="{STEEL}" stroke-width="6" stroke-linecap="round"/>')
+    g.append(f'<path d="M-212 93 H212" stroke="{HONEY}" stroke-opacity=".55" stroke-width="2" stroke-dasharray="7 7"/>')
     if cat:
-        g.append(f"""
+        g.append(f"""<g transform="translate(0 22)">
 <g fill="{SLATE}">
   <path d="M-10 48 C-40 70 -110 76 -150 60" stroke="{SLATE}" stroke-width="20" stroke-linecap="round" fill="none"/>
   <path d="M-150 60 C-178 70 -186 100 -170 128" stroke="{SLATE}" stroke-width="20" stroke-linecap="round" fill="none"/>
@@ -92,7 +91,7 @@ def perch(cx, top, scale=1.0, cat=True):
   <ellipse cx="96" cy="50" rx="30" ry="14"/>
 </g>
 <path d="M-108 -30 C-60 -60 30 -62 70 -40" stroke="{HONEY}" stroke-opacity=".35" stroke-width="5" fill="none" stroke-linecap="round"/>
-<path d="M126 -50 q8 -5 16 0 q-8 6 -16 0 Z" fill="{HONEY}"/>""")
+<path d="M126 -50 q8 -5 16 0 q-8 6 -16 0 Z" fill="{HONEY}"/></g>""")
     g.append("</g>")
     return "".join(g)
 
@@ -123,13 +122,12 @@ def perch_cups():
     body = (
         outdoors(w, h)
         + '<rect width="1000" height="1000" fill="#FFFFFF" fill-opacity=".18"/>'
-        + f'<path d="M520 520 L1040 1040" stroke="{STEEL}" stroke-width="46" stroke-linecap="round"/>'
-        + f'<path d="M520 520 L1040 1040" stroke="#6E8089" stroke-width="10" stroke-linecap="round" transform="translate(-12 6)"/>'
-        + '<circle cx="470" cy="470" r="250" fill="url(#cupg)" stroke="#A9BCC5" stroke-width="10"/>'
-        + '<circle cx="470" cy="470" r="185" fill="none" stroke="#FFFFFF" stroke-opacity=".7" stroke-width="6"/>'
-        + f'<circle cx="470" cy="470" r="92" fill="{CUP}"/><circle cx="470" cy="470" r="52" fill="#8EA3AD"/>'
-        + '<path d="M300 330 C340 290 400 268 450 266" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round" fill="none" stroke-opacity=".85"/>'
-        + f'<path d="M230 640 q-30 30 -10 70 l60 -8 q-6 -40 -50 -62 Z" fill="{CUP}"/>'
+        + '<circle cx="470" cy="420" r="250" fill="url(#cupg)" stroke="#A9BCC5" stroke-width="10"/>'
+        + '<circle cx="470" cy="420" r="185" fill="none" stroke="#FFFFFF" stroke-opacity=".7" stroke-width="6"/>'
+        + '<path d="M300 280 C340 240 400 218 450 216" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round" fill="none" stroke-opacity=".85"/>'
+        + '<rect x="400" y="300" width="140" height="760" rx="22" fill="#F6F8FA" stroke="#B9C8D0" stroke-width="6"/>'
+        + f'<circle cx="470" cy="420" r="22" fill="{STEEL}"/><circle cx="470" cy="420" r="9" fill="#8EA3AD"/>'
+        + f'<circle cx="470" cy="760" r="22" fill="{STEEL}"/><circle cx="470" cy="760" r="9" fill="#8EA3AD"/>'
         + f'<path d="M760 820 L1000 820 L1000 1000 L640 1000 Z" fill="{FLEECE}"/><path d="M760 820 L1000 820" stroke="{FLEECE_DK}" stroke-width="8"/>'
     )
     return svg(w, h, body, defs)

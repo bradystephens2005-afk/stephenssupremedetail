@@ -25,18 +25,21 @@ SITE_URL = "https://perch-and-purr.netlify.app"
 EMAIL = "perchandpurr@gmail.com"
 YEAR = datetime.date.today().year
 
-# While the gallery shows drawings instead of real photos, say so under it.
-PLACEHOLDER_ART = True
-
 # ---------------------------------------------------------------- photos
 # To use a real photo: put it in /images and change "file" (and w/h).
 IMAGES = {
+    "photo-two-cats": dict(file="images/photo-two-cats.jpg", w=1000, h=1000,
+                           alt="Two cats sharing the perch on a high-rise window, held up by two suction-cup brackets"),
+    "photo-ragdoll": dict(file="images/photo-ragdoll.jpg", w=1000, h=1000,
+                          alt="A ragdoll cat stretched out on the mesh side of the perch, looking into the room"),
+    "photo-plush": dict(file="images/photo-plush.jpg", w=1000, h=1000,
+                        alt="A tabby Maine Coon resting on the plush side of the cover, with both suction-cup brackets on the glass"),
     "hero-window": dict(file="images/hero-window.svg", w=800, h=1000,
                         alt="A cat loafing on a cordless perch stuck to a sunny window"),
     "perch-window": dict(file="images/perch-window.svg", w=1000, h=1000,
                          alt="The Cordless Window Perch on a window pane with a cat resting on it"),
     "perch-cups": dict(file="images/perch-cups.svg", w=1000, h=1000,
-                       alt="Close-up of a suction cup pressed flat against glass, with the steel frame attached"),
+                       alt="Drawing of a suction cup pressed flat against glass, with the bracket bolted to it"),
     "perch-cover": dict(file="images/perch-cover.svg", w=1000, h=1000,
                         alt="The reversible cover, fleece on one side and breathable mesh on the other, with a zipper around the edge"),
     "perch-folded": dict(file="images/perch-folded.svg", w=1000, h=1000,
@@ -63,7 +66,7 @@ PRODUCTS = {
         option="Cordless Window Perch, $32.00",
         card="A sturdy window seat that holds on with four suction cups. No cords, no drilling.",
         sub="A sturdy window seat that holds on with four suction cups and a stainless steel frame. No cords, no drilling, no floor space.",
-        images=["perch-window", "perch-cups", "perch-cover", "perch-folded"],
+        images=["photo-two-cats", "photo-ragdoll", "photo-plush", "perch-cover", "perch-folded"],
         description="A cordless suction-cup cat window perch with a painted stainless steel frame, tested to 40 lb, and a reversible fleece and mesh cover. $32, free shipping.",
     ),
     "fur-lifter": dict(
@@ -83,7 +86,7 @@ PRODUCTS = {
         option="The Cozy Window Bundle, $49.99",
         card="The perch, the Fur Lifter and a spare fleece pad, in a gift-ready box.",
         sub="Everything for a cat's window seat in one gift-ready box: the perch, the Fur Lifter and a spare fleece pad for laundry day.",
-        images=["bundle", "perch-window", "gift-box", "perch-cover", "fur-lifter"],
+        images=["bundle", "photo-ragdoll", "gift-box", "perch-cover", "fur-lifter"],
         description="The Cordless Window Perch, the Reusable Fur Lifter and a spare fleece pad in a gift-ready box. $49.99, free shipping.",
     ),
 }
@@ -401,7 +404,7 @@ def page_head(title, lede, crumbs=None):
 def page_home(ctx):
     perch = ctx.link("/window-perch/")
     features = [
-        ("perch-cups", "Holds on without cords or drilling",
+        ("photo-plush", "Holds on without cords or drilling",
          "Most window hammocks hang from steel cables. This one uses a rigid, painted stainless steel frame and four suction cups that press flat against the glass. Nothing dangles, nothing gets screwed into your window frame, and it comes off clean.",
          "Tested to 40 lb on clean, smooth glass. Press-test it by hand before your cat hops up."),
         ("perch-cover", "A cover for every season",
@@ -443,7 +446,7 @@ def page_home(ctx):
       {checks(["Free shipping in the lower 48", "30-day returns from delivery", "Secure checkout by Stripe"])}
     </div>
     <div class="arch-stage">
-      <div class="arch"><div class="arch-inner">{ctx.img('hero-window', eager=True)}</div></div>
+      <div class="arch"><div class="arch-inner">{ctx.img('photo-ragdoll', eager=True)}</div></div>
       <div class="arch-sill" aria-hidden="true"></div>
     </div>
   </div>
@@ -576,7 +579,11 @@ def product_page(ctx, pid):
         f'<button type="button" class="thumb" aria-pressed="{"true" if i == 0 else "false"}" data-full="{ctx.src(k)}" data-alt="{esc(IMAGES[k]["alt"])}" aria-label="Show photo {i + 1}: {esc(IMAGES[k]["alt"])}">{ctx.img(k, alt="")}</button>'
         for i, k in enumerate(imgs)
     )
-    note = '<p class="gallery-note">Illustrations for now. Real product photos are on the way.</p>' if PLACEHOLDER_ART else ""
+    drawn = [str(i + 1) for i, k in enumerate(imgs) if IMAGES[k]["file"].endswith(".svg")]
+    note = ""
+    if drawn:
+        which = drawn[0] if len(drawn) == 1 else ", ".join(drawn[:-1]) + " and " + drawn[-1]
+        note = f'<p class="gallery-note">Picture{"s" if len(drawn) > 1 else ""} {which} {"are drawings" if len(drawn) > 1 else "is a drawing"} until we have photos of {"them" if len(drawn) > 1 else "it"}.</p>'
     options = "".join(
         f'<option value="{oid}"{" selected" if oid == pid else ""}>{PRODUCTS[oid]["option"]}</option>' for oid in ORDER
     )
@@ -751,13 +758,13 @@ def page_about(ctx):
 
 def page_help(ctx):
     steps = [
-        ("perch-window", "1. Pick the pane",
+        ("photo-plush", "1. Pick the pane",
          "<p>Choose smooth, flat glass with room for all four cups, at a height your cat can reach and get down from easily. A pane that doesn't open is best.</p>"),
         ("perch-cups", "2. Clean the glass and the cups",
          "<p>Wipe the glass with glass cleaner or rubbing alcohol and let it dry. Rinse the suction cups in warm water so they're soft and free of dust.</p>"),
         ("perch-folded", "3. Press each cup on",
          "<p>Unfold the perch and hold it level. Press the top cups on first, then the bottom ones, pushing each flat until the air is out.</p>"),
-        ("hero-window", "4. Press-test, then invite your cat",
+        ("photo-two-cats", "4. Press-test, then invite your cat",
          "<p>Push down hard on the bed with your hand. If nothing shifts, zip on the cover, fleece side up for cold weather or mesh side up for warm weather, and let your cat take it from there.</p>"),
     ]
     step_html = "".join(f'<div class="guide-step">{ctx.img(k, alt="")}<div><h3>{t}</h3>{b}</div></div>' for k, t, b in steps)
@@ -1091,7 +1098,7 @@ def build_multi():
 
     for page in PAGES:
         canonical = SITE_URL + (page["path"] if page["path"] != "/404" else "/404.html")
-        og_img = SITE_URL + "/" + IMAGES["hero-window"]["file"]
+        og_img = SITE_URL + "/" + IMAGES["photo-ragdoll"]["file"]
         extra = product_ld(page["product"]) if page.get("product") else ""
         body_cls = ' class="has-buybar"' if page.get("buybar") else ""
         doc = f"""<!doctype html>
@@ -1158,11 +1165,6 @@ def build_single():
     js = (ROOT / "assets/site.js").read_text(encoding="utf-8")
     assert "</script" not in js.lower(), "site.js can't contain a closing script tag"
 
-    images = {}
-    for key, im in IMAGES.items():
-        f = ROOT / im["file"]
-        images[key] = f"data:{MIME[f.suffix.lower()]};base64," + base64.b64encode(f.read_bytes()).decode()
-
     templates = []
     for page in PAGES:
         attrs = {
@@ -1178,6 +1180,14 @@ def build_single():
             attrs["data-buybar"] = "true"
         a = " ".join(f'{k}="{esc(v)}"' for k, v in attrs.items())
         templates.append(f"<template {a}>\n{page['body'](ctx)}\n</template>")
+
+    used = "".join(templates) + catalog_json(ctx)
+    images = {}
+    for key, im in IMAGES.items():
+        if f'"{key}"' not in used:
+            continue
+        f = ROOT / im["file"]
+        images[key] = f"data:{MIME[f.suffix.lower()]};base64," + base64.b64encode(f.read_bytes()).decode()
 
     home = PAGES[0]
     doc = f"""<!doctype html>
