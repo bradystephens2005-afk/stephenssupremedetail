@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /owner/
+Sitemap: https://perch-and-purr.netlify.app/sitemap.xml

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000"><defs></defs><rect width="1000" height="1000" fill="#EEF3F6"/><rect x="90" y="120" width="500" height="360" rx="14" fill="#D8C4A2"/><rect x="90" y="120" width="500" height="360" rx="14" fill="none" stroke="#C2AB86" stroke-width="5"/><rect x="310.0" y="120" width="60" height="360" fill="#E9B04F"/><g transform="translate(340 300) scale(1.4)" fill="#FBFCFD"><ellipse cx="0" cy="18" rx="26" ry="21"/><circle cx="-26" cy="-12" r="10"/><circle cx="-9" cy="-26" r="10"/><circle cx="9" cy="-26" r="10"/><circle cx="26" cy="-12" r="10"/></g><g transform="translate(130 560)"><rect width="460" height="300" rx="40" fill="#EFE5D3" stroke="#4A5A61" stroke-width="8"/><rect x="20" y="20" width="420" height="260" rx="28" fill="none" stroke="#E0D0B6" stroke-width="5" stroke-dasharray="12 10"/></g><g transform="translate(640 140)"><rect width="270" height="340" rx="36" fill="#EFE5D3"/><path d="M30 60 q20 -14 40 0 M120 160 q20 -14 40 0 M60 250 q20 -14 40 0 M180 90 q20 -14 40 0" stroke="#E0D0B6" stroke-width="6" fill="none" stroke-linecap="round"/></g><g transform="translate(780 700) rotate(28) scale(.62)">
+<g>
+  <rect x="-60" y="-10" width="120" height="380" rx="56" fill="#34444B"/>
+  <rect x="-34" y="40" width="68" height="250" rx="34" fill="#46575E"/>
+  <rect x="-190" y="-230" width="380" height="240" rx="70" fill="#9DB0B9"/>
+  <rect x="-190" y="-230" width="380" height="110" rx="55" fill="#B6C6CD"/>
+  <rect x="-210" y="-120" width="420" height="120" rx="60" fill="#D9B46E"/>
+  <path d="M-180 -90 H180 M-180 -60 H180 M-180 -30 H180" stroke="#C49C55" stroke-width="5" stroke-linecap="round"/>
+  <rect x="-40" y="-205" width="80" height="22" rx="11" fill="#E9B04F"/>
+</g></g></svg>
