@@ -10,7 +10,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 30V15a12 12 0 0 1 24 0v15Z' fill='%23DCE6EC' stroke='%231F2D33' stroke-width='2.5'/%3E%3Ccircle cx='21' cy='11' r='4' fill='%23E9B04F'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800&family=Young+Serif&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <link rel="canonical" href="https://perch-and-purr.netlify.app/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Perch &amp; Purr">
@@ -18,316 +18,324 @@
 <meta property="og:description" content="A cordless suction-cup cat window perch with a stainless steel frame, tested to 40 lb. $32 with free shipping in the lower 48 and 30-day returns.">
 <style>
 /* Perch & Purr — shared styles
-   Calm, cool whites and sky grays, slate ink, honey used sparingly. */
+   Apple-inspired: system type, big tight headlines, white and light-gray
+   sections, blue pill buttons, generous space. */
 
 :root {
-  --paper: #F7F9FA;
   --white: #FFFFFF;
-  --mist: #EBF0F3;
-  --sky: #DCE6EC;
-  --sky-deep: #C5D4DC;
-  --line: #D6DFE4;
-  --ink: #1F2D33;
-  --ink-soft: #46565D;
-  --ink-faint: #66767D;
+  --paper: #FFFFFF;
+  --gray: #F5F5F7;
+  --gray-2: #E8E8ED;
+  --line: #D2D2D7;
+  --ink: #1D1D1F;
+  --ink-soft: #424245;
+  --ink-faint: #6E6E73;
+  --blue: #0071E3;
+  --blue-hover: #0077ED;
+  --link: #0066CC;
+  --dark: #000000;
+  --dark-2: #161617;
+  --dark-text: #F5F5F7;
+  --dark-soft: #A1A1A6;
   --honey: #E9B04F;
-  --honey-soft: #FBF1DC;
-  --honey-deep: #9A6A12;
-  --ok: #3D6B57;
+  --ok: #248A3D;
 
-  --serif: "Young Serif", Georgia, "Times New Roman", serif;
-  --sans: "Mulish", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-  --r-sm: 8px;
-  --r: 14px;
-  --r-lg: 22px;
-  --shadow: 0 1px 2px rgba(31, 45, 51, .05), 0 10px 30px rgba(31, 45, 51, .06);
-  --shadow-lift: 0 2px 4px rgba(31, 45, 51, .06), 0 18px 40px rgba(31, 45, 51, .10);
-  --wrap: 1160px;
-  --gutter: 24px;
+  --r-sm: 12px;
+  --r: 18px;
+  --r-lg: 28px;
+  --shadow: 0 4px 24px rgba(0, 0, 0, .06);
+  --shadow-lift: 0 12px 40px rgba(0, 0, 0, .12);
+  --wrap: 1024px;
+  --wide: 1200px;
+  --gutter: 22px;
+  --nav-h: 48px;
   color-scheme: light;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 96px; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 64px); }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
 
 body {
   margin: 0;
-  background: var(--paper);
+  background: var(--white);
   color: var(--ink);
   font-family: var(--sans);
   font-size: 17px;
-  line-height: 1.6;
+  line-height: 1.47;
+  letter-spacing: -.022em;
+  -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 img, svg { display: block; max-width: 100%; }
 img { height: auto; }
-a { color: var(--ink); text-decoration-color: var(--sky-deep); text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
-a:hover { text-decoration-color: var(--honey); }
-:focus-visible { outline: 3px solid var(--honey); outline-offset: 2px; border-radius: 4px; }
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 3px solid rgba(0, 113, 227, .6); outline-offset: 2px; border-radius: 6px; }
 template { display: none; }
-code { font-family: inherit; font-weight: 700; font-size: .95em; background: var(--mist); padding: 1px 6px; border-radius: 4px; overflow-wrap: anywhere; }
 [hidden] { display: none !important; }
+main:focus { outline: none; }
+code { font-family: inherit; font-weight: 600; font-size: .95em; background: var(--gray); padding: 1px 6px; border-radius: 6px; overflow-wrap: anywhere; }
 
-h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; line-height: 1.18; margin: 0 0 .5em; letter-spacing: -.005em; }
-h1 { font-size: clamp(2.1rem, 4.6vw, 3.4rem); }
-h2 { font-size: clamp(1.6rem, 3vw, 2.25rem); }
-h3 { font-size: 1.3rem; }
+h1, h2, h3, h4 { font-family: var(--sans); font-weight: 600; margin: 0 0 .4em; color: var(--ink); }
+h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.05; letter-spacing: -.015em; }
+h2 { font-size: clamp(2rem, 4.4vw, 3.5rem); line-height: 1.07; letter-spacing: -.015em; }
+h3 { font-size: clamp(1.3rem, 2vw, 1.75rem); line-height: 1.14; letter-spacing: -.01em; }
 p { margin: 0 0 1em; }
-.lede { font-size: 1.15rem; color: var(--ink-soft); max-width: 36em; }
+.lede { font-size: clamp(1.15rem, 1.8vw, 1.5rem); line-height: 1.33; color: var(--ink-soft); max-width: 36em; letter-spacing: -.01em; }
 .muted { color: var(--ink-faint); }
-.small { font-size: .9rem; }
+.small { font-size: .88rem; }
 .wrap { width: min(var(--wrap), 100% - var(--gutter) * 2); margin-inline: auto; }
-.narrow { width: min(760px, 100% - var(--gutter) * 2); margin-inline: auto; }
-.section { padding-block: clamp(56px, 8vw, 104px); }
-.section--tint { background: var(--mist); }
-.section-head { max-width: 640px; margin-bottom: 40px; }
-.section-head p { color: var(--ink-soft); }
+.narrow { width: min(720px, 100% - var(--gutter) * 2); margin-inline: auto; }
+.section { padding-block: clamp(72px, 10vw, 128px); }
+.section--tint { background: var(--gray); }
+.section-head { max-width: 720px; margin-bottom: clamp(36px, 5vw, 56px); }
+.section-head p { color: var(--ink-faint); font-size: clamp(1.1rem, 1.6vw, 1.3rem); line-height: 1.4; margin: 0; }
 .center { text-align: center; margin-inline: auto; }
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.eyebrow { font-size: clamp(1.1rem, 1.8vw, 1.5rem); font-weight: 600; color: var(--ink); margin-bottom: 10px; }
 
 .skip { position: absolute; left: 12px; top: -60px; z-index: 100; background: var(--ink); color: #fff; padding: 10px 16px; border-radius: var(--r-sm); }
 .skip:focus { top: 12px; }
 
+/* Reveal on scroll (only when JS is running) */
+.js-reveal [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s cubic-bezier(.2, .7, .2, 1); }
+.js-reveal [data-reveal].is-in { opacity: 1; transform: none; }
+
 /* Buttons */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  min-height: 50px; padding: 12px 24px;
-  border: 1.5px solid var(--ink); border-radius: 10px;
-  background: var(--ink); color: #fff;
-  font: 700 1rem/1.2 var(--sans); text-decoration: none; cursor: pointer;
-  transition: background .15s, color .15s, transform .15s, box-shadow .15s;
+  min-height: 44px; padding: 11px 22px;
+  border: 1px solid var(--blue); border-radius: 980px;
+  background: var(--blue); color: #fff;
+  font: 400 1.0625rem/1.2 var(--sans); letter-spacing: -.022em; text-decoration: none; cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s;
 }
-.btn:hover { background: #2C3E46; transform: translateY(-1px); box-shadow: var(--shadow); }
-.btn--ghost { background: transparent; color: var(--ink); }
-.btn--ghost:hover { background: var(--white); }
+.btn:hover { background: var(--blue-hover); text-decoration: none; }
+.btn--ghost { background: transparent; color: var(--blue); }
+.btn--ghost:hover { background: var(--blue); color: #fff; }
 .btn--block { width: 100%; }
-.btn--small { min-height: 40px; padding: 8px 16px; font-size: .92rem; }
-.btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
-.link-btn { background: none; border: 0; padding: 0; font: inherit; color: var(--ink); text-decoration: underline; text-decoration-color: var(--sky-deep); text-underline-offset: 3px; cursor: pointer; }
+.btn--small { min-height: 34px; padding: 7px 16px; font-size: .9rem; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.btn-row--center { justify-content: center; }
+.link-btn { background: none; border: 0; padding: 0; font: inherit; color: var(--link); cursor: pointer; }
+.link-btn:hover { text-decoration: underline; }
+.link-more { color: var(--link); font-size: 1.0625rem; white-space: nowrap; }
+.link-more::after { content: " ›"; }
 
-/* Announcement + header */
-.announce { background: var(--ink); color: #E8EEF1; text-align: center; font-size: .9rem; padding: 9px var(--gutter); }
-.announce a { color: #fff; text-decoration-color: var(--honey); }
+/* Announcement + global nav */
+.announce { background: var(--gray); color: var(--ink-soft); text-align: center; font-size: .82rem; padding: 10px var(--gutter); letter-spacing: -.01em; }
+.announce a { color: var(--link); }
 
-.site-header { position: sticky; top: 0; z-index: 40; background: rgba(247, 249, 250, .92); backdrop-filter: saturate(1.4) blur(10px); border-bottom: 1px solid transparent; transition: border-color .2s; }
-.site-header.is-scrolled { border-bottom-color: var(--line); }
-.header-row { display: flex; align-items: center; gap: 24px; min-height: 72px; }
-.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--serif); font-size: 1.35rem; color: var(--ink); white-space: nowrap; }
-.brand svg { width: 30px; height: 34px; flex: none; }
-.nav { display: flex; gap: 6px; margin-left: auto; }
-.nav a { padding: 8px 12px; border-radius: var(--r-sm); text-decoration: none; font-weight: 600; font-size: .98rem; color: var(--ink-soft); }
-.nav a:hover { color: var(--ink); background: var(--mist); }
-.nav a[aria-current="page"] { color: var(--ink); box-shadow: inset 0 -2px 0 var(--honey); border-radius: 0; }
-.header-actions { display: flex; align-items: center; gap: 6px; }
-.icon-btn { position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 12px; border: 0; border-radius: var(--r-sm); background: transparent; color: var(--ink); font: 700 .98rem var(--sans); cursor: pointer; }
-.icon-btn:hover { background: var(--mist); }
-.icon-btn svg { width: 22px; height: 22px; }
-.cart-count { min-width: 22px; height: 22px; padding: 0 6px; border-radius: 11px; background: var(--honey); color: var(--ink); font-size: .78rem; line-height: 22px; text-align: center; }
-.cart-count[data-count="0"] { background: var(--sky); }
+.site-header { position: sticky; top: 0; z-index: 40; background: rgba(255, 255, 255, .8); backdrop-filter: saturate(1.8) blur(20px); -webkit-backdrop-filter: saturate(1.8) blur(20px); border-bottom: 1px solid transparent; transition: border-color .2s; }
+.site-header.is-scrolled { border-bottom-color: rgba(0, 0, 0, .08); }
+.header-row { display: flex; align-items: center; gap: 24px; height: var(--nav-h); width: min(var(--wrap), 100% - var(--gutter) * 2); }
+.brand { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-size: 1.05rem; font-weight: 600; color: var(--ink); white-space: nowrap; letter-spacing: -.02em; }
+.brand:hover { text-decoration: none; }
+.brand svg { width: 20px; height: 23px; flex: none; }
+.nav { display: flex; gap: 4px; margin-inline: auto; }
+.nav a { padding: 6px 12px; text-decoration: none; font-size: .78rem; color: rgba(0, 0, 0, .8); letter-spacing: -.01em; }
+.nav a:hover { color: var(--ink); text-decoration: none; }
+.nav a[aria-current="page"] { color: var(--ink); font-weight: 600; }
+.header-actions { display: flex; align-items: center; gap: 2px; }
+.icon-btn { position: relative; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 8px 10px; border: 0; border-radius: var(--r-sm); background: transparent; color: var(--ink); font: 500 .8rem var(--sans); cursor: pointer; }
+.icon-btn:hover { color: #000; }
+.icon-btn svg { width: 19px; height: 19px; }
+.cart-label { display: none; }
+.cart-count { position: absolute; right: 2px; top: 8px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; background: var(--ink); color: #fff; font-size: .62rem; font-weight: 600; line-height: 16px; text-align: center; }
+.cart-count[data-count="0"] { display: none; }
 .menu-btn { display: none; }
 
 @media (max-width: 860px) {
   .menu-btn { display: inline-flex; }
-  .nav { position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; gap: 0; padding: 8px var(--gutter) 16px; background: var(--paper); border-bottom: 1px solid var(--line); box-shadow: var(--shadow); display: none; }
+  .nav { position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; gap: 0; padding: 12px var(--gutter) 28px; background: rgba(255, 255, 255, .97); border-bottom: 1px solid var(--line); display: none; }
   .nav.is-open { display: flex; }
-  .nav a { padding: 14px 4px; border-bottom: 1px solid var(--line); border-radius: 0; font-size: 1.05rem; }
-  .nav a[aria-current="page"] { box-shadow: inset 3px 0 0 var(--honey); padding-left: 14px; }
+  .nav a { padding: 12px 0; font-size: 1.6rem; font-weight: 600; color: var(--ink); }
   .header-actions { margin-left: auto; }
-  .cart-label { display: none; }
 }
+
+/* Product sub-nav */
+.product-nav { position: sticky; top: var(--nav-h); z-index: 35; background: rgba(255, 255, 255, .8); backdrop-filter: saturate(1.8) blur(20px); -webkit-backdrop-filter: saturate(1.8) blur(20px); border-bottom: 1px solid rgba(0, 0, 0, .1); }
+.product-nav-row { display: flex; align-items: center; gap: 20px; height: 52px; }
+.product-nav-name { font-size: 1.3rem; font-weight: 600; letter-spacing: -.015em; margin-right: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.product-nav-links { display: flex; gap: 20px; }
+.product-nav-links a { font-size: .8rem; color: var(--ink-soft); }
+.product-nav .btn { min-height: 28px; padding: 4px 14px; font-size: .78rem; }
+@media (max-width: 760px) { .product-nav { display: none; } }
 
 /* Hero */
-.hero { position: relative; overflow: hidden; padding-block: clamp(40px, 6vw, 80px) clamp(56px, 8vw, 96px); }
-.hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
-.hero h1 { max-width: 12em; }
-.hero .lede { margin-bottom: 28px; }
-.checks { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 10px; }
-.checks li { display: flex; gap: 10px; align-items: flex-start; color: var(--ink-soft); }
-.checks svg { flex: none; width: 22px; height: 22px; margin-top: 2px; }
-.checks--inline { display: flex; flex-wrap: wrap; gap: 10px 22px; }
-
-.arch-stage { position: relative; justify-self: center; width: min(440px, 100%); }
-.arch-stage::before {
-  content: ""; position: absolute; z-index: 0; inset: -18% -30% -6% -22%;
-  background: radial-gradient(closest-side at 62% 34%, rgba(233, 176, 79, .34), rgba(233, 176, 79, .12) 55%, rgba(233, 176, 79, 0) 100%);
-  pointer-events: none;
-}
-.arch {
-  position: relative; z-index: 1;
-  aspect-ratio: 4 / 5;
-  border-radius: 999px 999px var(--r) var(--r);
-  padding: 14px;
-  background: var(--white);
-  box-shadow: var(--shadow-lift), inset 0 0 0 1px var(--line);
-}
-.arch-inner { position: relative; height: 100%; border-radius: 999px 999px 6px 6px; overflow: hidden; background: var(--sky); }
-.arch-inner img { width: 100%; height: 100%; object-fit: cover; }
-.arch-inner::after { content: ""; position: absolute; left: 0; right: 0; top: 34%; height: 10px; background: var(--white); box-shadow: 0 1px 0 var(--line); }
-.arch-sill { position: relative; z-index: 1; height: 16px; margin: -2px -18px 0; border-radius: 6px; background: var(--white); box-shadow: var(--shadow), inset 0 -3px 0 var(--sky); }
+.hero { padding-top: clamp(48px, 7vw, 88px); overflow: hidden; text-align: center; }
+.hero-copy { max-width: 820px; }
+.hero h1 { margin-inline: auto; max-width: 12em; }
+.hero-sub { font-size: clamp(1.3rem, 2.4vw, 1.75rem); line-height: 1.2; color: var(--ink); margin: 10px 0 6px; font-weight: 400; letter-spacing: -.01em; }
+.hero-price { font-size: clamp(1rem, 1.4vw, 1.15rem); color: var(--ink-faint); margin-bottom: 24px; }
+.hero-media { margin-top: clamp(40px, 6vw, 64px); width: min(var(--wide), 100% - var(--gutter) * 2); }
+.hero-media img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: center 55%; border-radius: var(--r-lg); }
+.checks { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 10px; }
+.checks li { display: flex; gap: 8px; align-items: flex-start; color: var(--ink-soft); font-size: .95rem; }
+.checks svg { flex: none; width: 20px; height: 20px; margin-top: 1px; }
+.checks--inline { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 26px; }
+.hero .checks--inline li { color: var(--ink-faint); font-size: .88rem; }
 
 /* Spec strip */
-.spec-strip { border-block: 1px solid var(--line); background: var(--white); }
-.spec-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
-.spec { padding: 28px 16px; text-align: center; }
-.spec + .spec { border-left: 1px solid var(--line); }
-.spec b { display: block; font-family: var(--serif); font-weight: 400; font-size: clamp(1.7rem, 3vw, 2.3rem); line-height: 1.1; }
-.spec span { color: var(--ink-faint); font-size: .95rem; }
+.spec-strip { padding-block: clamp(48px, 7vw, 80px); }
+.spec-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.spec { text-align: center; }
+.spec b { display: block; font-weight: 600; font-size: clamp(2.2rem, 4.6vw, 3.5rem); line-height: 1.05; letter-spacing: -.02em; background: linear-gradient(180deg, #1D1D1F 30%, #6E6E73); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.spec span { display: block; margin-top: 6px; color: var(--ink-faint); font-size: .95rem; }
 
-/* Feature rows */
-.feature { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 88px); align-items: center; }
-.feature + .feature { margin-top: clamp(56px, 8vw, 104px); }
-.feature:nth-child(even) .feature-media { order: 2; }
-.feature-media { border-radius: var(--r-lg); overflow: hidden; background: var(--mist); box-shadow: var(--shadow); aspect-ratio: 1; }
-.feature-media img { width: 100%; height: 100%; object-fit: cover; }
-.feature h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); }
-.feature p { color: var(--ink-soft); }
-.feature .note { font-size: .92rem; color: var(--ink-faint); border-left: 3px solid var(--honey); padding-left: 12px; }
+/* Feature tiles */
+.tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: min(var(--wide), 100% - var(--gutter) * 2); margin-inline: auto; }
+.tile { display: flex; flex-direction: column; background: var(--white); border-radius: var(--r-lg); overflow: hidden; text-align: center; }
+.tile-copy { padding: clamp(32px, 4vw, 52px) clamp(24px, 4vw, 52px) 24px; }
+.tile h3 { font-size: clamp(1.6rem, 2.8vw, 2.4rem); line-height: 1.1; letter-spacing: -.015em; }
+.tile p { color: var(--ink-faint); font-size: 1.0625rem; max-width: 30em; margin-inline: auto; }
+.tile .tile-note { font-size: .85rem; margin-top: 4px; }
+.tile-media { margin-top: auto; padding: 0 clamp(24px, 4vw, 52px) clamp(24px, 4vw, 52px); }
+.tile-media img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--r); }
+.tile--wide { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1.15fr; align-items: center; text-align: left; }
+.tile--wide .tile-copy { padding: clamp(32px, 5vw, 64px); }
+.tile--wide p { margin-inline: 0; }
+.tile--wide .tile-media { padding: clamp(20px, 3vw, 32px); margin: 0; }
+.tile--wide .tile-media img { aspect-ratio: 1; }
 
 /* Product cards */
-.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.card { display: flex; flex-direction: column; background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; transition: box-shadow .2s, transform .2s; }
-.card:hover { box-shadow: var(--shadow-lift); transform: translateY(-2px); }
-.card-media { display: block; aspect-ratio: 1; background: var(--mist); }
-.card-media img { width: 100%; height: 100%; object-fit: cover; }
-.card-body { display: flex; flex-direction: column; gap: 8px; padding: 20px 22px 22px; flex: 1; }
-.card h3 { margin: 0; font-size: 1.25rem; }
-.card h3 a { text-decoration: none; }
-.card h3 a::after { content: ""; position: absolute; inset: 0; }
-.card { position: relative; }
-.card p { margin: 0; color: var(--ink-soft); font-size: .97rem; }
-.card-foot { margin-top: auto; padding-top: 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.card-foot .btn { position: relative; z-index: 1; }
-.price { font-weight: 800; font-size: 1.1rem; }
-.price s { font-weight: 600; color: var(--ink-faint); margin-left: 6px; font-size: .95em; }
-.ship-note { font-size: .88rem; color: var(--ink-faint); }
-.tag { position: absolute; z-index: 1; top: 14px; left: 14px; background: var(--white); color: var(--ink); font-size: .82rem; font-weight: 700; padding: 5px 10px; border-radius: var(--r-sm); box-shadow: var(--shadow); }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.card { position: relative; display: flex; flex-direction: column; background: var(--gray); border-radius: var(--r-lg); overflow: hidden; text-align: center; transition: transform .3s ease, box-shadow .3s ease; }
+.card:hover { transform: scale(1.01); box-shadow: var(--shadow-lift); }
+.card-media { display: block; padding: 24px 24px 0; }
+.card-media img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--r); }
+.card-body { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 22px 24px 30px; flex: 1; }
+.card h3 { margin: 0; font-size: 1.5rem; }
+.card h3 a { color: var(--ink); }
+.card p { margin: 0; color: var(--ink-faint); font-size: .95rem; }
+.card .price { margin-top: 10px; color: var(--ink); font-weight: 600; font-size: 1.15rem; }
+.card-actions { margin-top: auto; padding-top: 18px; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px 20px; }
+.price s { font-weight: 400; color: var(--ink-faint); margin-left: 6px; font-size: .9em; }
+.ship-note { font-size: .85rem; color: var(--ink-faint); }
+.tag { position: absolute; z-index: 1; top: 18px; left: 50%; transform: translateX(-50%); color: #B64400; font-size: .78rem; font-weight: 600; }
 
 /* Steps */
-.steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; counter-reset: step; }
-.steps li { counter-increment: step; background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 28px; }
-.steps li::before { content: counter(step); display: grid; place-items: center; width: 44px; height: 44px; margin-bottom: 16px; border-radius: 50%; background: var(--honey-soft); color: var(--ink); font-family: var(--serif); font-size: 1.3rem; box-shadow: inset 0 0 0 1.5px var(--honey); }
-.steps h3 { font-size: 1.2rem; }
-.steps p { color: var(--ink-soft); margin: 0; }
+.steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; counter-reset: step; }
+.steps li { counter-increment: step; background: var(--white); border-radius: var(--r-lg); padding: 36px 30px; }
+.steps li::before { content: counter(step); display: block; margin-bottom: 14px; font-size: 3rem; font-weight: 600; line-height: 1; letter-spacing: -.02em; background: linear-gradient(135deg, #0071E3, #42A1EC); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.steps h3 { font-size: 1.3rem; }
+.steps p { color: var(--ink-faint); margin: 0; }
 
-/* Comparison table */
-.table-card { background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; }
+/* Dark section + comparison table */
+.section--dark { background: var(--dark); color: var(--dark-text); }
+.section--dark h2, .section--dark h3 { color: var(--dark-text); }
+.section--dark .section-head p, .section--dark .table-note { color: var(--dark-soft); }
+.section--dark a:not(.btn) { color: #2997FF; }
+.table-card { background: var(--dark-2); border-radius: var(--r-lg); overflow: hidden; }
 .compare { width: 100%; border-collapse: collapse; font-size: 1rem; }
-.compare th, .compare td { padding: 16px 18px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+.compare th, .compare td { padding: 18px 20px; text-align: left; vertical-align: top; border-bottom: 1px solid #333336; color: var(--dark-soft); }
 .compare tr:last-child th, .compare tr:last-child td { border-bottom: 0; }
-.compare thead th { font-family: var(--serif); font-weight: 400; font-size: 1.1rem; background: var(--mist); }
-.compare tbody th { font-weight: 700; width: 26%; }
-.compare .ours { background: rgba(251, 241, 220, .55); }
-.compare thead .ours { background: var(--honey-soft); }
+.compare thead th { color: var(--dark-text); font-weight: 600; font-size: 1.05rem; }
+.compare tbody th { color: var(--dark-text); font-weight: 600; width: 26%; }
+.compare .ours { color: var(--dark-text); background: rgba(255, 255, 255, .04); }
 .yes, .no { display: inline-flex; gap: 8px; align-items: flex-start; }
-.yes svg, .no svg { flex: none; width: 18px; height: 18px; margin-top: 4px; }
-.table-note { font-size: .88rem; color: var(--ink-faint); margin-top: 14px; }
+.yes svg, .no svg { flex: none; width: 18px; height: 18px; margin-top: 3px; }
+.table-note { font-size: .85rem; color: var(--ink-faint); margin-top: 16px; }
 
-/* Promise band */
-.promise { background: var(--ink); color: #E8EEF1; border-radius: var(--r-lg); padding: clamp(32px, 5vw, 56px); display: grid; grid-template-columns: auto 1fr auto; gap: 32px; align-items: center; position: relative; overflow: hidden; }
-.promise::before { content: ""; position: absolute; width: 360px; height: 360px; right: -120px; top: -180px; background: radial-gradient(closest-side, rgba(233, 176, 79, .28), rgba(233, 176, 79, 0)); }
-.promise h2 { color: #fff; margin-bottom: .3em; }
-.promise p { margin: 0; color: #C9D5DB; max-width: 40em; }
-.promise a { color: #fff; }
-.promise .btn { background: var(--honey); border-color: var(--honey); color: var(--ink); position: relative; }
-.promise .btn:hover { background: #F0BF68; }
-.promise-mark { width: 72px; height: 80px; position: relative; }
+/* Promise */
+.promise-section h2 { margin-bottom: .5em; }
+.promise-section .lede { margin-bottom: 20px; }
 
 /* FAQ */
-.faq { border-top: 1px solid var(--line); }
+.faq { border-top: 1px solid var(--line); margin-top: 32px; }
 .faq details { border-bottom: 1px solid var(--line); }
-.faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 16px; padding: 20px 4px; font-weight: 700; font-size: 1.05rem; }
+.faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 16px; padding: 22px 0; font-weight: 600; font-size: 1.15rem; letter-spacing: -.015em; }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: ""; flex: none; width: 12px; height: 12px; margin-top: 7px; border-right: 2px solid var(--ink-soft); border-bottom: 2px solid var(--ink-soft); transform: rotate(45deg); transition: transform .2s; }
-.faq details[open] summary::after { transform: rotate(225deg); margin-top: 12px; }
-.faq .answer { padding: 0 4px 22px; color: var(--ink-soft); max-width: 46em; }
+.faq summary::after { content: "+"; flex: none; font-weight: 300; font-size: 1.6rem; line-height: 1; color: var(--ink-faint); transition: transform .25s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 24px; color: var(--ink-soft); max-width: 44em; }
 .faq .answer p:last-child { margin: 0; }
 
 /* Reviews (honest empty state) */
-.reviews-empty { display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; background: var(--white); border: 1px dashed var(--sky-deep); border-radius: var(--r-lg); padding: clamp(24px, 4vw, 40px); }
-.reviews-empty svg { width: 56px; height: 56px; }
-.reviews-empty h2 { margin-bottom: .3em; }
-.reviews-empty p { color: var(--ink-soft); max-width: 44em; }
+.reviews-empty svg { width: 52px; height: 52px; margin: 0 auto 18px; }
+.reviews-empty p { color: var(--ink-faint); font-size: 1.1rem; }
 
 /* Forms */
-.signup { background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); padding: clamp(28px, 5vw, 56px); display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; position: relative; overflow: hidden; }
-.signup::before { content: ""; position: absolute; width: 300px; height: 300px; left: -140px; bottom: -160px; background: radial-gradient(closest-side, rgba(233, 176, 79, .22), rgba(233, 176, 79, 0)); }
-.signup > * { position: relative; }
+.signup { background: var(--gray); border-radius: var(--r-lg); padding: clamp(36px, 6vw, 72px); display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.signup h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); }
 .field { display: grid; gap: 6px; margin-bottom: 16px; }
-.field label, .label { font-weight: 700; font-size: .95rem; }
+.field label, .label { font-weight: 600; font-size: .9rem; }
 .input, select.input, textarea.input {
-  width: 100%; min-height: 50px; padding: 12px 14px;
-  border: 1.5px solid var(--sky-deep); border-radius: 10px; background: var(--white);
-  font: 500 1rem var(--sans); color: var(--ink);
+  width: 100%; min-height: 50px; padding: 12px 16px;
+  border: 1px solid #86868B; border-radius: var(--r-sm); background: var(--white);
+  font: 400 1.0625rem var(--sans); color: var(--ink); letter-spacing: -.02em;
 }
 textarea.input { min-height: 130px; resize: vertical; }
 select.input { appearance: none; padding-right: 44px; background-image: linear-gradient(45deg, transparent 50%, var(--ink-soft) 50%), linear-gradient(135deg, var(--ink-soft) 50%, transparent 50%); background-position: calc(100% - 22px) 50%, calc(100% - 16px) 50%; background-size: 6px 6px; background-repeat: no-repeat; }
-.input:focus { outline: none; border-color: var(--ink); box-shadow: 0 0 0 3px rgba(233, 176, 79, .45); }
+.input:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px rgba(0, 113, 227, .2); }
 .inline-form { display: flex; gap: 10px; }
 .inline-form .input { flex: 1; min-width: 0; }
+.inline-form .btn { min-height: 50px; }
 .check-field { display: flex; gap: 10px; align-items: flex-start; font-size: .95rem; color: var(--ink-soft); margin-bottom: 16px; }
-.check-field input { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--ink); flex: none; }
+.check-field input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--blue); flex: none; }
 .hp { position: absolute !important; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-.form-msg { margin-top: 12px; font-weight: 600; }
-.form-msg.is-ok { color: var(--ok); }
-.form-msg.is-error { color: #9B3B2E; }
-.form-done { display: flex; gap: 12px; align-items: flex-start; padding: 18px 20px; border-radius: var(--r); background: #EEF5F1; color: var(--ok); font-weight: 600; }
+.form-msg { margin-top: 12px; font-weight: 500; }
+.form-msg:empty { display: none; }
+.form-msg.is-error { color: #E30000; }
+.form-done { display: flex; gap: 12px; align-items: flex-start; padding: 18px 20px; border-radius: var(--r); background: #E9F7EC; color: var(--ok); font-weight: 500; }
 .form-done svg { flex: none; width: 24px; height: 24px; }
 
 /* Page header */
-.page-head { padding-block: clamp(40px, 6vw, 72px) clamp(24px, 4vw, 40px); }
-.page-head p { color: var(--ink-soft); max-width: 40em; font-size: 1.1rem; }
-.crumbs { font-size: .92rem; color: var(--ink-faint); margin-bottom: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+.page-head { padding-block: clamp(40px, 6vw, 80px) clamp(24px, 4vw, 40px); }
+.page-head p { color: var(--ink-faint); max-width: 36em; font-size: clamp(1.1rem, 1.6vw, 1.3rem); }
+.crumbs { font-size: .8rem; color: var(--ink-faint); margin-bottom: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
 .crumbs a { color: var(--ink-faint); }
-.crumbs span[aria-hidden] { color: var(--sky-deep); }
+.crumbs span[aria-hidden] { color: var(--line); }
 
 /* Product page */
-.product { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); gap: clamp(28px, 5vw, 64px); align-items: start; padding-block: 24px clamp(56px, 8vw, 96px); }
-.gallery-main { position: relative; border-radius: var(--r-lg); overflow: hidden; background: var(--mist); aspect-ratio: 1; box-shadow: var(--shadow); }
+.product { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(28px, 5vw, 64px); align-items: start; padding-block: 20px clamp(64px, 9vw, 112px); }
+.gallery-main { position: relative; border-radius: var(--r-lg); overflow: hidden; background: var(--gray); aspect-ratio: 1; }
 .gallery-main img { width: 100%; height: 100%; object-fit: cover; }
 .thumbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 14px; }
-.thumb { padding: 0; border: 2px solid transparent; border-radius: var(--r); overflow: hidden; background: var(--mist); cursor: pointer; aspect-ratio: 1; }
+.thumb { padding: 0; border: 2px solid transparent; border-radius: var(--r-sm); overflow: hidden; background: var(--gray); cursor: pointer; aspect-ratio: 1; }
 .thumb img { width: 100%; height: 100%; object-fit: cover; }
-.thumb[aria-pressed="true"] { border-color: var(--ink); }
-.thumb:hover { border-color: var(--sky-deep); }
-.thumb[aria-pressed="true"]:hover { border-color: var(--ink); }
-.gallery-note { font-size: .85rem; color: var(--ink-faint); margin-top: 10px; }
+.thumb[aria-pressed="true"] { border-color: var(--blue); }
+.thumb:hover { border-color: var(--line); }
+.thumb[aria-pressed="true"]:hover { border-color: var(--blue); }
+.gallery-note { font-size: .8rem; color: var(--ink-faint); margin-top: 10px; }
 
-.buybox { position: sticky; top: 96px; background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); padding: clamp(22px, 3vw, 32px); box-shadow: var(--shadow); }
-.buybox h1 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); margin-bottom: .25em; }
-.buybox .sub { color: var(--ink-soft); margin-bottom: 18px; }
-.buy-price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; margin-bottom: 18px; }
-.buy-price .amount { font-family: var(--serif); font-size: 2.1rem; line-height: 1; }
+.buybox { position: sticky; top: calc(var(--nav-h) + 72px); }
+.buybox h1 { font-size: clamp(2rem, 3.6vw, 3rem); margin-bottom: .25em; }
+.buybox .sub { color: var(--ink-faint); margin-bottom: 20px; font-size: 1.05rem; }
+.buy-price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; margin-bottom: 20px; }
+.buy-price .amount { font-size: 1.75rem; font-weight: 600; line-height: 1; }
 .buy-price s { color: var(--ink-faint); font-size: 1.05rem; }
-.buy-price .was { color: var(--ink-faint); font-size: .92rem; }
-.delivered { display: grid; gap: 4px; padding: 14px 16px; border-radius: var(--r); background: var(--mist); margin: 16px 0; }
-.delivered strong { font-weight: 800; }
-.delivered .muted { font-size: .9rem; }
-.arrives { display: flex; gap: 10px; align-items: flex-start; margin: 0 0 18px; }
-.arrives svg { flex: none; width: 22px; height: 22px; margin-top: 2px; }
+.buy-price .was { color: var(--ink-faint); font-size: .9rem; }
+.delivered { display: grid; gap: 2px; padding: 16px 18px; border-radius: var(--r); background: var(--gray); margin: 16px 0; }
+.delivered strong { font-weight: 600; }
+.delivered .muted { font-size: .85rem; }
+.arrives { display: flex; gap: 10px; align-items: flex-start; margin: 0 0 20px; font-size: .95rem; }
+.arrives svg { flex: none; width: 20px; height: 20px; margin-top: 1px; }
 .buy-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.trust { list-style: none; padding: 18px 0 0; margin: 20px 0 0; border-top: 1px solid var(--line); display: grid; gap: 12px; font-size: .95rem; color: var(--ink-soft); }
+.buy-actions .btn { min-height: 50px; }
+.trust { list-style: none; padding: 20px 0 0; margin: 22px 0 0; border-top: 1px solid var(--line); display: grid; gap: 12px; font-size: .9rem; color: var(--ink-soft); }
 .trust li { display: flex; gap: 12px; align-items: flex-start; }
-.trust svg { flex: none; width: 22px; height: 22px; margin-top: 1px; }
-.trust a { color: var(--ink-soft); }
+.trust svg { flex: none; width: 20px; height: 20px; margin-top: 1px; }
 
-.upsell { display: grid; grid-template-columns: 84px 1fr; gap: 16px; align-items: center; margin-top: 20px; padding: 16px; border-radius: var(--r); background: var(--honey-soft); box-shadow: inset 0 0 0 1px rgba(233, 176, 79, .5); }
-.upsell img { width: 84px; height: 84px; border-radius: var(--r-sm); object-fit: cover; background: var(--white); }
-.upsell p { margin: 0 0 6px; font-size: .95rem; }
-.upsell strong { font-family: var(--serif); font-weight: 400; font-size: 1.1rem; display: block; margin-bottom: 2px; }
-.in-box { margin: 20px 0 0; padding: 16px 18px; border-radius: var(--r); background: var(--honey-soft); box-shadow: inset 0 0 0 1px rgba(233, 176, 79, .5); }
-.in-box h2 { font-size: 1.15rem; margin-bottom: 8px; }
-.in-box ul { margin: 0; padding-left: 20px; color: var(--ink-soft); }
+.upsell { display: grid; grid-template-columns: 76px 1fr; gap: 16px; align-items: center; margin-top: 22px; padding: 16px; border-radius: var(--r); background: var(--gray); }
+.upsell img { width: 76px; height: 76px; border-radius: var(--r-sm); object-fit: cover; background: var(--white); }
+.upsell p { margin: 0 0 6px; font-size: .9rem; color: var(--ink-faint); }
+.upsell strong { font-weight: 600; font-size: 1.05rem; display: block; margin-bottom: 2px; }
+.in-box { margin: 22px 0 0; padding: 18px 20px; border-radius: var(--r); background: var(--gray); }
+.in-box h2 { font-size: 1.1rem; margin-bottom: 8px; }
+.in-box ul { margin: 0; padding-left: 20px; color: var(--ink-soft); font-size: .95rem; }
 
 .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
-.specs { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; }
-.specs th, .specs td { text-align: left; padding: 14px 18px; border-bottom: 1px solid var(--line); vertical-align: top; }
-.specs tr:last-child th, .specs tr:last-child td { border-bottom: 0; }
-.specs th { width: 40%; font-weight: 700; background: var(--mist); }
+.detail-grid h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); }
+.specs { width: 100%; border-collapse: collapse; }
+.specs th, .specs td { text-align: left; padding: 16px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.specs th { width: 38%; font-weight: 600; padding-right: 16px; }
 .specs td { color: var(--ink-soft); }
-.safety { display: grid; gap: 14px; }
-.safety h3 { font-size: 1.1rem; margin: 6px 0 0; }
+.safety { display: grid; gap: 12px; }
+.safety h3 { font-size: 1.15rem; margin: 6px 0 0; }
 .safety ul { margin: 0; padding-left: 20px; color: var(--ink-soft); }
 .safety li + li { margin-top: 6px; }
 
@@ -338,128 +346,130 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 45;
     display: flex; align-items: center; gap: 12px;
     padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
-    background: rgba(255, 255, 255, .97); border-top: 1px solid var(--line); box-shadow: 0 -8px 24px rgba(31, 45, 51, .08);
+    background: rgba(255, 255, 255, .85); backdrop-filter: saturate(1.8) blur(20px); -webkit-backdrop-filter: saturate(1.8) blur(20px);
+    border-top: 1px solid rgba(0, 0, 0, .1);
   }
   .buybar-info { flex: 1; min-width: 0; line-height: 1.25; }
-  .buybar-name { display: block; font-weight: 700; font-size: .92rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .buybar-price { display: block; font-size: .85rem; color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .buybar .btn { min-height: 48px; padding: 10px 22px; }
+  .buybar-name { display: block; font-weight: 600; font-size: .92rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .buybar-price { display: block; font-size: .82rem; color: var(--ink-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .buybar .btn { min-height: 44px; padding: 10px 22px; }
 }
 
 /* Prose pages */
-.prose { max-width: 720px; }
-.prose h2 { margin-top: 1.6em; }
+.prose { max-width: 700px; }
+.prose h2 { margin-top: 1.4em; font-size: clamp(1.7rem, 3vw, 2.3rem); }
 .prose h3 { margin-top: 1.4em; }
 .prose ul, .prose ol { padding-left: 22px; color: var(--ink-soft); }
 .prose li + li { margin-top: 6px; }
 .prose p { color: var(--ink-soft); }
-.side-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
-.side-nav { position: sticky; top: 100px; display: grid; gap: 2px; font-size: .97rem; }
-.side-nav a { padding: 8px 12px; border-radius: var(--r-sm); text-decoration: none; color: var(--ink-soft); }
-.side-nav a:hover { background: var(--mist); color: var(--ink); }
-.policy { padding-bottom: 32px; margin-bottom: 32px; border-bottom: 1px solid var(--line); }
+.side-layout { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+.side-nav { position: sticky; top: calc(var(--nav-h) + 32px); display: grid; gap: 2px; font-size: .9rem; }
+.side-nav a { padding: 7px 0; color: var(--ink-soft); }
+.side-nav a:hover { color: var(--link); }
+.policy { padding-bottom: 40px; margin-bottom: 40px; border-bottom: 1px solid var(--line); }
 .policy:last-child { border-bottom: 0; }
-.policy h2 { margin-top: 0; }
-.updated { font-size: .9rem; color: var(--ink-faint); }
+.policy h2 { margin-top: 0; font-size: clamp(1.7rem, 3vw, 2.3rem); }
+.updated { font-size: .85rem; color: var(--ink-faint); }
 
 .guide-step { display: grid; grid-template-columns: 220px 1fr; gap: 28px; align-items: start; padding: 28px 0; border-bottom: 1px solid var(--line); }
 .guide-step:first-of-type { padding-top: 0; }
-.guide-step img { border-radius: var(--r); background: var(--mist); aspect-ratio: 1; object-fit: cover; width: 100%; }
+.guide-step img { border-radius: var(--r); background: var(--gray); aspect-ratio: 1; object-fit: cover; width: 100%; }
 .guide-step h3 { margin-top: 0; }
 .guide-step p, .guide-step li { color: var(--ink-soft); }
 
-.contact-card { background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 28px; }
-.contact-card h2 { font-size: 1.4rem; }
+.contact-card { background: var(--gray); border-radius: var(--r-lg); padding: 32px; }
+.contact-card h2 { font-size: 1.6rem; }
 
 .about-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(28px, 6vw, 80px); align-items: center; }
-.about-photo { border-radius: 999px 999px var(--r-lg) var(--r-lg); overflow: hidden; background: var(--mist); box-shadow: var(--shadow); aspect-ratio: 4 / 5; }
+.about-photo { border-radius: var(--r-lg); overflow: hidden; background: var(--gray); aspect-ratio: 4 / 5; }
 .about-photo img { width: 100%; height: 100%; object-fit: cover; }
-.values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.values div { background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 26px; }
-.values h3 { font-size: 1.15rem; }
-.values p { margin: 0; color: var(--ink-soft); }
+.values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.values div { background: var(--white); border-radius: var(--r-lg); padding: 32px 28px; }
+.values h3 { font-size: 1.25rem; }
+.values p { margin: 0; color: var(--ink-faint); }
 
-.thanks-hero { text-align: center; padding-block: clamp(48px, 8vw, 96px) 32px; }
+.thanks-hero { text-align: center; padding-block: clamp(56px, 9vw, 112px) 36px; }
 .thanks-hero .lede { margin-inline: auto; }
-.next-steps { list-style: none; counter-reset: n; padding: 0; margin: 0; display: grid; gap: 16px; }
+.next-steps { list-style: none; counter-reset: n; padding: 0; margin: 0; display: grid; gap: 18px; }
 .next-steps li { counter-increment: n; display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: start; }
-.next-steps li::before { content: counter(n); display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--honey-soft); box-shadow: inset 0 0 0 1.5px var(--honey); font-family: var(--serif); }
-.next-steps p { margin: 0; color: var(--ink-soft); }
-.review-card { background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); padding: clamp(24px, 4vw, 40px); }
+.next-steps li::before { content: counter(n); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--gray); font-weight: 600; color: var(--blue); }
+.next-steps p { margin: 0; color: var(--ink-soft); padding-top: 4px; }
+.review-card { background: var(--gray); border-radius: var(--r-lg); padding: clamp(28px, 4vw, 48px); }
 .stars-pick { display: flex; flex-wrap: wrap; gap: 8px; border: 0; padding: 0; margin: 0 0 16px; }
-.stars-pick legend { font-weight: 700; font-size: .95rem; margin-bottom: 6px; padding: 0; }
-.stars-pick label { display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border: 1.5px solid var(--sky-deep); border-radius: 10px; cursor: pointer; font-weight: 600; }
-.stars-pick input { accent-color: var(--ink); }
-.stars-pick label:has(input:checked) { border-color: var(--ink); background: var(--mist); }
+.stars-pick legend { font-weight: 600; font-size: .9rem; margin-bottom: 6px; padding: 0; }
+.stars-pick label { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border: 1px solid #86868B; border-radius: var(--r-sm); background: var(--white); cursor: pointer; }
+.stars-pick input { accent-color: var(--blue); }
+.stars-pick label:has(input:checked) { border-color: var(--blue); box-shadow: 0 0 0 1px var(--blue); }
 
-.not-found { text-align: center; padding-block: clamp(64px, 10vw, 128px); }
-.not-found .arch-mini { width: 120px; margin: 0 auto 28px; }
+.not-found { text-align: center; padding-block: clamp(72px, 12vw, 144px); }
+.not-found .arch-mini { width: 96px; margin: 0 auto 28px; }
 
 /* Owner page */
-.owner-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
-.panel { background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 24px; }
-.panel h2 { font-size: 1.35rem; }
+.owner-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.panel { background: var(--gray); border-radius: var(--r-lg); padding: 28px; }
+.panel h2 { font-size: 1.4rem; }
 .panel ul, .panel ol { padding-left: 20px; color: var(--ink-soft); }
 .panel li + li { margin-top: 6px; }
-.status-list { list-style: none; padding: 0 !important; display: grid; gap: 10px; }
-.status-list li { display: flex; justify-content: space-between; gap: 12px; padding: 10px 12px; border-radius: var(--r-sm); background: var(--mist); }
-.status-ok { color: var(--ok); font-weight: 700; }
-.status-warn { color: var(--honey-deep); font-weight: 700; }
+.status-list { list-style: none; padding: 0 !important; display: grid; gap: 8px; }
+.status-list li { display: flex; justify-content: space-between; gap: 12px; padding: 10px 14px; border-radius: var(--r-sm); background: var(--white); }
+.status-ok { color: var(--ok); font-weight: 600; }
+.status-warn { color: #B64400; font-weight: 600; }
 .calc { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
 .calc .field { margin: 0; }
-.calc-out { margin-top: 16px; padding: 14px 16px; border-radius: var(--r); background: var(--mist); color: var(--ink-soft); }
+.calc-out { margin-top: 16px; padding: 14px 16px; border-radius: var(--r); background: var(--white); color: var(--ink-soft); }
 .calc-out strong { color: var(--ink); }
 
 /* Footer */
-.site-footer { margin-top: clamp(56px, 8vw, 96px); background: var(--white); border-top: 1px solid var(--line); padding-block: 56px 32px; font-size: .97rem; }
-.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap: 32px; }
-.site-footer h2 { font-family: var(--sans); font-size: 1rem; font-weight: 800; margin-bottom: 12px; }
+.site-footer { background: var(--gray); padding-block: 40px 24px; font-size: .78rem; color: var(--ink-faint); letter-spacing: -.01em; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+.site-footer h2 { font-size: .78rem; font-weight: 600; color: var(--ink); margin-bottom: 10px; letter-spacing: -.01em; }
 .site-footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
-.site-footer a { color: var(--ink-soft); text-decoration: none; }
-.site-footer a:hover { color: var(--ink); text-decoration: underline; }
-.footer-brand p { color: var(--ink-soft); max-width: 22em; margin-top: 12px; }
-.footer-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--ink-faint); font-size: .9rem; }
-.footer-base ul { display: flex; flex-wrap: wrap; gap: 18px; }
-.footer-base a { color: var(--ink-faint); }
+.site-footer a { color: var(--ink-soft); }
+.footer-brand .brand { font-size: .95rem; }
+.footer-brand p { max-width: 24em; margin-top: 10px; }
+.footer-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 18px; }
+.footer-base ul { display: flex; flex-wrap: wrap; gap: 0; }
+.footer-base li + li { border-left: 1px solid var(--line); padding-left: 10px; margin-left: 10px; }
+.footer-base a { color: var(--ink-soft); }
 
 /* Cart drawer */
-.overlay { position: fixed; inset: 0; z-index: 60; background: rgba(31, 45, 51, .38); opacity: 0; transition: opacity .2s; }
+.overlay { position: fixed; inset: 0; z-index: 60; background: rgba(0, 0, 0, .32); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); opacity: 0; transition: opacity .25s; }
 .overlay.is-open { opacity: 1; }
-.drawer { position: fixed; z-index: 61; top: 0; right: 0; bottom: 0; width: min(440px, 100%); display: flex; flex-direction: column; background: var(--paper); box-shadow: -12px 0 40px rgba(31, 45, 51, .16); transform: translateX(100%); transition: transform .25s ease; }
+.drawer { position: fixed; z-index: 61; top: 0; right: 0; bottom: 0; width: min(440px, 100%); display: flex; flex-direction: column; background: var(--white); box-shadow: -12px 0 48px rgba(0, 0, 0, .18); transform: translateX(100%); transition: transform .3s cubic-bezier(.2, .7, .2, 1); }
 .drawer.is-open { transform: none; }
-.drawer-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-bottom: 1px solid var(--line); background: var(--white); }
-.drawer-head h2 { margin: 0; font-size: 1.4rem; }
-.drawer-body { flex: 1; overflow-y: auto; padding: 8px 20px 20px; }
-.drawer-foot { padding: 18px 20px calc(18px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: var(--white); display: grid; gap: 10px; }
-.cart-line { display: grid; grid-template-columns: 72px 1fr auto; gap: 14px; align-items: start; padding: 16px 0; border-bottom: 1px solid var(--line); }
-.cart-line img { width: 72px; height: 72px; border-radius: var(--r-sm); object-fit: cover; background: var(--mist); }
-.cart-line h3 { font-family: var(--sans); font-weight: 700; font-size: 1rem; margin: 0 0 2px; }
-.cart-line h3 a { text-decoration: none; }
+.drawer-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid var(--gray-2); }
+.drawer-head h2 { margin: 0; font-size: 1.6rem; }
+.drawer-body { flex: 1; overflow-y: auto; padding: 4px 22px 22px; }
+.drawer-foot { padding: 18px 22px calc(18px + env(safe-area-inset-bottom)); border-top: 1px solid var(--gray-2); background: var(--white); display: grid; gap: 10px; }
+.cart-line { display: grid; grid-template-columns: 72px 1fr auto; gap: 14px; align-items: start; padding: 18px 0; border-bottom: 1px solid var(--gray-2); }
+.cart-line img { width: 72px; height: 72px; border-radius: var(--r-sm); object-fit: cover; background: var(--gray); }
+.cart-line h3 { font-weight: 600; font-size: 1rem; margin: 0 0 2px; }
+.cart-line h3 a { color: var(--ink); }
 .cart-line .ship-note { display: block; }
-.qty { display: inline-flex; align-items: center; margin-top: 8px; border: 1.5px solid var(--sky-deep); border-radius: 10px; overflow: hidden; }
-.qty button { width: 38px; height: 36px; border: 0; background: var(--white); font: 700 1.1rem var(--sans); color: var(--ink); cursor: pointer; }
-.qty button:hover { background: var(--mist); }
-.qty output { min-width: 34px; text-align: center; font-weight: 700; }
-.line-total { font-weight: 800; text-align: right; }
-.remove { display: block; margin-top: 10px; margin-left: auto; font-size: .88rem; color: var(--ink-faint); }
-.cart-empty { text-align: center; padding: 48px 8px; color: var(--ink-soft); }
-.cart-empty svg { width: 64px; height: 64px; margin: 0 auto 16px; }
+.qty { display: inline-flex; align-items: center; margin-top: 8px; border: 1px solid var(--line); border-radius: 980px; overflow: hidden; }
+.qty button { width: 36px; height: 32px; border: 0; background: var(--white); font: 500 1.05rem var(--sans); color: var(--ink); cursor: pointer; }
+.qty button:hover { background: var(--gray); }
+.qty output { min-width: 30px; text-align: center; font-weight: 600; font-size: .95rem; }
+.line-total { font-weight: 600; text-align: right; }
+.remove { display: block; margin-top: 10px; margin-left: auto; font-size: .85rem; }
+.cart-empty { text-align: center; padding: 56px 8px; color: var(--ink-soft); }
+.cart-empty svg { width: 56px; height: 56px; margin: 0 auto 16px; }
 .sum-row { display: flex; justify-content: space-between; gap: 12px; }
-.sum-row.total { font-weight: 800; font-size: 1.1rem; }
-.cart-tip { padding: 14px 16px; border-radius: var(--r); background: var(--honey-soft); box-shadow: inset 0 0 0 1px rgba(233, 176, 79, .5); font-size: .95rem; margin-top: 16px; }
+.sum-row.total { font-weight: 600; font-size: 1.15rem; }
+.cart-tip { padding: 16px 18px; border-radius: var(--r); background: var(--gray); font-size: .92rem; margin-top: 18px; }
 .cart-tip p { margin: 0 0 10px; }
-.cart-note { font-size: .88rem; color: var(--ink-faint); margin: 0; }
+.cart-note { font-size: .82rem; color: var(--ink-faint); margin: 0; }
 .pay-list { display: grid; gap: 8px; }
 
 /* Dialog */
 .dialog { width: min(480px, calc(100% - 32px)); border: 0; border-radius: var(--r-lg); padding: 0; background: var(--white); color: var(--ink); box-shadow: var(--shadow-lift); }
-.dialog::backdrop { background: rgba(31, 45, 51, .45); }
-.dialog-inner { padding: 32px 28px 28px; position: relative; }
-.dialog h2 { font-size: 1.6rem; padding-right: 32px; }
-.dialog p { color: var(--ink-soft); }
+.dialog::backdrop { background: rgba(0, 0, 0, .4); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.dialog-inner { padding: 36px 30px 30px; position: relative; }
+.dialog h2 { font-size: 1.75rem; padding-right: 32px; }
+.dialog p { color: var(--ink-faint); }
 .dialog-close { position: absolute; top: 14px; right: 14px; }
 
-.toast { position: fixed; z-index: 70; left: 50%; bottom: 24px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: #fff; padding: 12px 18px; border-radius: 10px; font-weight: 600; box-shadow: var(--shadow-lift); transition: opacity .2s, transform .2s; pointer-events: none; max-width: calc(100% - 32px); }
+.toast { position: fixed; z-index: 70; left: 50%; bottom: 24px; transform: translate(-50%, 20px); opacity: 0; background: rgba(29, 29, 31, .92); color: #fff; padding: 12px 20px; border-radius: 980px; font-size: .92rem; box-shadow: var(--shadow-lift); transition: opacity .25s, transform .25s; pointer-events: none; max-width: calc(100% - 32px); }
 .toast.is-on { opacity: 1; transform: translate(-50%, 0); }
 .has-buybar .toast { bottom: 96px; }
 
@@ -467,39 +477,36 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
 @media (max-width: 960px) {
   .grid-3, .steps, .values { grid-template-columns: 1fr 1fr; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
-  .promise { grid-template-columns: 1fr; }
-  .promise-mark { display: none; }
   .owner-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 860px) {
-  .hero-grid, .feature, .product, .detail-grid, .about-grid, .signup { grid-template-columns: minmax(0, 1fr); }
-  .hero-grid .arch-stage { order: -1; width: min(260px, 66%); }
-  .feature:nth-child(even) .feature-media { order: 0; }
+  .product, .detail-grid, .about-grid, .signup { grid-template-columns: minmax(0, 1fr); }
+  .tiles { grid-template-columns: minmax(0, 1fr); }
+  .tile--wide { grid-template-columns: minmax(0, 1fr); text-align: center; }
+  .tile--wide p { margin-inline: auto; }
+  .tile--wide .tile-copy { padding-bottom: 8px; }
+  .tile--wide .tile-media { padding: 0 24px 24px; }
   .buybox { position: static; }
   .side-layout { grid-template-columns: minmax(0, 1fr); }
-  .side-nav { position: static; display: flex; flex-wrap: wrap; gap: 6px; }
-  .side-nav a { background: var(--white); border: 1px solid var(--line); }
+  .side-nav { position: static; display: flex; flex-wrap: wrap; gap: 6px 18px; }
 }
 @media (max-width: 640px) {
   :root { --gutter: 16px; }
   body { font-size: 16px; }
   .grid-3, .steps, .values { grid-template-columns: minmax(0, 1fr); }
-  .spec-grid { grid-template-columns: 1fr 1fr; }
-  .spec:nth-child(3) { border-left: 0; }
-  .spec:nth-child(n+3) { border-top: 1px solid var(--line); }
-  .compare { font-size: .86rem; }
+  .spec-grid { grid-template-columns: 1fr 1fr; row-gap: 32px; }
+  .hero-media img { aspect-ratio: 4 / 5; border-radius: var(--r); }
+  .compare { font-size: .84rem; }
   .compare th, .compare td { padding: 12px 8px; }
-  .compare thead th { font-size: .92rem; }
+  .compare thead th { font-size: .88rem; }
   .compare tbody th { width: 24%; }
   .yes svg, .no svg { display: none; }
-  .reviews-empty { grid-template-columns: 1fr; }
   .inline-form { flex-direction: column; }
   .guide-step { grid-template-columns: 1fr; }
   .guide-step img { width: 160px; }
   .footer-grid { grid-template-columns: 1fr; }
   .thumbs { gap: 8px; }
   .calc { grid-template-columns: 1fr 1fr; }
-  .brand { font-size: 1.2rem; }
   .header-row { gap: 12px; }
 }
 
@@ -510,7 +517,7 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
 <div class="announce">Free shipping on the perch and the bundle, anywhere in the lower 48. <a href="#/policies/shipping">Shipping details</a></div>
 <header class="site-header">
   <div class="wrap header-row">
-    <a class="brand" href="#/"><svg viewBox="0 0 30 34" aria-hidden="true"><path d="M3 32V15a12 12 0 0 1 24 0v17Z" fill="#DCE6EC" stroke="#1F2D33" stroke-width="2"/><circle cx="20" cy="11" r="3.5" fill="#E9B04F"/><path d="M15 3v29M3 20h24" stroke="#1F2D33" stroke-width="1.6"/><path d="M1 32.5h28" stroke="#1F2D33" stroke-width="2.4" stroke-linecap="round"/></svg><span>Perch &amp; Purr</span></a>
+    <a class="brand" href="#/"><svg viewBox="0 0 30 34" aria-hidden="true"><path d="M3 32V15a12 12 0 0 1 24 0v17Z" fill="#DCE6EC" stroke="#1D1D1F" stroke-width="2"/><circle cx="20" cy="11" r="3.5" fill="#E9B04F"/><path d="M15 3v29M3 20h24" stroke="#1F2D33" stroke-width="1.6"/><path d="M1 32.5h28" stroke="#1F2D33" stroke-width="2.4" stroke-linecap="round"/></svg><span>Perch &amp; Purr</span></a>
     <nav class="nav" id="site-nav" aria-label="Main">
       <a href="#/shop" data-nav="/shop">Shop</a><a href="#/window-perch" data-nav="/window-perch">Window Perch</a><a href="#/cozy-window-bundle" data-nav="/cozy-window-bundle">Bundle</a><a href="#/help" data-nav="/help">Help</a><a href="#/about" data-nav="/about">About</a>
     </nav>
@@ -527,7 +534,7 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="brand" href="#/"><svg viewBox="0 0 30 34" aria-hidden="true"><path d="M3 32V15a12 12 0 0 1 24 0v17Z" fill="#DCE6EC" stroke="#1F2D33" stroke-width="2"/><circle cx="20" cy="11" r="3.5" fill="#E9B04F"/><path d="M15 3v29M3 20h24" stroke="#1F2D33" stroke-width="1.6"/><path d="M1 32.5h28" stroke="#1F2D33" stroke-width="2.4" stroke-linecap="round"/></svg><span>Perch &amp; Purr</span></a>
+        <a class="brand" href="#/"><svg viewBox="0 0 30 34" aria-hidden="true"><path d="M3 32V15a12 12 0 0 1 24 0v17Z" fill="#DCE6EC" stroke="#1D1D1F" stroke-width="2"/><circle cx="20" cy="11" r="3.5" fill="#E9B04F"/><path d="M15 3v29M3 20h24" stroke="#1F2D33" stroke-width="1.6"/><path d="M1 32.5h28" stroke="#1F2D33" stroke-width="2.4" stroke-linecap="round"/></svg><span>Perch &amp; Purr</span></a>
         <p>A small shop in Greenville, South Carolina, selling a cordless window perch and a few things that go with it.</p>
       </div>
       <div>
@@ -607,25 +614,22 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
 <template data-path="/" data-title="Perch &amp; Purr | Cordless cat window perch, $32 with free shipping" data-description="A cordless suction-cup cat window perch with a stainless steel frame, tested to 40 lb. $32 with free shipping in the lower 48 and 30-day returns." data-nav="/">
 
 <section class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <h1>The window seat your cat already wants.</h1>
-      <p class="lede">A cordless perch that holds on with four suction cups and a stainless steel frame. Tested to 40 lb, up in about a minute, and the cover zips off for washing.</p>
-      <div class="btn-row">
-        <button type="button" class="btn" data-buy="window-perch">Buy the perch, $32</button>
-        <a class="btn btn--ghost" href="#/cozy-window-bundle">See the bundle</a>
-      </div>
-      <ul class="checks"><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FBF1DC" stroke="#E9B04F" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1F2D33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Free shipping in the lower 48</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FBF1DC" stroke="#E9B04F" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1F2D33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>30-day returns from delivery</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FBF1DC" stroke="#E9B04F" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1F2D33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Secure checkout by Stripe</span></li></ul>
+  <div class="wrap hero-copy" data-reveal>
+    <p class="eyebrow">Cordless Window Perch</p>
+    <h1>The window seat your cat already wants.</h1>
+    <p class="hero-sub">Four suction cups. Stainless steel. Tested to 40&nbsp;lb.</p>
+    <p class="hero-price">$32 with free shipping.</p>
+    <div class="btn-row btn-row--center">
+      <button type="button" class="btn" data-buy="window-perch">Buy the perch, $32</button>
+      <a class="btn btn--ghost" href="#/cozy-window-bundle">See the bundle</a>
     </div>
-    <div class="arch-stage">
-      <div class="arch"><div class="arch-inner"><img data-img="photo-ragdoll" alt="A ragdoll cat stretched out on the mesh side of the perch, looking into the room" width="1000" height="1000" fetchpriority="high" decoding="async"></div></div>
-      <div class="arch-sill" aria-hidden="true"></div>
-    </div>
+    <ul class="checks checks--inline"><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E8F2FC" stroke="#0071E3" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Free shipping in the lower 48</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E8F2FC" stroke="#0071E3" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>30-day returns from delivery</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E8F2FC" stroke="#0071E3" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Secure checkout by Stripe</span></li></ul>
   </div>
+  <div class="wrap hero-media" data-reveal><img data-img="photo-ragdoll" alt="A ragdoll cat stretched out on the mesh side of the perch, looking into the room" width="1000" height="1000" fetchpriority="high" decoding="async"></div>
 </section>
 
 <section class="spec-strip" aria-label="At a glance">
-  <div class="wrap spec-grid">
+  <div class="wrap spec-grid" data-reveal>
     <div class="spec"><b>40 lb</b><span>tested load</span></div>
     <div class="spec"><b>4 cups</b><span>suction grip</span></div>
     <div class="spec"><b>1 minute</b><span>to set up</span></div>
@@ -633,64 +637,84 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
   </div>
 </section>
 
-<section class="section" aria-labelledby="why-title">
+<section class="section section--tint" aria-labelledby="why-title">
   <div class="wrap">
-    <div class="section-head"><h2 id="why-title">Made for the sunny spot</h2>
+    <div class="section-head center" data-reveal><h2 id="why-title">Made for the sunny spot.</h2>
       <p>Cats go where the light is. This puts a soft, steady seat right at the glass, without cables, tools or a tower in the corner.</p></div>
-    <div class="feature">
-      <div class="feature-media"><img data-img="photo-plush" alt="A tabby Maine Coon resting on the plush side of the cover, with both suction-cup brackets on the glass" width="1000" height="1000" loading="lazy" decoding="async"></div>
-      <div><h3>Holds on without cords or drilling</h3><p>Most window hammocks hang from steel cables. This one uses a rigid, painted stainless steel frame and four suction cups that press flat against the glass. Nothing dangles, nothing gets screwed into your window frame, and it comes off clean.</p><p class="note">Tested to 40 lb on clean, smooth glass. Press-test it by hand before your cat hops up.</p></div>
-    </div><div class="feature">
-      <div class="feature-media"><img data-img="perch-cover" alt="The reversible cover, fleece on one side and breathable mesh on the other, with a zipper around the edge" width="1000" height="1000" loading="lazy" decoding="async"></div>
-      <div><h3>A cover for every season</h3><p>The cover zips off and flips over. Fleece side up for a warm spot on winter mornings, mesh side up so it stays cool when the sun is strong. Unzip it to wash it.</p></div>
-    </div><div class="feature">
-      <div class="feature-media"><img data-img="perch-folded" alt="The perch folded flat for storage" width="1000" height="1000" loading="lazy" decoding="async"></div>
-      <div><h3>Folds flat when you want the window back</h3><p>Pop the cups off and the perch folds flat, so it slides behind a bookcase or into a moving box. Putting it back up takes about a minute.</p></div>
+    <div class="tiles">
+      <article class="tile tile--wide" data-reveal>
+        <div class="tile-copy">
+          <h3>Holds on without cords or drilling.</h3>
+          <p>A rigid, painted stainless steel frame and four suction cups pressed flat against the glass. Nothing dangles, nothing gets screwed into your window frame, and it comes off clean.</p>
+          <p class="tile-note">Tested to 40 lb on clean, smooth glass. Press-test it by hand before your cat hops up.</p>
+        </div>
+        <div class="tile-media"><img data-img="photo-plush" alt="A tabby Maine Coon resting on the plush side of the cover, with both suction-cup brackets on the glass" width="1000" height="1000" loading="lazy" decoding="async"></div>
+      </article>
+      <article class="tile" data-reveal>
+        <div class="tile-copy">
+          <h3>A cover for every season.</h3>
+          <p>Fleece side up for warm winter mornings. Mesh side up when the sun is strong. It zips off to wash.</p>
+        </div>
+        <div class="tile-media"><img data-img="perch-cover" alt="The reversible cover, fleece on one side and breathable mesh on the other, with a zipper around the edge" width="1000" height="1000" loading="lazy" decoding="async"></div>
+      </article>
+      <article class="tile" data-reveal>
+        <div class="tile-copy">
+          <h3>Folds flat when you want the window back.</h3>
+          <p>Pop the cups off and it slides behind a bookcase. Back up in about a minute.</p>
+        </div>
+        <div class="tile-media"><img data-img="perch-folded" alt="The perch folded flat for storage" width="1000" height="1000" loading="lazy" decoding="async"></div>
+      </article>
     </div>
   </div>
 </section>
 
-<section class="section section--tint" aria-labelledby="shop-title">
+<section class="section" aria-labelledby="shop-title">
   <div class="wrap">
-    <div class="section-head"><h2 id="shop-title">Shop</h2><p>The perch on its own, the Fur Lifter on its own, or both in a gift-ready box.</p></div>
-    <div class="grid-3"><article class="card">
+    <div class="section-head center" data-reveal><h2 id="shop-title">Which one is right for you?</h2><p>The perch on its own, the Fur Lifter on its own, or both in a gift-ready box.</p></div>
+    <div class="grid-3"><article class="card" data-reveal>
   <a class="card-media" href="#/window-perch" tabindex="-1" aria-hidden="true"><img data-img="photo-two-cats" alt="" width="1000" height="1000" loading="lazy" decoding="async"></a>
   <div class="card-body">
     <h3><a href="#/window-perch">Cordless Window Perch</a></h3>
     <p>A sturdy window seat that holds on with four suction cups. No cords, no drilling.</p>
-    <div class="card-foot">
-      <div><span class="price">$32.00</span><br><span class="ship-note">Free shipping</span></div>
-      <button type="button" class="btn btn--small btn--ghost" data-add="window-perch" aria-label="Add Cordless Window Perch to cart">Add to cart</button>
+    <p class="price">$32.00</p>
+    <p class="ship-note">Free shipping</p>
+    <div class="card-actions">
+      <button type="button" class="btn btn--small" data-add="window-perch" aria-label="Add Cordless Window Perch to cart">Add to cart</button>
+      <a class="link-more" href="#/window-perch" aria-label="Learn more about Cordless Window Perch">Learn more</a>
     </div>
   </div>
-</article><article class="card">
+</article><article class="card" data-reveal>
   <span class="tag">Gift-ready</span><a class="card-media" href="#/cozy-window-bundle" tabindex="-1" aria-hidden="true"><img data-img="bundle" alt="" width="1000" height="1000" loading="lazy" decoding="async"></a>
   <div class="card-body">
     <h3><a href="#/cozy-window-bundle">The Cozy Window Bundle</a></h3>
     <p>The perch, the Fur Lifter and a spare fleece pad, in a gift-ready box.</p>
-    <div class="card-foot">
-      <div><span class="price">$49.99 <s>$51.99</s></span><br><span class="ship-note">Free shipping</span></div>
-      <button type="button" class="btn btn--small btn--ghost" data-add="cozy-window-bundle" aria-label="Add The Cozy Window Bundle to cart">Add to cart</button>
+    <p class="price">$49.99 <s>$51.99</s></p>
+    <p class="ship-note">Free shipping</p>
+    <div class="card-actions">
+      <button type="button" class="btn btn--small" data-add="cozy-window-bundle" aria-label="Add The Cozy Window Bundle to cart">Add to cart</button>
+      <a class="link-more" href="#/cozy-window-bundle" aria-label="Learn more about The Cozy Window Bundle">Learn more</a>
     </div>
   </div>
-</article><article class="card">
+</article><article class="card" data-reveal>
   <a class="card-media" href="#/fur-lifter" tabindex="-1" aria-hidden="true"><img data-img="fur-lifter" alt="" width="1000" height="1000" loading="lazy" decoding="async"></a>
   <div class="card-body">
     <h3><a href="#/fur-lifter">Reusable Fur Lifter</a></h3>
     <p>Lifts loose fur from couches, beds and cat trees. Reusable, so no sticky refills.</p>
-    <div class="card-foot">
-      <div><span class="price">$19.99</span><br><span class="ship-note">+ $5.99 shipping</span></div>
-      <button type="button" class="btn btn--small btn--ghost" data-add="fur-lifter" aria-label="Add Reusable Fur Lifter to cart">Add to cart</button>
+    <p class="price">$19.99</p>
+    <p class="ship-note">+ $5.99 shipping</p>
+    <div class="card-actions">
+      <button type="button" class="btn btn--small" data-add="fur-lifter" aria-label="Add Reusable Fur Lifter to cart">Add to cart</button>
+      <a class="link-more" href="#/fur-lifter" aria-label="Learn more about Reusable Fur Lifter">Learn more</a>
     </div>
   </div>
 </article></div>
   </div>
 </section>
 
-<section class="section" aria-labelledby="setup-title">
+<section class="section section--tint" aria-labelledby="setup-title">
   <div class="wrap">
-    <div class="section-head"><h2 id="setup-title">Set up in three steps</h2><p>No tools. The <a href="#/help/setup">full setup guide</a> has extra tips.</p></div>
-    <ol class="steps">
+    <div class="section-head center" data-reveal><h2 id="setup-title">Up in three steps.</h2><p>No tools. The <a href="#/help/setup">full setup guide</a> has extra tips.</p></div>
+    <ol class="steps" data-reveal>
       <li><h3>Clean the glass</h3><p>Wipe the pane with glass cleaner or rubbing alcohol, then dry it. Rinse the cups in warm water.</p></li>
       <li><h3>Press on the cups</h3><p>Hold the perch level at your cat's height and press each cup flat until the air is out.</p></li>
       <li><h3>Test, then invite</h3><p>Press down hard on the bed with your hand. If nothing moves, it's ready for your cat.</p></li>
@@ -698,57 +722,51 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
   </div>
 </section>
 
-<section class="section section--tint" aria-labelledby="compare-title">
+<section class="section section--dark" aria-labelledby="compare-title">
   <div class="wrap">
-    <div class="section-head"><h2 id="compare-title">Why cordless</h2><p>How the perch compares with the two usual ways to give a cat a view.</p></div>
-    <div class="table-card">
+    <div class="section-head center" data-reveal><h2 id="compare-title">Why cordless.</h2><p>How the perch compares with the two usual ways to give a cat a view.</p></div>
+    <div class="table-card" data-reveal>
       <table class="compare">
         <thead><tr><th scope="col"><span class="visually-hidden">Feature</span></th><th scope="col" class="ours">Cordless perch</th><th scope="col">Corded hammock</th><th scope="col">Cat tree</th></tr></thead>
-        <tbody><tr><th scope="row">Dangling cords or cables</th><td class="ours"><span class="yes"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FBF1DC" stroke="#E9B04F" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1F2D33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>None</span></span></td><td><span class="no"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#EBF0F3"/><path d="m8.5 8.5 7 7m0-7-7 7" stroke="#66767D" stroke-width="2" stroke-linecap="round"/></svg><span>Yes, it hangs from them</span></span></td><td><span class="yes"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FBF1DC" stroke="#E9B04F" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1F2D33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>None</span></span></td></tr><tr><th scope="row">Floor space</th><td class="ours"><span class="yes"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FBF1DC" stroke="#E9B04F" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1F2D33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>None</span></span></td><td><span class="yes"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FBF1DC" stroke="#E9B04F" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1F2D33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>None</span></span></td><td><span class="no"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#EBF0F3"/><path d="m8.5 8.5 7 7m0-7-7 7" stroke="#66767D" stroke-width="2" stroke-linecap="round"/></svg><span>A few square feet</span></span></td></tr><tr><th scope="row">Setup</th><td class="ours"><span class="yes"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FBF1DC" stroke="#E9B04F" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1F2D33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>About a minute</span></span></td><td>5 to 10 minutes</td><td><span class="no"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#EBF0F3"/><path d="m8.5 8.5 7 7m0-7-7 7" stroke="#66767D" stroke-width="2" stroke-linecap="round"/></svg><span>20+ minutes of assembly</span></span></td></tr><tr><th scope="row">Folds away</th><td class="ours"><span class="yes"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FBF1DC" stroke="#E9B04F" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1F2D33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Yes, flat</span></span></td><td>Partly</td><td><span class="no"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#EBF0F3"/><path d="m8.5 8.5 7 7m0-7-7 7" stroke="#66767D" stroke-width="2" stroke-linecap="round"/></svg><span>No</span></span></td></tr><tr><th scope="row">Right up at the glass</th><td class="ours"><span class="yes"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FBF1DC" stroke="#E9B04F" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1F2D33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Yes</span></span></td><td><span class="yes"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FBF1DC" stroke="#E9B04F" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1F2D33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Yes</span></span></td><td>Depends where it fits</td></tr><tr><th scope="row">Typical price</th><td class="ours">$32</td><td>$20 to $40</td><td>$50 to $200</td></tr></tbody>
+        <tbody><tr><th scope="row">Dangling cords or cables</th><td class="ours"><span class="yes"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E8F2FC" stroke="#0071E3" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>None</span></span></td><td><span class="no"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#F5F5F7"/><path d="m8.5 8.5 7 7m0-7-7 7" stroke="#86868B" stroke-width="2" stroke-linecap="round"/></svg><span>Yes, it hangs from them</span></span></td><td><span class="yes"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E8F2FC" stroke="#0071E3" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>None</span></span></td></tr><tr><th scope="row">Floor space</th><td class="ours"><span class="yes"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E8F2FC" stroke="#0071E3" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>None</span></span></td><td><span class="yes"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E8F2FC" stroke="#0071E3" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>None</span></span></td><td><span class="no"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#F5F5F7"/><path d="m8.5 8.5 7 7m0-7-7 7" stroke="#86868B" stroke-width="2" stroke-linecap="round"/></svg><span>A few square feet</span></span></td></tr><tr><th scope="row">Setup</th><td class="ours"><span class="yes"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E8F2FC" stroke="#0071E3" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>About a minute</span></span></td><td>5 to 10 minutes</td><td><span class="no"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#F5F5F7"/><path d="m8.5 8.5 7 7m0-7-7 7" stroke="#86868B" stroke-width="2" stroke-linecap="round"/></svg><span>20+ minutes of assembly</span></span></td></tr><tr><th scope="row">Folds away</th><td class="ours"><span class="yes"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E8F2FC" stroke="#0071E3" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Yes, flat</span></span></td><td>Partly</td><td><span class="no"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#F5F5F7"/><path d="m8.5 8.5 7 7m0-7-7 7" stroke="#86868B" stroke-width="2" stroke-linecap="round"/></svg><span>No</span></span></td></tr><tr><th scope="row">Right up at the glass</th><td class="ours"><span class="yes"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E8F2FC" stroke="#0071E3" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Yes</span></span></td><td><span class="yes"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E8F2FC" stroke="#0071E3" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Yes</span></span></td><td>Depends where it fits</td></tr><tr><th scope="row">Typical price</th><td class="ours">$32</td><td>$20 to $40</td><td>$50 to $200</td></tr></tbody>
       </table>
     </div>
-    <p class="table-note">Hammock and cat tree figures are typical for each type, not any one brand.</p>
+    <p class="table-note center">Hammock and cat tree figures are typical for each type, not any one brand.</p>
+    <div class="btn-row btn-row--center" style="margin-top:28px">
+      <a class="btn" href="#/window-perch">Get the perch</a>
+    </div>
   </div>
 </section>
 
-<section class="section" aria-labelledby="promise-title">
-  <div class="wrap">
-    <div class="promise">
-      <svg class="promise-mark" viewBox="0 0 72 80" aria-hidden="true"><path d="M4 78V36a32 32 0 0 1 64 0v42Z" fill="none" stroke="#C5D4DC" stroke-width="3"/><path d="M36 4v74M4 50h64" stroke="#C5D4DC" stroke-width="2.4"/><circle cx="52" cy="26" r="7" fill="#E9B04F"/></svg>
-      <div>
-        <h2 id="promise-title">If it doesn't suit your window, send it back.</h2>
-        <p>You have 30 days from delivery. Email <a href="mailto:perchandpurr@gmail.com">perchandpurr@gmail.com</a> and you'll hear back within one business day from Brady, who runs the shop.</p>
-      </div>
-      <a class="btn" href="#/policies/returns">Read the return policy</a>
-    </div>
+<section class="section promise-section" aria-labelledby="promise-title">
+  <div class="narrow center" data-reveal>
+    <h2 id="promise-title">If it doesn't suit your window, send it back.</h2>
+    <p class="lede center">You have 30 days from delivery. Email <a href="mailto:perchandpurr@gmail.com">perchandpurr@gmail.com</a> and you'll hear back within one business day from Brady, who runs the shop.</p>
+    <a class="link-more" href="#/policies/returns">Read the return policy</a>
   </div>
 </section>
 
 <section class="section section--tint" aria-labelledby="faq-title" id="faq">
   <div class="narrow">
-    <h2 id="faq-title">Questions</h2>
+    <h2 id="faq-title" class="center">Questions.</h2>
     <div class="faq"><details><summary>Will it really hold my cat?</summary><div class="answer"><p>The frame is painted stainless steel and the perch is tested to 40 lb, which covers almost every house cat. That number comes from a load test on clean, smooth glass. How well suction cups hold in your home depends on your glass and how they're pressed on, so always press down on the perch with your hand before your cat uses it.</p></div></details><details><summary>What kind of window does it need?</summary><div class="answer"><p>Smooth, flat glass with room for all four cups. Double-pane windows are fine. It won't hold on textured or frosted glass, window film, screens, or wood and painted surfaces. A pane that doesn't open is best. If it does open, keep that window shut while the perch is up.</p></div></details><details><summary>How long does setup take?</summary><div class="answer"><p>About a minute once the glass is clean. Press on the four cups, zip on the cover, and press-test it. The <a href="#/help/setup">setup guide</a> walks through it.</p></div></details><details><summary>How long does shipping take?</summary><div class="answer"><p>Orders ship within 3 business days, and delivery takes 3 to 7 business days after that. You'll get a tracking number by email. We ship to the 48 contiguous US states.</p></div></details><details><summary>What if it doesn't work for us?</summary><div class="answer"><p>You have 30 days from delivery to send it back. Email <a href="mailto:perchandpurr@gmail.com">perchandpurr@gmail.com</a> and you'll hear back within one business day. The <a href="#/policies/returns">return policy</a> has the details.</p></div></details><details><summary>Is checkout secure?</summary><div class="answer"><p>Yes. You pay on Stripe's secure checkout page. We never see or store your card number.</p></div></details></div>
-    <p style="margin-top:20px">More answers in <a href="#/help/faq">Help</a>.</p>
+    <p class="center" style="margin-top:24px"><a class="link-more" href="#/help/faq">More answers in Help</a></p>
   </div>
 </section>
 
 <section class="section" aria-labelledby="reviews-title">
-  <div class="wrap">
-    <div class="reviews-empty">
-      <svg viewBox="0 0 56 56" aria-hidden="true"><path d="M8 50V24a20 20 0 0 1 40 0v26Z" fill="#EBF0F3" stroke="#C5D4DC" stroke-width="2.5"/><path d="M28 4v46M8 32h40" stroke="#C5D4DC" stroke-width="2.5"/><circle cx="40" cy="14" r="5" fill="#E9B04F" opacity=".7"/></svg>
-      <div>
-        <h2 id="reviews-title">No reviews yet</h2>
-        <p>We're a new shop, so there's nothing to show here yet, and we won't fill the space with made-up quotes or borrowed star ratings. When customers tell us how their perch is working, good or bad, their reviews will go here.</p>
-        <p style="margin:0">Already have one? <a href="#/thank-you/review">Leave a review</a>.</p>
-      </div>
-    </div>
+  <div class="narrow center reviews-empty" data-reveal>
+    <svg viewBox="0 0 56 56" aria-hidden="true"><path d="M8 50V24a20 20 0 0 1 40 0v26Z" fill="#F5F5F7" stroke="#C5D4DC" stroke-width="2.5"/><path d="M28 4v46M8 32h40" stroke="#C5D4DC" stroke-width="2.5"/><circle cx="40" cy="14" r="5" fill="#0071E3" opacity=".7"/></svg>
+    <h2 id="reviews-title">No reviews yet.</h2>
+    <p>We're a new shop, so there's nothing to show here yet, and we won't fill the space with made-up quotes or borrowed star ratings. When customers tell us how their perch is working, good or bad, their reviews will go here.</p>
+    <a class="link-more" href="#/thank-you/review">Already have one? Leave a review</a>
   </div>
 </section>
 <section class="section" aria-labelledby="signup-title">
   <div class="wrap">
-    <div class="signup">
+    <div class="signup" data-reveal>
       <div>
-        <h2 id="signup-title">Join the launch list</h2>
+        <h2 id="signup-title">Join the launch list.</h2>
         <p class="muted" style="margin:0">One email when new things are ready to order, and a short note now and then. No spam, and you can leave any time.</p>
       </div>
       <form name="launch-list" method="POST" data-pp-form data-done="You're on the list. We'll email you when there's news, and that's all.">
@@ -769,34 +787,40 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
 </template><template data-path="/shop" data-title="Shop | Perch &amp; Purr" data-description="The Cordless Window Perch, the Reusable Fur Lifter and The Cozy Window Bundle. Free shipping on the perch and bundle." data-nav="/shop">
 <div class="page-head"><div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="#/">Home</a><span aria-hidden="true">/</span><span>Shop</span></nav><h1>Shop</h1><p>Three things, chosen with care. Every order ships within 3 business days to the lower 48, with tracking by email.</p></div></div>
 <div class="wrap">
-  <div class="grid-3"><article class="card">
+  <div class="grid-3"><article class="card" data-reveal>
   <a class="card-media" href="#/window-perch" tabindex="-1" aria-hidden="true"><img data-img="photo-two-cats" alt="" width="1000" height="1000" fetchpriority="high" decoding="async"></a>
   <div class="card-body">
     <h3><a href="#/window-perch">Cordless Window Perch</a></h3>
     <p>A sturdy window seat that holds on with four suction cups. No cords, no drilling.</p>
-    <div class="card-foot">
-      <div><span class="price">$32.00</span><br><span class="ship-note">Free shipping</span></div>
-      <button type="button" class="btn btn--small btn--ghost" data-add="window-perch" aria-label="Add Cordless Window Perch to cart">Add to cart</button>
+    <p class="price">$32.00</p>
+    <p class="ship-note">Free shipping</p>
+    <div class="card-actions">
+      <button type="button" class="btn btn--small" data-add="window-perch" aria-label="Add Cordless Window Perch to cart">Add to cart</button>
+      <a class="link-more" href="#/window-perch" aria-label="Learn more about Cordless Window Perch">Learn more</a>
     </div>
   </div>
-</article><article class="card">
+</article><article class="card" data-reveal>
   <span class="tag">Gift-ready</span><a class="card-media" href="#/cozy-window-bundle" tabindex="-1" aria-hidden="true"><img data-img="bundle" alt="" width="1000" height="1000" fetchpriority="high" decoding="async"></a>
   <div class="card-body">
     <h3><a href="#/cozy-window-bundle">The Cozy Window Bundle</a></h3>
     <p>The perch, the Fur Lifter and a spare fleece pad, in a gift-ready box.</p>
-    <div class="card-foot">
-      <div><span class="price">$49.99 <s>$51.99</s></span><br><span class="ship-note">Free shipping</span></div>
-      <button type="button" class="btn btn--small btn--ghost" data-add="cozy-window-bundle" aria-label="Add The Cozy Window Bundle to cart">Add to cart</button>
+    <p class="price">$49.99 <s>$51.99</s></p>
+    <p class="ship-note">Free shipping</p>
+    <div class="card-actions">
+      <button type="button" class="btn btn--small" data-add="cozy-window-bundle" aria-label="Add The Cozy Window Bundle to cart">Add to cart</button>
+      <a class="link-more" href="#/cozy-window-bundle" aria-label="Learn more about The Cozy Window Bundle">Learn more</a>
     </div>
   </div>
-</article><article class="card">
+</article><article class="card" data-reveal>
   <a class="card-media" href="#/fur-lifter" tabindex="-1" aria-hidden="true"><img data-img="fur-lifter" alt="" width="1000" height="1000" fetchpriority="high" decoding="async"></a>
   <div class="card-body">
     <h3><a href="#/fur-lifter">Reusable Fur Lifter</a></h3>
     <p>Lifts loose fur from couches, beds and cat trees. Reusable, so no sticky refills.</p>
-    <div class="card-foot">
-      <div><span class="price">$19.99</span><br><span class="ship-note">+ $5.99 shipping</span></div>
-      <button type="button" class="btn btn--small btn--ghost" data-add="fur-lifter" aria-label="Add Reusable Fur Lifter to cart">Add to cart</button>
+    <p class="price">$19.99</p>
+    <p class="ship-note">+ $5.99 shipping</p>
+    <div class="card-actions">
+      <button type="button" class="btn btn--small" data-add="fur-lifter" aria-label="Add Reusable Fur Lifter to cart">Add to cart</button>
+      <a class="link-more" href="#/fur-lifter" aria-label="Learn more about Reusable Fur Lifter">Learn more</a>
     </div>
   </div>
 </article></div>
@@ -809,7 +833,7 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
         <p class="muted">Get the <a href="#/window-perch">perch</a> if you just need the seat. Get the <a href="#/cozy-window-bundle">bundle</a> if you want the fur covered too, want a spare pad for laundry day, or are giving it as a gift. It costs less than buying the two separately.</p>
       </div>
       <div>
-        <ul class="checks"><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FBF1DC" stroke="#E9B04F" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1F2D33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Free shipping on the perch and the bundle</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FBF1DC" stroke="#E9B04F" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1F2D33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Fur Lifter ships for $5.99</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FBF1DC" stroke="#E9B04F" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1F2D33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>30-day returns from delivery</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FBF1DC" stroke="#E9B04F" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1F2D33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Secure checkout by Stripe</span></li></ul>
+        <ul class="checks"><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E8F2FC" stroke="#0071E3" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Free shipping on the perch and the bundle</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E8F2FC" stroke="#0071E3" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Fur Lifter ships for $5.99</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E8F2FC" stroke="#0071E3" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>30-day returns from delivery</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E8F2FC" stroke="#0071E3" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Secure checkout by Stripe</span></li></ul>
       </div>
     </div>
   </div>
@@ -817,6 +841,16 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
 
 </template><template data-path="/window-perch" data-title="Cordless Window Perch | Perch &amp; Purr" data-description="A cordless suction-cup cat window perch with a painted stainless steel frame, tested to 40 lb, and a reversible fleece and mesh cover. $32, free shipping." data-nav="/window-perch" data-buybar="true">
 
+<div class="product-nav" aria-label="Cordless Window Perch">
+  <div class="wrap product-nav-row">
+    <span class="product-nav-name">Cordless Window Perch</span>
+    <nav class="product-nav-links" aria-label="On this page">
+      <a href="#/window-perch/specs">Specs</a>
+      <a href="#/window-perch/questions">Questions</a>
+    </nav>
+    <button type="button" class="btn btn--small" data-bb-buy data-buy="window-perch">Buy</button>
+  </div>
+</div>
 <div class="wrap">
   <nav class="crumbs" aria-label="Breadcrumb" style="padding-top:28px"><a href="#/">Home</a><span aria-hidden="true">/</span><a href="#/shop">Shop</a><span aria-hidden="true">/</span><span>Cordless Window Perch</span></nav>
   <div class="product">
@@ -836,15 +870,15 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
       </div>
       <div class="delivered"><strong data-bb-delivered>$32.00 delivered, free shipping included</strong>
         <span class="muted">Sales tax, if any, is added at checkout.</span></div>
-      <p class="arrives"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1F2D33" stroke-width="1.6" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><circle cx="15.5" cy="15" r="1.6" fill="#E9B04F" stroke="none"/></svg><span>Arrives <strong data-delivery>in 4 to 10 business days</strong> if you order today.</span></p>
+      <p class="arrives"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><circle cx="15.5" cy="15" r="1.6" fill="#0071E3" stroke="none"/></svg><span>Arrives <strong data-delivery>in 4 to 10 business days</strong> if you order today.</span></p>
       <div class="buy-actions">
         <button type="button" class="btn btn--ghost" data-bb-add data-add="window-perch">Add to cart</button>
         <button type="button" class="btn" data-bb-buy data-buy="window-perch">Buy now</button>
       </div>
       <ul class="trust">
-        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1F2D33" stroke-width="1.6" stroke-linejoin="round"><path d="M2.5 6.5h11v9h-11zM13.5 9.5h4l3 3v3h-7z"/><circle cx="7" cy="17" r="1.8" fill="#E9B04F"/><circle cx="17" cy="17" r="1.8" fill="#E9B04F"/></svg><span data-bb-ship>Ships free in 3 business days, tracking by email</span></li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1F2D33" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7 5 11l4 4"/><path d="M5 11h9a5 5 0 0 1 0 10h-3"/></svg><span>30-day returns from delivery. <a href="#/policies/returns">Return policy</a></span></li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1F2D33" stroke-width="1.6" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/><circle cx="12" cy="15.5" r="1.5" fill="#E9B04F" stroke="none"/></svg><span>Secure checkout by Stripe</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linejoin="round"><path d="M2.5 6.5h11v9h-11zM13.5 9.5h4l3 3v3h-7z"/><circle cx="7" cy="17" r="1.8" fill="#0071E3"/><circle cx="17" cy="17" r="1.8" fill="#0071E3"/></svg><span data-bb-ship>Ships free in 3 business days, tracking by email</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7 5 11l4 4"/><path d="M5 11h9a5 5 0 0 1 0 10h-3"/></svg><span>30-day returns from delivery. <a href="#/policies/returns">Return policy</a></span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/><circle cx="12" cy="15.5" r="1.5" fill="#0071E3" stroke="none"/></svg><span>Secure checkout by Stripe</span></li>
       </ul>
       <div class="upsell">
       <img data-img="bundle" alt="" width="1000" height="1000" loading="lazy" decoding="async">
@@ -856,7 +890,7 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
   </div>
 </div>
 
-<section class="section section--tint" aria-labelledby="details-title">
+<section class="section section--tint" id="specs" aria-labelledby="details-title">
   <div class="wrap detail-grid">
     <div><h2 id="details-title">Specs</h2><table class="specs"><tbody><tr><th scope="row">Frame</th><td>Painted stainless steel</td></tr><tr><th scope="row">Tested load</th><td>40 lb, on clean smooth glass</td></tr><tr><th scope="row">Grip</th><td>4 suction cups</td></tr><tr><th scope="row">Cover</th><td>Reversible and zip-off: fleece on one side, mesh on the other</td></tr><tr><th scope="row">Storage</th><td>Folds flat</td></tr><tr><th scope="row">Tools needed</th><td>None</td></tr><tr><th scope="row">Shipping</th><td>Free, to the 48 contiguous US states</td></tr></tbody></table></div>
     <div><h2>Fit and safety</h2><div class="safety">
@@ -878,7 +912,7 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
   </div>
 </section>
 
-<section class="section" aria-labelledby="pfaq-title">
+<section class="section" id="questions" aria-labelledby="pfaq-title">
   <div class="narrow">
     <h2 id="pfaq-title">Questions</h2>
     <div class="faq"><details><summary>Will it really hold my cat?</summary><div class="answer"><p>The frame is painted stainless steel and the perch is tested to 40 lb, which covers almost every house cat. That number comes from a load test on clean, smooth glass. How well suction cups hold in your home depends on your glass and how they're pressed on, so always press down on the perch with your hand before your cat uses it.</p></div></details><details><summary>What kind of window does it need?</summary><div class="answer"><p>Smooth, flat glass with room for all four cups. Double-pane windows are fine. It won't hold on textured or frosted glass, window film, screens, or wood and painted surfaces. A pane that doesn't open is best. If it does open, keep that window shut while the perch is up.</p></div></details><details><summary>How long does setup take?</summary><div class="answer"><p>About a minute once the glass is clean. Press on the four cups, zip on the cover, and press-test it. The <a href="#/help/setup">setup guide</a> walks through it.</p></div></details><details><summary>What if a suction cup lets go?</summary><div class="answer"><p>It's usually dust, dry cups, or a big temperature swing at the window. Take the cup off, rinse it in warm water, clean the glass, and press it back on. Press down on the perch once a week to check the cups.</p></div></details><details><summary>How do I wash the cover?</summary><div class="answer"><p>Unzip it from the frame and wash it as the care tag says. Let it dry all the way before zipping it back on. The bundle comes with a spare fleece pad, so your cat still has a seat on laundry day.</p></div></details><details><summary>How long does shipping take?</summary><div class="answer"><p>Orders ship within 3 business days, and delivery takes 3 to 7 business days after that. You'll get a tracking number by email. We ship to the 48 contiguous US states.</p></div></details><details><summary>What if it doesn't work for us?</summary><div class="answer"><p>You have 30 days from delivery to send it back. Email <a href="mailto:perchandpurr@gmail.com">perchandpurr@gmail.com</a> and you'll hear back within one business day. The <a href="#/policies/returns">return policy</a> has the details.</p></div></details></div>
@@ -889,24 +923,28 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
 <section class="section section--tint" aria-labelledby="more-title">
   <div class="wrap">
     <h2 id="more-title">You might also like</h2>
-    <div class="grid-3" style="margin-top:28px"><article class="card">
+    <div class="grid-3" style="margin-top:28px"><article class="card" data-reveal>
   <span class="tag">Gift-ready</span><a class="card-media" href="#/cozy-window-bundle" tabindex="-1" aria-hidden="true"><img data-img="bundle" alt="" width="1000" height="1000" loading="lazy" decoding="async"></a>
   <div class="card-body">
     <h3><a href="#/cozy-window-bundle">The Cozy Window Bundle</a></h3>
     <p>The perch, the Fur Lifter and a spare fleece pad, in a gift-ready box.</p>
-    <div class="card-foot">
-      <div><span class="price">$49.99 <s>$51.99</s></span><br><span class="ship-note">Free shipping</span></div>
-      <button type="button" class="btn btn--small btn--ghost" data-add="cozy-window-bundle" aria-label="Add The Cozy Window Bundle to cart">Add to cart</button>
+    <p class="price">$49.99 <s>$51.99</s></p>
+    <p class="ship-note">Free shipping</p>
+    <div class="card-actions">
+      <button type="button" class="btn btn--small" data-add="cozy-window-bundle" aria-label="Add The Cozy Window Bundle to cart">Add to cart</button>
+      <a class="link-more" href="#/cozy-window-bundle" aria-label="Learn more about The Cozy Window Bundle">Learn more</a>
     </div>
   </div>
-</article><article class="card">
+</article><article class="card" data-reveal>
   <a class="card-media" href="#/fur-lifter" tabindex="-1" aria-hidden="true"><img data-img="fur-lifter" alt="" width="1000" height="1000" loading="lazy" decoding="async"></a>
   <div class="card-body">
     <h3><a href="#/fur-lifter">Reusable Fur Lifter</a></h3>
     <p>Lifts loose fur from couches, beds and cat trees. Reusable, so no sticky refills.</p>
-    <div class="card-foot">
-      <div><span class="price">$19.99</span><br><span class="ship-note">+ $5.99 shipping</span></div>
-      <button type="button" class="btn btn--small btn--ghost" data-add="fur-lifter" aria-label="Add Reusable Fur Lifter to cart">Add to cart</button>
+    <p class="price">$19.99</p>
+    <p class="ship-note">+ $5.99 shipping</p>
+    <div class="card-actions">
+      <button type="button" class="btn btn--small" data-add="fur-lifter" aria-label="Add Reusable Fur Lifter to cart">Add to cart</button>
+      <a class="link-more" href="#/fur-lifter" aria-label="Learn more about Reusable Fur Lifter">Learn more</a>
     </div>
   </div>
 </article></div>
@@ -920,6 +958,16 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
 
 </template><template data-path="/cozy-window-bundle" data-title="The Cozy Window Bundle | Perch &amp; Purr" data-description="The Cordless Window Perch, the Reusable Fur Lifter and a spare fleece pad in a gift-ready box. $49.99, free shipping." data-nav="/cozy-window-bundle" data-buybar="true">
 
+<div class="product-nav" aria-label="The Cozy Window Bundle">
+  <div class="wrap product-nav-row">
+    <span class="product-nav-name">The Cozy Window Bundle</span>
+    <nav class="product-nav-links" aria-label="On this page">
+      <a href="#/cozy-window-bundle/specs">Specs</a>
+      <a href="#/cozy-window-bundle/questions">Questions</a>
+    </nav>
+    <button type="button" class="btn btn--small" data-bb-buy data-buy="cozy-window-bundle">Buy</button>
+  </div>
+</div>
 <div class="wrap">
   <nav class="crumbs" aria-label="Breadcrumb" style="padding-top:28px"><a href="#/">Home</a><span aria-hidden="true">/</span><a href="#/shop">Shop</a><span aria-hidden="true">/</span><span>The Cozy Window Bundle</span></nav>
   <div class="product">
@@ -939,15 +987,15 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
       </div>
       <div class="delivered"><strong data-bb-delivered>$49.99 delivered, free shipping included</strong>
         <span class="muted">Sales tax, if any, is added at checkout.</span></div>
-      <p class="arrives"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1F2D33" stroke-width="1.6" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><circle cx="15.5" cy="15" r="1.6" fill="#E9B04F" stroke="none"/></svg><span>Arrives <strong data-delivery>in 4 to 10 business days</strong> if you order today.</span></p>
+      <p class="arrives"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><circle cx="15.5" cy="15" r="1.6" fill="#0071E3" stroke="none"/></svg><span>Arrives <strong data-delivery>in 4 to 10 business days</strong> if you order today.</span></p>
       <div class="buy-actions">
         <button type="button" class="btn btn--ghost" data-bb-add data-add="cozy-window-bundle">Add to cart</button>
         <button type="button" class="btn" data-bb-buy data-buy="cozy-window-bundle">Buy now</button>
       </div>
       <ul class="trust">
-        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1F2D33" stroke-width="1.6" stroke-linejoin="round"><path d="M2.5 6.5h11v9h-11zM13.5 9.5h4l3 3v3h-7z"/><circle cx="7" cy="17" r="1.8" fill="#E9B04F"/><circle cx="17" cy="17" r="1.8" fill="#E9B04F"/></svg><span data-bb-ship>Ships free in 3 business days, tracking by email</span></li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1F2D33" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7 5 11l4 4"/><path d="M5 11h9a5 5 0 0 1 0 10h-3"/></svg><span>30-day returns from delivery. <a href="#/policies/returns">Return policy</a></span></li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1F2D33" stroke-width="1.6" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/><circle cx="12" cy="15.5" r="1.5" fill="#E9B04F" stroke="none"/></svg><span>Secure checkout by Stripe</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linejoin="round"><path d="M2.5 6.5h11v9h-11zM13.5 9.5h4l3 3v3h-7z"/><circle cx="7" cy="17" r="1.8" fill="#0071E3"/><circle cx="17" cy="17" r="1.8" fill="#0071E3"/></svg><span data-bb-ship>Ships free in 3 business days, tracking by email</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7 5 11l4 4"/><path d="M5 11h9a5 5 0 0 1 0 10h-3"/></svg><span>30-day returns from delivery. <a href="#/policies/returns">Return policy</a></span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/><circle cx="12" cy="15.5" r="1.5" fill="#0071E3" stroke="none"/></svg><span>Secure checkout by Stripe</span></li>
       </ul>
       <div class="in-box"><h2>In the box</h2><ul>
       <li>Cordless Window Perch with reversible fleece and mesh cover</li>
@@ -958,7 +1006,7 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
   </div>
 </div>
 
-<section class="section section--tint" aria-labelledby="details-title">
+<section class="section section--tint" id="specs" aria-labelledby="details-title">
   <div class="wrap detail-grid">
     <div><h2 id="details-title">Specs</h2><table class="specs"><tbody><tr><th scope="row">In the box</th><td>Cordless Window Perch, Reusable Fur Lifter, spare fleece pad, gift-ready box</td></tr><tr><th scope="row">Frame</th><td>Painted stainless steel</td></tr><tr><th scope="row">Tested load</th><td>40 lb, on clean smooth glass</td></tr><tr><th scope="row">Grip</th><td>4 suction cups</td></tr><tr><th scope="row">Cover</th><td>Reversible and zip-off: fleece on one side, mesh on the other</td></tr><tr><th scope="row">Storage</th><td>Folds flat</td></tr><tr><th scope="row">Tools needed</th><td>None</td></tr><tr><th scope="row">Bought separately</th><td>$51.99, plus $5.99 shipping on the Fur Lifter</td></tr><tr><th scope="row">Shipping</th><td>Free, to the 48 contiguous US states</td></tr></tbody></table></div>
     <div><h2>Fit and safety</h2><div class="safety">
@@ -980,7 +1028,7 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
   </div>
 </section>
 
-<section class="section" aria-labelledby="pfaq-title">
+<section class="section" id="questions" aria-labelledby="pfaq-title">
   <div class="narrow">
     <h2 id="pfaq-title">Questions</h2>
     <div class="faq"><details><summary>Will it really hold my cat?</summary><div class="answer"><p>The frame is painted stainless steel and the perch is tested to 40 lb, which covers almost every house cat. That number comes from a load test on clean, smooth glass. How well suction cups hold in your home depends on your glass and how they're pressed on, so always press down on the perch with your hand before your cat uses it.</p></div></details><details><summary>What kind of window does it need?</summary><div class="answer"><p>Smooth, flat glass with room for all four cups. Double-pane windows are fine. It won't hold on textured or frosted glass, window film, screens, or wood and painted surfaces. A pane that doesn't open is best. If it does open, keep that window shut while the perch is up.</p></div></details><details><summary>What if a suction cup lets go?</summary><div class="answer"><p>It's usually dust, dry cups, or a big temperature swing at the window. Take the cup off, rinse it in warm water, clean the glass, and press it back on. Press down on the perch once a week to check the cups.</p></div></details><details><summary>How do I wash the cover?</summary><div class="answer"><p>Unzip it from the frame and wash it as the care tag says. Let it dry all the way before zipping it back on. The bundle comes with a spare fleece pad, so your cat still has a seat on laundry day.</p></div></details><details><summary>How does the Fur Lifter work?</summary><div class="answer"><p>Run it back and forth over couches, bedding or a cat tree and it lifts the loose fur. It's reusable, so there are no sticky sheets or refills to buy.</p></div></details><details><summary>How long does shipping take?</summary><div class="answer"><p>Orders ship within 3 business days, and delivery takes 3 to 7 business days after that. You'll get a tracking number by email. We ship to the 48 contiguous US states.</p></div></details><details><summary>What if it doesn't work for us?</summary><div class="answer"><p>You have 30 days from delivery to send it back. Email <a href="mailto:perchandpurr@gmail.com">perchandpurr@gmail.com</a> and you'll hear back within one business day. The <a href="#/policies/returns">return policy</a> has the details.</p></div></details><details><summary>Is the bundle good as a gift?</summary><div class="answer"><p>That's what it's for. It comes in a gift-ready box, so it's ready to hand over.</p></div></details></div>
@@ -991,24 +1039,28 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
 <section class="section section--tint" aria-labelledby="more-title">
   <div class="wrap">
     <h2 id="more-title">You might also like</h2>
-    <div class="grid-3" style="margin-top:28px"><article class="card">
+    <div class="grid-3" style="margin-top:28px"><article class="card" data-reveal>
   <a class="card-media" href="#/window-perch" tabindex="-1" aria-hidden="true"><img data-img="photo-two-cats" alt="" width="1000" height="1000" loading="lazy" decoding="async"></a>
   <div class="card-body">
     <h3><a href="#/window-perch">Cordless Window Perch</a></h3>
     <p>A sturdy window seat that holds on with four suction cups. No cords, no drilling.</p>
-    <div class="card-foot">
-      <div><span class="price">$32.00</span><br><span class="ship-note">Free shipping</span></div>
-      <button type="button" class="btn btn--small btn--ghost" data-add="window-perch" aria-label="Add Cordless Window Perch to cart">Add to cart</button>
+    <p class="price">$32.00</p>
+    <p class="ship-note">Free shipping</p>
+    <div class="card-actions">
+      <button type="button" class="btn btn--small" data-add="window-perch" aria-label="Add Cordless Window Perch to cart">Add to cart</button>
+      <a class="link-more" href="#/window-perch" aria-label="Learn more about Cordless Window Perch">Learn more</a>
     </div>
   </div>
-</article><article class="card">
+</article><article class="card" data-reveal>
   <a class="card-media" href="#/fur-lifter" tabindex="-1" aria-hidden="true"><img data-img="fur-lifter" alt="" width="1000" height="1000" loading="lazy" decoding="async"></a>
   <div class="card-body">
     <h3><a href="#/fur-lifter">Reusable Fur Lifter</a></h3>
     <p>Lifts loose fur from couches, beds and cat trees. Reusable, so no sticky refills.</p>
-    <div class="card-foot">
-      <div><span class="price">$19.99</span><br><span class="ship-note">+ $5.99 shipping</span></div>
-      <button type="button" class="btn btn--small btn--ghost" data-add="fur-lifter" aria-label="Add Reusable Fur Lifter to cart">Add to cart</button>
+    <p class="price">$19.99</p>
+    <p class="ship-note">+ $5.99 shipping</p>
+    <div class="card-actions">
+      <button type="button" class="btn btn--small" data-add="fur-lifter" aria-label="Add Reusable Fur Lifter to cart">Add to cart</button>
+      <a class="link-more" href="#/fur-lifter" aria-label="Learn more about Reusable Fur Lifter">Learn more</a>
     </div>
   </div>
 </article></div>
@@ -1022,6 +1074,16 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
 
 </template><template data-path="/fur-lifter" data-title="Reusable Fur Lifter | Perch &amp; Purr" data-description="A reusable pet hair remover for couches, bedding and cat trees. No sticky refills. $19.99." data-nav="/shop" data-buybar="true">
 
+<div class="product-nav" aria-label="Reusable Fur Lifter">
+  <div class="wrap product-nav-row">
+    <span class="product-nav-name">Reusable Fur Lifter</span>
+    <nav class="product-nav-links" aria-label="On this page">
+      <a href="#/fur-lifter/specs">Specs</a>
+      <a href="#/fur-lifter/questions">Questions</a>
+    </nav>
+    <button type="button" class="btn btn--small" data-bb-buy data-buy="fur-lifter">Buy</button>
+  </div>
+</div>
 <div class="wrap">
   <nav class="crumbs" aria-label="Breadcrumb" style="padding-top:28px"><a href="#/">Home</a><span aria-hidden="true">/</span><a href="#/shop">Shop</a><span aria-hidden="true">/</span><span>Reusable Fur Lifter</span></nav>
   <div class="product">
@@ -1041,15 +1103,15 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
       </div>
       <div class="delivered"><strong data-bb-delivered>$25.98 delivered ($19.99 + $5.99 shipping)</strong>
         <span class="muted">Sales tax, if any, is added at checkout.</span></div>
-      <p class="arrives"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1F2D33" stroke-width="1.6" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><circle cx="15.5" cy="15" r="1.6" fill="#E9B04F" stroke="none"/></svg><span>Arrives <strong data-delivery>in 4 to 10 business days</strong> if you order today.</span></p>
+      <p class="arrives"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><circle cx="15.5" cy="15" r="1.6" fill="#0071E3" stroke="none"/></svg><span>Arrives <strong data-delivery>in 4 to 10 business days</strong> if you order today.</span></p>
       <div class="buy-actions">
         <button type="button" class="btn btn--ghost" data-bb-add data-add="fur-lifter">Add to cart</button>
         <button type="button" class="btn" data-bb-buy data-buy="fur-lifter">Buy now</button>
       </div>
       <ul class="trust">
-        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1F2D33" stroke-width="1.6" stroke-linejoin="round"><path d="M2.5 6.5h11v9h-11zM13.5 9.5h4l3 3v3h-7z"/><circle cx="7" cy="17" r="1.8" fill="#E9B04F"/><circle cx="17" cy="17" r="1.8" fill="#E9B04F"/></svg><span data-bb-ship>Ships in 3 business days for $5.99, tracking by email</span></li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1F2D33" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7 5 11l4 4"/><path d="M5 11h9a5 5 0 0 1 0 10h-3"/></svg><span>30-day returns from delivery. <a href="#/policies/returns">Return policy</a></span></li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1F2D33" stroke-width="1.6" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/><circle cx="12" cy="15.5" r="1.5" fill="#E9B04F" stroke="none"/></svg><span>Secure checkout by Stripe</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linejoin="round"><path d="M2.5 6.5h11v9h-11zM13.5 9.5h4l3 3v3h-7z"/><circle cx="7" cy="17" r="1.8" fill="#0071E3"/><circle cx="17" cy="17" r="1.8" fill="#0071E3"/></svg><span data-bb-ship>Ships in 3 business days for $5.99, tracking by email</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7 5 11l4 4"/><path d="M5 11h9a5 5 0 0 1 0 10h-3"/></svg><span>30-day returns from delivery. <a href="#/policies/returns">Return policy</a></span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/><circle cx="12" cy="15.5" r="1.5" fill="#0071E3" stroke="none"/></svg><span>Secure checkout by Stripe</span></li>
       </ul>
       <div class="upsell">
       <img data-img="bundle" alt="" width="1000" height="1000" loading="lazy" decoding="async">
@@ -1061,7 +1123,7 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
   </div>
 </div>
 
-<section class="section section--tint" aria-labelledby="details-title">
+<section class="section section--tint" id="specs" aria-labelledby="details-title">
   <div class="wrap detail-grid">
     <div><h2 id="details-title">Specs</h2><table class="specs"><tbody><tr><th scope="row">Type</th><td>Reusable pet hair remover</td></tr><tr><th scope="row">Refills</th><td>None needed</td></tr><tr><th scope="row">Use on</th><td>Couches, bedding, cat trees and other everyday fabrics</td></tr><tr><th scope="row">Shipping</th><td>$5.99 to the 48 contiguous US states, or free in the bundle</td></tr></tbody></table></div>
     <div><h2>Fit and safety</h2><div class="safety">
@@ -1076,7 +1138,7 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
   </div>
 </section>
 
-<section class="section" aria-labelledby="pfaq-title">
+<section class="section" id="questions" aria-labelledby="pfaq-title">
   <div class="narrow">
     <h2 id="pfaq-title">Questions</h2>
     <div class="faq"><details><summary>How does the Fur Lifter work?</summary><div class="answer"><p>Run it back and forth over couches, bedding or a cat tree and it lifts the loose fur. It's reusable, so there are no sticky sheets or refills to buy.</p></div></details><details><summary>Is the Fur Lifter safe on every fabric?</summary><div class="answer"><p>It's made for upholstery, bedding and other everyday fabrics. On delicate fabrics like silk or velvet, try a hidden spot first. It's not meant for brushing your cat.</p></div></details><details><summary>How long does shipping take?</summary><div class="answer"><p>Orders ship within 3 business days, and delivery takes 3 to 7 business days after that. You'll get a tracking number by email. We ship to the 48 contiguous US states.</p></div></details><details><summary>What if it doesn't work for us?</summary><div class="answer"><p>You have 30 days from delivery to send it back. Email <a href="mailto:perchandpurr@gmail.com">perchandpurr@gmail.com</a> and you'll hear back within one business day. The <a href="#/policies/returns">return policy</a> has the details.</p></div></details></div>
@@ -1087,24 +1149,28 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
 <section class="section section--tint" aria-labelledby="more-title">
   <div class="wrap">
     <h2 id="more-title">You might also like</h2>
-    <div class="grid-3" style="margin-top:28px"><article class="card">
+    <div class="grid-3" style="margin-top:28px"><article class="card" data-reveal>
   <a class="card-media" href="#/window-perch" tabindex="-1" aria-hidden="true"><img data-img="photo-two-cats" alt="" width="1000" height="1000" loading="lazy" decoding="async"></a>
   <div class="card-body">
     <h3><a href="#/window-perch">Cordless Window Perch</a></h3>
     <p>A sturdy window seat that holds on with four suction cups. No cords, no drilling.</p>
-    <div class="card-foot">
-      <div><span class="price">$32.00</span><br><span class="ship-note">Free shipping</span></div>
-      <button type="button" class="btn btn--small btn--ghost" data-add="window-perch" aria-label="Add Cordless Window Perch to cart">Add to cart</button>
+    <p class="price">$32.00</p>
+    <p class="ship-note">Free shipping</p>
+    <div class="card-actions">
+      <button type="button" class="btn btn--small" data-add="window-perch" aria-label="Add Cordless Window Perch to cart">Add to cart</button>
+      <a class="link-more" href="#/window-perch" aria-label="Learn more about Cordless Window Perch">Learn more</a>
     </div>
   </div>
-</article><article class="card">
+</article><article class="card" data-reveal>
   <span class="tag">Gift-ready</span><a class="card-media" href="#/cozy-window-bundle" tabindex="-1" aria-hidden="true"><img data-img="bundle" alt="" width="1000" height="1000" loading="lazy" decoding="async"></a>
   <div class="card-body">
     <h3><a href="#/cozy-window-bundle">The Cozy Window Bundle</a></h3>
     <p>The perch, the Fur Lifter and a spare fleece pad, in a gift-ready box.</p>
-    <div class="card-foot">
-      <div><span class="price">$49.99 <s>$51.99</s></span><br><span class="ship-note">Free shipping</span></div>
-      <button type="button" class="btn btn--small btn--ghost" data-add="cozy-window-bundle" aria-label="Add The Cozy Window Bundle to cart">Add to cart</button>
+    <p class="price">$49.99 <s>$51.99</s></p>
+    <p class="ship-note">Free shipping</p>
+    <div class="card-actions">
+      <button type="button" class="btn btn--small" data-add="cozy-window-bundle" aria-label="Add The Cozy Window Bundle to cart">Add to cart</button>
+      <a class="link-more" href="#/cozy-window-bundle" aria-label="Learn more about The Cozy Window Bundle">Learn more</a>
     </div>
   </div>
 </article></div>
@@ -1756,8 +1822,23 @@ const PAYMENT_LINKS = {
     }
   }
 
+  /* ---------- reveal sections as they scroll into view ---------- */
+  const revealer = "IntersectionObserver" in window
+    ? new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) { en.target.classList.add("is-in"); revealer.unobserve(en.target); }
+      });
+    }, { rootMargin: "0px 0px -8% 0px" })
+    : null;
+  if (revealer) doc.documentElement.classList.add("js-reveal");
+  function initReveal(scope) {
+    if (!revealer) return;
+    scope.querySelectorAll("[data-reveal]:not(.is-in)").forEach((el) => revealer.observe(el));
+  }
+
   /* ---------- per-page setup (runs on load, and on every route in the single file) ---------- */
   function initPage(scope) {
+    initReveal(scope);
     if (SINGLE) {
       scope.querySelectorAll("img[data-img]").forEach((img) => { img.src = imgSrc(img.dataset.img); });
     }

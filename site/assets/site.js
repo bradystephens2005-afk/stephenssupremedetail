@@ -369,8 +369,23 @@ const PAYMENT_LINKS = {
     }
   }
 
+  /* ---------- reveal sections as they scroll into view ---------- */
+  const revealer = "IntersectionObserver" in window
+    ? new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) { en.target.classList.add("is-in"); revealer.unobserve(en.target); }
+      });
+    }, { rootMargin: "0px 0px -8% 0px" })
+    : null;
+  if (revealer) doc.documentElement.classList.add("js-reveal");
+  function initReveal(scope) {
+    if (!revealer) return;
+    scope.querySelectorAll("[data-reveal]:not(.is-in)").forEach((el) => revealer.observe(el));
+  }
+
   /* ---------- per-page setup (runs on load, and on every route in the single file) ---------- */
   function initPage(scope) {
+    initReveal(scope);
     if (SINGLE) {
       scope.querySelectorAll("img[data-img]").forEach((img) => { img.src = imgSrc(img.dataset.img); });
     }

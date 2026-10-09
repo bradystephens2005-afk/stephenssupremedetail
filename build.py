@@ -122,20 +122,20 @@ esc = html.escape
 
 # ---------------------------------------------------------------- icons
 ICON = {
-    "check": '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FBF1DC" stroke="#E9B04F" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1F2D33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-    "no": '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#EBF0F3"/><path d="m8.5 8.5 7 7m0-7-7 7" stroke="#66767D" stroke-width="2" stroke-linecap="round"/></svg>',
-    "truck": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1F2D33" stroke-width="1.6" stroke-linejoin="round"><path d="M2.5 6.5h11v9h-11zM13.5 9.5h4l3 3v3h-7z"/><circle cx="7" cy="17" r="1.8" fill="#E9B04F"/><circle cx="17" cy="17" r="1.8" fill="#E9B04F"/></svg>',
-    "return": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1F2D33" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7 5 11l4 4"/><path d="M5 11h9a5 5 0 0 1 0 10h-3"/></svg>',
-    "lock": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1F2D33" stroke-width="1.6" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/><circle cx="12" cy="15.5" r="1.5" fill="#E9B04F" stroke="none"/></svg>',
-    "calendar": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1F2D33" stroke-width="1.6" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><circle cx="15.5" cy="15" r="1.6" fill="#E9B04F" stroke="none"/></svg>',
+    "check": '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E8F2FC" stroke="#0071E3" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    "no": '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#F5F5F7"/><path d="m8.5 8.5 7 7m0-7-7 7" stroke="#86868B" stroke-width="2" stroke-linecap="round"/></svg>',
+    "truck": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linejoin="round"><path d="M2.5 6.5h11v9h-11zM13.5 9.5h4l3 3v3h-7z"/><circle cx="7" cy="17" r="1.8" fill="#0071E3"/><circle cx="17" cy="17" r="1.8" fill="#0071E3"/></svg>',
+    "return": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7 5 11l4 4"/><path d="M5 11h9a5 5 0 0 1 0 10h-3"/></svg>',
+    "lock": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/><circle cx="12" cy="15.5" r="1.5" fill="#0071E3" stroke="none"/></svg>',
+    "calendar": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><circle cx="15.5" cy="15" r="1.6" fill="#0071E3" stroke="none"/></svg>',
     "cart": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2.2l2.1 11h10.4l2-7.5H6.2"/><circle cx="9.5" cy="19" r="1.4"/><circle cx="16.5" cy="19" r="1.4"/></svg>',
     "menu": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
     "close": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg>',
-    "mail": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1F2D33" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.5 6.5 8.5 7 8.5-7"/></svg>',
-    "quote": '<svg viewBox="0 0 56 56" aria-hidden="true"><path d="M8 50V24a20 20 0 0 1 40 0v26Z" fill="#EBF0F3" stroke="#C5D4DC" stroke-width="2.5"/><path d="M28 4v46M8 32h40" stroke="#C5D4DC" stroke-width="2.5"/><circle cx="40" cy="14" r="5" fill="#E9B04F" opacity=".7"/></svg>',
+    "mail": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.5 6.5 8.5 7 8.5-7"/></svg>',
+    "quote": '<svg viewBox="0 0 56 56" aria-hidden="true"><path d="M8 50V24a20 20 0 0 1 40 0v26Z" fill="#F5F5F7" stroke="#C5D4DC" stroke-width="2.5"/><path d="M28 4v46M8 32h40" stroke="#C5D4DC" stroke-width="2.5"/><circle cx="40" cy="14" r="5" fill="#0071E3" opacity=".7"/></svg>',
 }
 
-BRAND_MARK = ('<svg viewBox="0 0 30 34" aria-hidden="true"><path d="M3 32V15a12 12 0 0 1 24 0v17Z" fill="#DCE6EC" stroke="#1F2D33" stroke-width="2"/>'
+BRAND_MARK = ('<svg viewBox="0 0 30 34" aria-hidden="true"><path d="M3 32V15a12 12 0 0 1 24 0v17Z" fill="#DCE6EC" stroke="#1D1D1F" stroke-width="2"/>'
               '<circle cx="20" cy="11" r="3.5" fill="#E9B04F"/><path d="M15 3v29M3 20h24" stroke="#1F2D33" stroke-width="1.6"/>'
               '<path d="M1 32.5h28" stroke="#1F2D33" stroke-width="2.4" stroke-linecap="round"/></svg>')
 
@@ -145,7 +145,7 @@ FAVICON = ("data:image/svg+xml," +
 
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
          '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800&family=Young+Serif&display=swap">')
+         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">')
 
 
 # ---------------------------------------------------------------- context
@@ -308,14 +308,16 @@ def product_card(ctx, pid, eager=False):
     compare = f" <s>{money(p['compare'])}</s>" if p["compare"] else ""
     ship = "Free shipping" if not p["ship"] else f"+ {money(p['ship'])} shipping"
     tag = '<span class="tag">Gift-ready</span>' if pid == "cozy-window-bundle" else ""
-    return f"""<article class="card">
+    return f"""<article class="card" data-reveal>
   {tag}<a class="card-media" href="{ctx.link(p['path'])}" tabindex="-1" aria-hidden="true">{ctx.img(p['images'][0], alt='', eager=eager)}</a>
   <div class="card-body">
     <h3><a href="{ctx.link(p['path'])}">{p['name']}</a></h3>
     <p>{p['card']}</p>
-    <div class="card-foot">
-      <div><span class="price">{money(p['price'])}{compare}</span><br><span class="ship-note">{ship}</span></div>
-      <button type="button" class="btn btn--small btn--ghost" data-add="{pid}" aria-label="Add {p['name']} to cart">Add to cart</button>
+    <p class="price">{money(p['price'])}{compare}</p>
+    <p class="ship-note">{ship}</p>
+    <div class="card-actions">
+      <button type="button" class="btn btn--small" data-add="{pid}" aria-label="Add {p['name']} to cart">Add to cart</button>
+      <a class="link-more" href="{ctx.link(p['path'])}" aria-label="Learn more about {p['name']}">Learn more</a>
     </div>
   </div>
 </article>"""
@@ -380,9 +382,9 @@ def faq_block(ctx, tag, limit=None):
 def signup_section(ctx, source):
     return f"""<section class="section" aria-labelledby="signup-title">
   <div class="wrap">
-    <div class="signup">
+    <div class="signup" data-reveal>
       <div>
-        <h2 id="signup-title">Join the launch list</h2>
+        <h2 id="signup-title">Join the launch list.</h2>
         <p class="muted" style="margin:0">One email when new things are ready to order, and a short note now and then. No spam, and you can leave any time.</p>
       </div>
       <form {ctx.netlify('launch-list')} data-done="{LAUNCH_DONE}">
@@ -402,23 +404,6 @@ def page_head(title, lede, crumbs=None):
 
 # ---------------------------------------------------------------- pages
 def page_home(ctx):
-    perch = ctx.link("/window-perch/")
-    features = [
-        ("photo-plush", "Holds on without cords or drilling",
-         "Most window hammocks hang from steel cables. This one uses a rigid, painted stainless steel frame and four suction cups that press flat against the glass. Nothing dangles, nothing gets screwed into your window frame, and it comes off clean.",
-         "Tested to 40 lb on clean, smooth glass. Press-test it by hand before your cat hops up."),
-        ("perch-cover", "A cover for every season",
-         "The cover zips off and flips over. Fleece side up for a warm spot on winter mornings, mesh side up so it stays cool when the sun is strong. Unzip it to wash it.",
-         None),
-        ("perch-folded", "Folds flat when you want the window back",
-         "Pop the cups off and the perch folds flat, so it slides behind a bookcase or into a moving box. Putting it back up takes about a minute.",
-         None),
-    ]
-    feat_html = "".join(f"""<div class="feature">
-      <div class="feature-media">{ctx.img(img)}</div>
-      <div><h3>{t}</h3><p>{body}</p>{f'<p class="note">{note}</p>' if note else ''}</div>
-    </div>""" for img, t, body, note in features)
-
     yes = lambda t: f'<span class="yes">{ICON["check"]}<span>{t}</span></span>'
     no = lambda t: f'<span class="no">{ICON["no"]}<span>{t}</span></span>'
     rows = [
@@ -432,28 +417,26 @@ def page_home(ctx):
     table_rows = "".join(
         f'<tr><th scope="row">{r[0]}</th><td class="ours">{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td></tr>' for r in rows
     )
+    perch, bundle = ctx.link("/window-perch/"), ctx.link("/cozy-window-bundle/")
 
     return f"""
 <section class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <h1>The window seat your cat already wants.</h1>
-      <p class="lede">A cordless perch that holds on with four suction cups and a stainless steel frame. Tested to 40 lb, up in about a minute, and the cover zips off for washing.</p>
-      <div class="btn-row">
-        <button type="button" class="btn" data-buy="window-perch">Buy the perch, $32</button>
-        <a class="btn btn--ghost" href="{ctx.link('/cozy-window-bundle/')}">See the bundle</a>
-      </div>
-      {checks(["Free shipping in the lower 48", "30-day returns from delivery", "Secure checkout by Stripe"])}
+  <div class="wrap hero-copy" data-reveal>
+    <p class="eyebrow">Cordless Window Perch</p>
+    <h1>The window seat your cat already wants.</h1>
+    <p class="hero-sub">Four suction cups. Stainless steel. Tested to 40&nbsp;lb.</p>
+    <p class="hero-price">$32 with free shipping.</p>
+    <div class="btn-row btn-row--center">
+      <button type="button" class="btn" data-buy="window-perch">Buy the perch, $32</button>
+      <a class="btn btn--ghost" href="{bundle}">See the bundle</a>
     </div>
-    <div class="arch-stage">
-      <div class="arch"><div class="arch-inner">{ctx.img('photo-ragdoll', eager=True)}</div></div>
-      <div class="arch-sill" aria-hidden="true"></div>
-    </div>
+    {checks(["Free shipping in the lower 48", "30-day returns from delivery", "Secure checkout by Stripe"], inline=True)}
   </div>
+  <div class="wrap hero-media" data-reveal>{ctx.img('photo-ragdoll', eager=True)}</div>
 </section>
 
 <section class="spec-strip" aria-label="At a glance">
-  <div class="wrap spec-grid">
+  <div class="wrap spec-grid" data-reveal>
     <div class="spec"><b>40 lb</b><span>tested load</span></div>
     <div class="spec"><b>4 cups</b><span>suction grip</span></div>
     <div class="spec"><b>1 minute</b><span>to set up</span></div>
@@ -461,25 +444,48 @@ def page_home(ctx):
   </div>
 </section>
 
-<section class="section" aria-labelledby="why-title">
+<section class="section section--tint" aria-labelledby="why-title">
   <div class="wrap">
-    <div class="section-head"><h2 id="why-title">Made for the sunny spot</h2>
+    <div class="section-head center" data-reveal><h2 id="why-title">Made for the sunny spot.</h2>
       <p>Cats go where the light is. This puts a soft, steady seat right at the glass, without cables, tools or a tower in the corner.</p></div>
-    {feat_html}
+    <div class="tiles">
+      <article class="tile tile--wide" data-reveal>
+        <div class="tile-copy">
+          <h3>Holds on without cords or drilling.</h3>
+          <p>A rigid, painted stainless steel frame and four suction cups pressed flat against the glass. Nothing dangles, nothing gets screwed into your window frame, and it comes off clean.</p>
+          <p class="tile-note">Tested to 40 lb on clean, smooth glass. Press-test it by hand before your cat hops up.</p>
+        </div>
+        <div class="tile-media">{ctx.img('photo-plush')}</div>
+      </article>
+      <article class="tile" data-reveal>
+        <div class="tile-copy">
+          <h3>A cover for every season.</h3>
+          <p>Fleece side up for warm winter mornings. Mesh side up when the sun is strong. It zips off to wash.</p>
+        </div>
+        <div class="tile-media">{ctx.img('perch-cover')}</div>
+      </article>
+      <article class="tile" data-reveal>
+        <div class="tile-copy">
+          <h3>Folds flat when you want the window back.</h3>
+          <p>Pop the cups off and it slides behind a bookcase. Back up in about a minute.</p>
+        </div>
+        <div class="tile-media">{ctx.img('perch-folded')}</div>
+      </article>
+    </div>
   </div>
 </section>
 
-<section class="section section--tint" aria-labelledby="shop-title">
+<section class="section" aria-labelledby="shop-title">
   <div class="wrap">
-    <div class="section-head"><h2 id="shop-title">Shop</h2><p>The perch on its own, the Fur Lifter on its own, or both in a gift-ready box.</p></div>
+    <div class="section-head center" data-reveal><h2 id="shop-title">Which one is right for you?</h2><p>The perch on its own, the Fur Lifter on its own, or both in a gift-ready box.</p></div>
     <div class="grid-3">{"".join(product_card(ctx, pid) for pid in ORDER)}</div>
   </div>
 </section>
 
-<section class="section" aria-labelledby="setup-title">
+<section class="section section--tint" aria-labelledby="setup-title">
   <div class="wrap">
-    <div class="section-head"><h2 id="setup-title">Set up in three steps</h2><p>No tools. The <a href="{ctx.link('/help/', 'setup')}">full setup guide</a> has extra tips.</p></div>
-    <ol class="steps">
+    <div class="section-head center" data-reveal><h2 id="setup-title">Up in three steps.</h2><p>No tools. The <a href="{ctx.link('/help/', 'setup')}">full setup guide</a> has extra tips.</p></div>
+    <ol class="steps" data-reveal>
       <li><h3>Clean the glass</h3><p>Wipe the pane with glass cleaner or rubbing alcohol, then dry it. Rinse the cups in warm water.</p></li>
       <li><h3>Press on the cups</h3><p>Hold the perch level at your cat's height and press each cup flat until the air is out.</p></li>
       <li><h3>Test, then invite</h3><p>Press down hard on the bed with your hand. If nothing moves, it's ready for your cat.</p></li>
@@ -487,50 +493,44 @@ def page_home(ctx):
   </div>
 </section>
 
-<section class="section section--tint" aria-labelledby="compare-title">
+<section class="section section--dark" aria-labelledby="compare-title">
   <div class="wrap">
-    <div class="section-head"><h2 id="compare-title">Why cordless</h2><p>How the perch compares with the two usual ways to give a cat a view.</p></div>
-    <div class="table-card">
+    <div class="section-head center" data-reveal><h2 id="compare-title">Why cordless.</h2><p>How the perch compares with the two usual ways to give a cat a view.</p></div>
+    <div class="table-card" data-reveal>
       <table class="compare">
         <thead><tr><th scope="col"><span class="visually-hidden">Feature</span></th><th scope="col" class="ours">Cordless perch</th><th scope="col">Corded hammock</th><th scope="col">Cat tree</th></tr></thead>
         <tbody>{table_rows}</tbody>
       </table>
     </div>
-    <p class="table-note">Hammock and cat tree figures are typical for each type, not any one brand.</p>
+    <p class="table-note center">Hammock and cat tree figures are typical for each type, not any one brand.</p>
+    <div class="btn-row btn-row--center" style="margin-top:28px">
+      <a class="btn" href="{perch}">Get the perch</a>
+    </div>
   </div>
 </section>
 
-<section class="section" aria-labelledby="promise-title">
-  <div class="wrap">
-    <div class="promise">
-      <svg class="promise-mark" viewBox="0 0 72 80" aria-hidden="true"><path d="M4 78V36a32 32 0 0 1 64 0v42Z" fill="none" stroke="#C5D4DC" stroke-width="3"/><path d="M36 4v74M4 50h64" stroke="#C5D4DC" stroke-width="2.4"/><circle cx="52" cy="26" r="7" fill="#E9B04F"/></svg>
-      <div>
-        <h2 id="promise-title">If it doesn't suit your window, send it back.</h2>
-        <p>You have 30 days from delivery. Email <a href="mailto:{EMAIL}">{EMAIL}</a> and you'll hear back within one business day from Brady, who runs the shop.</p>
-      </div>
-      <a class="btn" href="{ctx.link('/policies/', 'returns')}">Read the return policy</a>
-    </div>
+<section class="section promise-section" aria-labelledby="promise-title">
+  <div class="narrow center" data-reveal>
+    <h2 id="promise-title">If it doesn't suit your window, send it back.</h2>
+    <p class="lede center">You have 30 days from delivery. Email <a href="mailto:{EMAIL}">{EMAIL}</a> and you'll hear back within one business day from Brady, who runs the shop.</p>
+    <a class="link-more" href="{ctx.link('/policies/', 'returns')}">Read the return policy</a>
   </div>
 </section>
 
 <section class="section section--tint" aria-labelledby="faq-title" id="faq">
   <div class="narrow">
-    <h2 id="faq-title">Questions</h2>
+    <h2 id="faq-title" class="center">Questions.</h2>
     {faq_block(ctx, 'home')}
-    <p style="margin-top:20px">More answers in <a href="{ctx.link('/help/', 'faq')}">Help</a>.</p>
+    <p class="center" style="margin-top:24px"><a class="link-more" href="{ctx.link('/help/', 'faq')}">More answers in Help</a></p>
   </div>
 </section>
 
 <section class="section" aria-labelledby="reviews-title">
-  <div class="wrap">
-    <div class="reviews-empty">
-      {ICON['quote']}
-      <div>
-        <h2 id="reviews-title">No reviews yet</h2>
-        <p>We're a new shop, so there's nothing to show here yet, and we won't fill the space with made-up quotes or borrowed star ratings. When customers tell us how their perch is working, good or bad, their reviews will go here.</p>
-        <p style="margin:0">Already have one? <a href="{ctx.link('/thank-you/', 'review')}">Leave a review</a>.</p>
-      </div>
-    </div>
+  <div class="narrow center reviews-empty" data-reveal>
+    {ICON['quote']}
+    <h2 id="reviews-title">No reviews yet.</h2>
+    <p>We're a new shop, so there's nothing to show here yet, and we won't fill the space with made-up quotes or borrowed star ratings. When customers tell us how their perch is working, good or bad, their reviews will go here.</p>
+    <a class="link-more" href="{ctx.link('/thank-you/', 'review')}">Already have one? Leave a review</a>
   </div>
 </section>
 {signup_section(ctx, 'home')}
@@ -644,6 +644,16 @@ def product_page(ctx, pid):
     others = [o for o in ORDER if o != pid]
 
     return f"""
+<div class="product-nav" aria-label="{p['name']}">
+  <div class="wrap product-nav-row">
+    <span class="product-nav-name">{p['name']}</span>
+    <nav class="product-nav-links" aria-label="On this page">
+      <a href="{ctx.link(p['path'], 'specs')}">Specs</a>
+      <a href="{ctx.link(p['path'], 'questions')}">Questions</a>
+    </nav>
+    <button type="button" class="btn btn--small" data-bb-buy data-buy="{pid}">Buy</button>
+  </div>
+</div>
 <div class="wrap">
   <nav class="crumbs" aria-label="Breadcrumb" style="padding-top:28px"><a href="{ctx.link('/')}">Home</a><span aria-hidden="true">/</span><a href="{ctx.link('/shop/')}">Shop</a><span aria-hidden="true">/</span><span>{p['name']}</span></nav>
   <div class="product">
@@ -678,14 +688,14 @@ def product_page(ctx, pid):
   </div>
 </div>
 
-<section class="section section--tint" aria-labelledby="details-title">
+<section class="section section--tint" id="specs" aria-labelledby="details-title">
   <div class="wrap detail-grid">
     <div><h2 id="details-title">Specs</h2>{specs_table(rows)}</div>
     <div><h2>{safety_title}</h2>{safety}</div>
   </div>
 </section>
 
-<section class="section" aria-labelledby="pfaq-title">
+<section class="section" id="questions" aria-labelledby="pfaq-title">
   <div class="narrow">
     <h2 id="pfaq-title">Questions</h2>
     {faq_block(ctx, faq_tag)}
