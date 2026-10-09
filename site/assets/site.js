@@ -135,7 +135,7 @@ const PAYMENT_LINKS = {
     if (has("window-perch") && has("fur-lifter")) {
       const b = CATALOG[BUNDLE];
       const separate = CATALOG["window-perch"].price + CATALOG["fur-lifter"].price + CATALOG["fur-lifter"].ship;
-      body.insertAdjacentHTML("beforeend", `<div class="cart-tip">
+      body.insertAdjacentHTML("afterbegin", `<div class="cart-tip">
         <p><strong>Better as a bundle.</strong> The Cozy Window Bundle has the perch and the Fur Lifter, plus a spare fleece pad and a gift-ready box, for ${money(b.price)} with free shipping. Bought separately, those two come to ${money(separate)}.</p>
         <button type="button" class="btn btn--small" data-switch-bundle>Switch to the bundle</button></div>`);
     }

@@ -73,7 +73,7 @@ PRODUCTS = {
         name="Reusable Fur Lifter",
         path="/fur-lifter/",
         price=1999, ship=599, compare=None,
-        option="Reusable Fur Lifter, $19.99 + $5.99 shipping",
+        option="Reusable Fur Lifter, $19.99",
         card="Lifts loose fur from couches, beds and cat trees. Reusable, so no sticky refills.",
         sub="A reusable pet hair remover for couches, beds and cat trees. No sticky sheets, no refills to buy.",
         images=["fur-lifter", "fur-lifter-couch"],
@@ -83,7 +83,7 @@ PRODUCTS = {
         name="The Cozy Window Bundle",
         path="/cozy-window-bundle/",
         price=4999, ship=0, compare=5199,
-        option="The Cozy Window Bundle, $49.99",
+        option="Cozy Window Bundle, $49.99",
         card="The perch, the Fur Lifter and a spare fleece pad, in a gift-ready box.",
         sub="Everything for a cat's window seat in one gift-ready box: the perch, the Fur Lifter and a spare fleece pad for laundry day.",
         images=["bundle", "photo-ragdoll", "gift-box", "perch-cover", "fur-lifter"],
@@ -205,7 +205,7 @@ def header(ctx, page):
     </nav>
     <div class="header-actions">
       <button type="button" class="icon-btn" data-open-cart data-cart-label aria-haspopup="dialog" aria-expanded="false" aria-label="Cart, 0 items">{ICON['cart']}<span class="cart-label">Cart</span><span class="cart-count" data-cart-count data-count="0">0</span></button>
-      <button type="button" class="icon-btn menu-btn" data-menu aria-controls="site-nav" aria-expanded="false">{ICON['menu']}<span class="visually-hidden">Menu</span></button>
+      <button type="button" class="icon-btn menu-btn" data-menu aria-controls="site-nav" aria-expanded="false"><span class="i-open">{ICON['menu']}</span><span class="i-close">{ICON['close']}</span><span class="visually-hidden">Menu</span></button>
     </div>
   </div>
 </header>"""
@@ -307,10 +307,11 @@ def product_card(ctx, pid, eager=False):
     p = PRODUCTS[pid]
     compare = f" <s>{money(p['compare'])}</s>" if p["compare"] else ""
     ship = "Free shipping" if not p["ship"] else f"+ {money(p['ship'])} shipping"
-    tag = '<span class="tag">Gift-ready</span>' if pid == "cozy-window-bundle" else ""
+    tag = '<p class="tag">Gift-ready</p>' if pid == "cozy-window-bundle" else '<p class="tag" aria-hidden="true">&nbsp;</p>'
     return f"""<article class="card" data-reveal>
-  {tag}<a class="card-media" href="{ctx.link(p['path'])}" tabindex="-1" aria-hidden="true">{ctx.img(p['images'][0], alt='', eager=eager)}</a>
+  <a class="card-media" href="{ctx.link(p['path'])}" tabindex="-1" aria-hidden="true">{ctx.img(p['images'][0], alt='', eager=eager)}</a>
   <div class="card-body">
+    {tag}
     <h3><a href="{ctx.link(p['path'])}">{p['name']}</a></h3>
     <p>{p['card']}</p>
     <p class="price">{money(p['price'])}{compare}</p>
@@ -705,8 +706,8 @@ def product_page(ctx, pid):
 
 <section class="section section--tint" aria-labelledby="more-title">
   <div class="wrap">
-    <h2 id="more-title">You might also like</h2>
-    <div class="grid-3" style="margin-top:28px">{"".join(product_card(ctx, o) for o in others)}</div>
+    <h2 id="more-title" class="center">You might also like.</h2>
+    <div class="grid-3 grid-3--two" style="margin-top:28px">{"".join(product_card(ctx, o) for o in others)}</div>
   </div>
 </section>
 

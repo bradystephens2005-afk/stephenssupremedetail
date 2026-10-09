@@ -32,7 +32,7 @@
     </nav>
     <div class="header-actions">
       <button type="button" class="icon-btn" data-open-cart data-cart-label aria-haspopup="dialog" aria-expanded="false" aria-label="Cart, 0 items"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2.2l2.1 11h10.4l2-7.5H6.2"/><circle cx="9.5" cy="19" r="1.4"/><circle cx="16.5" cy="19" r="1.4"/></svg><span class="cart-label">Cart</span><span class="cart-count" data-cart-count data-count="0">0</span></button>
-      <button type="button" class="icon-btn menu-btn" data-menu aria-controls="site-nav" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span class="visually-hidden">Menu</span></button>
+      <button type="button" class="icon-btn menu-btn" data-menu aria-controls="site-nav" aria-expanded="false"><span class="i-open"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></span><span class="i-close"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg></span><span class="visually-hidden">Menu</span></button>
     </div>
   </div>
 </header>
@@ -42,6 +42,7 @@
   <div class="grid-3"><article class="card" data-reveal>
   <a class="card-media" href="/window-perch/" tabindex="-1" aria-hidden="true"><img src="/images/photo-two-cats.jpg" alt="" width="1000" height="1000" fetchpriority="high" decoding="async"></a>
   <div class="card-body">
+    <p class="tag" aria-hidden="true">&nbsp;</p>
     <h3><a href="/window-perch/">Cordless Window Perch</a></h3>
     <p>A sturdy window seat that holds on with four suction cups. No cords, no drilling.</p>
     <p class="price">$32.00</p>
@@ -52,8 +53,9 @@
     </div>
   </div>
 </article><article class="card" data-reveal>
-  <span class="tag">Gift-ready</span><a class="card-media" href="/cozy-window-bundle/" tabindex="-1" aria-hidden="true"><img src="/images/bundle.svg" alt="" width="1000" height="1000" fetchpriority="high" decoding="async"></a>
+  <a class="card-media" href="/cozy-window-bundle/" tabindex="-1" aria-hidden="true"><img src="/images/bundle.svg" alt="" width="1000" height="1000" fetchpriority="high" decoding="async"></a>
   <div class="card-body">
+    <p class="tag">Gift-ready</p>
     <h3><a href="/cozy-window-bundle/">The Cozy Window Bundle</a></h3>
     <p>The perch, the Fur Lifter and a spare fleece pad, in a gift-ready box.</p>
     <p class="price">$49.99 <s>$51.99</s></p>
@@ -66,6 +68,7 @@
 </article><article class="card" data-reveal>
   <a class="card-media" href="/fur-lifter/" tabindex="-1" aria-hidden="true"><img src="/images/fur-lifter.svg" alt="" width="1000" height="1000" fetchpriority="high" decoding="async"></a>
   <div class="card-body">
+    <p class="tag" aria-hidden="true">&nbsp;</p>
     <h3><a href="/fur-lifter/">Reusable Fur Lifter</a></h3>
     <p>Lifts loose fur from couches, beds and cat trees. Reusable, so no sticky refills.</p>
     <p class="price">$19.99</p>

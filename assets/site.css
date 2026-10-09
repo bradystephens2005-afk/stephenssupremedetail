@@ -91,7 +91,7 @@ p { margin: 0 0 1em; }
   min-height: 44px; padding: 11px 22px;
   border: 1px solid var(--blue); border-radius: 980px;
   background: var(--blue); color: #fff;
-  font: 400 1.0625rem/1.2 var(--sans); letter-spacing: -.022em; text-decoration: none; cursor: pointer;
+  font: 400 1.0625rem/1.2 var(--sans); letter-spacing: -.022em; text-align: center; text-decoration: none; cursor: pointer;
   transition: background .2s, color .2s, border-color .2s;
 }
 .btn:hover { background: var(--blue-hover); text-decoration: none; }
@@ -196,7 +196,7 @@ p { margin: 0 0 1em; }
 .card-actions { margin-top: auto; padding-top: 18px; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px 20px; }
 .price s { font-weight: 400; color: var(--ink-faint); margin-left: 6px; font-size: .9em; }
 .ship-note { font-size: .85rem; color: var(--ink-faint); }
-.tag { position: absolute; z-index: 1; top: 18px; left: 50%; transform: translateX(-50%); color: #B64400; font-size: .78rem; font-weight: 600; }
+.card .tag { order: -1; margin: 0 0 2px; color: #B64400; font-size: .8rem; font-weight: 600; min-height: 1.2em; }
 
 /* Steps */
 .steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; counter-reset: step; }
@@ -437,7 +437,7 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
 .cart-empty svg { width: 56px; height: 56px; margin: 0 auto 16px; }
 .sum-row { display: flex; justify-content: space-between; gap: 12px; }
 .sum-row.total { font-weight: 600; font-size: 1.15rem; }
-.cart-tip { padding: 16px 18px; border-radius: var(--r); background: var(--gray); font-size: .92rem; margin-top: 18px; }
+.cart-tip { padding: 14px 16px; border-radius: var(--r); background: var(--gray); font-size: .9rem; margin-top: 14px; }
 .cart-tip p { margin: 0 0 10px; }
 .cart-note { font-size: .82rem; color: var(--ink-faint); margin: 0; }
 .pay-list { display: grid; gap: 8px; }
@@ -489,4 +489,33 @@ select.input { appearance: none; padding-right: 44px; background-image: linear-g
   .thumbs { gap: 8px; }
   .calc { grid-template-columns: 1fr 1fr; }
   .header-row { gap: 12px; }
+}
+
+/* QA fixes */
+.section--tint .card { background: var(--white); }
+.grid-3--two { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 680px; margin-inline: auto; }
+.card-actions .link-more { font-size: .9rem; }
+.site-footer { border-top: 1px solid var(--line); }
+/* two plain white sections in a row shouldn't double their spacing */
+.section:not(.section--tint):not(.section--dark) + .section:not(.section--tint):not(.section--dark) { padding-top: 0; }
+.drawer-foot { gap: 8px; padding-top: 14px; }
+.panel code { background: var(--white); }
+.i-open { display: inline-flex; }
+.i-close { display: none; }
+[data-menu][aria-expanded="true"] .i-open { display: none; }
+[data-menu][aria-expanded="true"] .i-close { display: inline-flex; }
+.stars-pick { gap: 6px; }
+.stars-pick label { position: relative; padding: 8px 16px; border-radius: 980px; }
+.stars-pick input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.stars-pick label:has(input:focus-visible) { outline: 3px solid rgba(0, 113, 227, .6); outline-offset: 2px; }
+.stars-pick label:has(input:checked) { background: var(--blue); color: #fff; border-color: var(--blue); box-shadow: none; }
+@media (max-width: 860px) {
+  .nav { background: var(--white); box-shadow: 0 30px 60px rgba(0, 0, 0, .12); }
+  .nav a { color: var(--ink-faint); }
+  .nav a[aria-current="page"] { color: var(--ink); }
+}
+@media (max-width: 640px) {
+  .grid-3--two { grid-template-columns: minmax(0, 1fr); }
+  .guide-step img { width: 100%; aspect-ratio: 16 / 10; }
+  .cart-line { padding: 14px 0; }
 }
