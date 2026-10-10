@@ -122,20 +122,21 @@ esc = html.escape
 
 # ---------------------------------------------------------------- icons
 ICON = {
-    "check": '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E8F2FC" stroke="#0071E3" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-    "no": '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#F5F5F7"/><path d="m8.5 8.5 7 7m0-7-7 7" stroke="#86868B" stroke-width="2" stroke-linecap="round"/></svg>',
-    "truck": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linejoin="round"><path d="M2.5 6.5h11v9h-11zM13.5 9.5h4l3 3v3h-7z"/><circle cx="7" cy="17" r="1.8" fill="#0071E3"/><circle cx="17" cy="17" r="1.8" fill="#0071E3"/></svg>',
-    "return": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7 5 11l4 4"/><path d="M5 11h9a5 5 0 0 1 0 10h-3"/></svg>',
-    "lock": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/><circle cx="12" cy="15.5" r="1.5" fill="#0071E3" stroke="none"/></svg>',
-    "calendar": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><circle cx="15.5" cy="15" r="1.6" fill="#0071E3" stroke="none"/></svg>',
+    "check": '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FBF1DC" stroke="#E9B04F" stroke-width="1.5"/><path d="m7.2 12.4 3.1 3L16.8 9" fill="none" stroke="#1F2D33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    "no": '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#EBF0F3"/><path d="m8.5 8.5 7 7m0-7-7 7" stroke="#66767D" stroke-width="2" stroke-linecap="round"/></svg>',
+    "truck": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1F2D33" stroke-width="1.6" stroke-linejoin="round"><path d="M2.5 6.5h11v9h-11zM13.5 9.5h4l3 3v3h-7z"/><circle cx="7" cy="17" r="1.8" fill="#E9B04F"/><circle cx="17" cy="17" r="1.8" fill="#E9B04F"/></svg>',
+    "return": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1F2D33" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7 5 11l4 4"/><path d="M5 11h9a5 5 0 0 1 0 10h-3"/></svg>',
+    "lock": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1F2D33" stroke-width="1.6" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/><circle cx="12" cy="15.5" r="1.5" fill="#E9B04F" stroke="none"/></svg>',
+    "calendar": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1F2D33" stroke-width="1.6" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><circle cx="15.5" cy="15" r="1.6" fill="#E9B04F" stroke="none"/></svg>',
     "cart": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2.2l2.1 11h10.4l2-7.5H6.2"/><circle cx="9.5" cy="19" r="1.4"/><circle cx="16.5" cy="19" r="1.4"/></svg>',
     "menu": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
     "close": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg>',
-    "mail": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.5 6.5 8.5 7 8.5-7"/></svg>',
-    "quote": '<svg viewBox="0 0 56 56" aria-hidden="true"><path d="M8 50V24a20 20 0 0 1 40 0v26Z" fill="#F5F5F7" stroke="#C5D4DC" stroke-width="2.5"/><path d="M28 4v46M8 32h40" stroke="#C5D4DC" stroke-width="2.5"/><circle cx="40" cy="14" r="5" fill="#0071E3" opacity=".7"/></svg>',
+    "mail": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1F2D33" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.5 6.5 8.5 7 8.5-7"/></svg>',
+    "arrow": '<svg class="arrow" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg>',
+    "quote": '<svg viewBox="0 0 56 56" aria-hidden="true"><path d="M8 50V24a20 20 0 0 1 40 0v26Z" fill="#EBF0F3" stroke="#C5D4DC" stroke-width="2.5"/><path d="M28 4v46M8 32h40" stroke="#C5D4DC" stroke-width="2.5"/><circle cx="40" cy="14" r="5" fill="#E9B04F" opacity=".7"/></svg>',
 }
 
-BRAND_MARK = ('<svg viewBox="0 0 30 34" aria-hidden="true"><path d="M3 32V15a12 12 0 0 1 24 0v17Z" fill="#DCE6EC" stroke="#1D1D1F" stroke-width="2"/>'
+BRAND_MARK = ('<svg viewBox="0 0 30 34" aria-hidden="true"><path d="M3 32V15a12 12 0 0 1 24 0v17Z" fill="#DCE6EC" stroke="#1F2D33" stroke-width="2"/>'
               '<circle cx="20" cy="11" r="3.5" fill="#E9B04F"/><path d="M15 3v29M3 20h24" stroke="#1F2D33" stroke-width="1.6"/>'
               '<path d="M1 32.5h28" stroke="#1F2D33" stroke-width="2.4" stroke-linecap="round"/></svg>')
 
@@ -145,7 +146,7 @@ FAVICON = ("data:image/svg+xml," +
 
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
          '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">')
+         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Young+Serif&display=swap">')
 
 
 # ---------------------------------------------------------------- context
@@ -198,6 +199,7 @@ def header(ctx, page):
     return f"""<a class="skip" href="#main">Skip to content</a>
 <div class="announce">Free shipping on the perch and the bundle, anywhere in the lower 48. <a href="{ctx.link('/policies/', 'shipping')}">Shipping details</a></div>
 <header class="site-header">
+  <span class="day-line" aria-hidden="true"><i></i></span>
   <div class="wrap header-row">
     <a class="brand" href="{ctx.link('/')}">{BRAND_MARK}<span>Perch &amp; Purr</span></a>
     <nav class="nav" id="site-nav" aria-label="Main">
@@ -213,6 +215,7 @@ def header(ctx, page):
 
 def footer(ctx):
     return f"""<footer class="site-footer">
+  <div class="footer-sky" aria-hidden="true"><span class="footer-moon"></span></div>
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
@@ -246,6 +249,7 @@ def footer(ctx):
         </ul>
       </div>
     </div>
+    <p class="footer-wordmark" aria-hidden="true">Perch <span>&amp;</span> Purr</p>
     <div class="footer-base">
       <span>&copy; {YEAR} Perch &amp; Purr. Secure checkout by Stripe.</span>
       <ul>
@@ -380,13 +384,23 @@ def faq_block(ctx, tag, limit=None):
     ) + "</div>"
 
 
+LIGHTFALL = '<div class="lightfall" aria-hidden="true"><i></i><i></i><i></i><i></i></div>'
+
+
+def scrub(text):
+    """Split a sentence into words the scroll can light up one by one."""
+    return " ".join(f'<span class="w">{w}</span>' for w in text.split())
+
+
 def signup_section(ctx, source):
-    return f"""<section class="section" aria-labelledby="signup-title">
+    return f"""<section class="dusk" aria-labelledby="signup-title" data-sunset>
+  <div class="dusk-sky" aria-hidden="true"><span class="dusk-sun"></span><span class="dusk-horizon"></span></div>
   <div class="wrap">
     <div class="signup" data-reveal>
       <div>
+        <p class="kicker">Before you go</p>
         <h2 id="signup-title">Join the launch list.</h2>
-        <p class="muted" style="margin:0">One email when new things are ready to order, and a short note now and then. No spam, and you can leave any time.</p>
+        <p class="muted">One email when new things are ready to order, and a short note now and then. No spam, and you can leave any time.</p>
       </div>
       <form {ctx.netlify('launch-list')} data-done="{LAUNCH_DONE}">
         {launch_fields('ll', source)}
@@ -400,10 +414,63 @@ def page_head(title, lede, crumbs=None):
     c = ""
     if crumbs:
         c = '<nav class="crumbs" aria-label="Breadcrumb">' + '<span aria-hidden="true">/</span>'.join(crumbs) + "</nav>"
-    return f"""<div class="page-head"><div class="wrap">{c}<h1>{title}</h1>{f'<p>{lede}</p>' if lede else ''}</div></div>"""
+    return f"""<div class="page-head">{LIGHTFALL}<div class="wrap">{c}<h1>{title}</h1>{f'<p>{lede}</p>' if lede else ''}</div></div>"""
 
 
-# ---------------------------------------------------------------- pages
+def shelf(ctx, eager=False):
+    """The perch as the star, the bundle and the Fur Lifter beside it."""
+    p = PRODUCTS["window-perch"]
+    return f"""<div class="shelf">
+  <article class="shelf-hero" data-spot data-reveal>
+    <a class="shelf-media" href="{ctx.link(p['path'])}" tabindex="-1" aria-hidden="true">{ctx.img('photo-two-cats', alt='', eager=eager)}</a>
+    <div class="shelf-copy">
+      <p class="kicker">The one that started it</p>
+      <h3><a href="{ctx.link(p['path'])}">{p['name']}</a></h3>
+      <p>{p['card']}</p>
+      <p class="shelf-price"><span>{money(p['price'])}</span> Free shipping</p>
+      <div class="shelf-actions">
+        <button type="button" class="btn btn--primary" data-buy="window-perch"><span>Buy now</span>{ICON['arrow']}</button>
+        <button type="button" class="btn btn--ghost" data-add="window-perch" aria-label="Add {p['name']} to cart">Add to cart</button>
+      </div>
+    </div>
+  </article>
+  <div class="shelf-side">{product_card(ctx, 'cozy-window-bundle', eager)}{product_card(ctx, 'fur-lifter', eager)}</div>
+</div>"""
+
+
+SETUP_SVG = """<svg class="story-svg" viewBox="0 0 400 480" role="img" aria-label="Drawing of the perch going up on a window, step by step">
+  <defs>
+    <linearGradient id="st-glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D6E2E9"/><stop offset="1" stop-color="#F4EEDF"/></linearGradient>
+    <clipPath id="st-clip"><rect x="34" y="34" width="332" height="412" rx="4"/></clipPath>
+  </defs>
+  <rect x="20" y="20" width="360" height="440" rx="10" fill="#FBFCFD" stroke="#1F2D33" stroke-width="3"/>
+  <rect x="34" y="34" width="332" height="412" rx="4" fill="url(#st-glass)"/>
+  <g clip-path="url(#st-clip)">
+    <circle cx="300" cy="96" r="38" fill="#F7DB9C" opacity=".8"/>
+    <path d="M34 360 C120 330 220 352 366 326 V446 H34Z" fill="#C4D4DC"/>
+    <g class="st-shine"><path d="M60 446 L190 34 H236 L106 446Z" fill="#fff" opacity=".55"/></g>
+  </g>
+  <g class="st-mount">
+    <g class="st-cups"><circle cx="110" cy="168" r="26" fill="#fff" fill-opacity=".6" stroke="#A9BCC5" stroke-width="4"/><circle cx="110" cy="238" r="26" fill="#fff" fill-opacity=".6" stroke="#A9BCC5" stroke-width="4"/><circle cx="290" cy="168" r="26" fill="#fff" fill-opacity=".6" stroke="#A9BCC5" stroke-width="4"/><circle cx="290" cy="238" r="26" fill="#fff" fill-opacity=".6" stroke="#A9BCC5" stroke-width="4"/></g>
+    <rect x="96" y="144" width="28" height="140" rx="6" fill="#F6F8FA" stroke="#8FA3AD" stroke-width="3"/>
+    <rect x="276" y="144" width="28" height="140" rx="6" fill="#F6F8FA" stroke="#8FA3AD" stroke-width="3"/>
+  </g>
+  <g class="st-bed">
+    <path d="M110 282 H290 L330 330 H70 Z" fill="#EFE5D3"/>
+    <rect x="66" y="328" width="268" height="24" rx="10" fill="#E0D0B6" stroke="#4A5A61" stroke-width="4"/>
+  </g>
+  <g class="st-press">
+    <path d="M200 196 V256" stroke="#1F2D33" stroke-width="5" stroke-linecap="round"/>
+    <path d="M184 240 L200 260 L216 240" fill="none" stroke="#1F2D33" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g class="st-gauge">
+    <rect x="70" y="392" width="260" height="14" rx="7" fill="#fff" stroke="#1F2D33" stroke-width="2"/>
+    <rect class="st-gauge-fill" x="72" y="394" width="256" height="10" rx="5" fill="#E9B04F"/>
+    <text x="200" y="430" text-anchor="middle" font-family="Mulish, sans-serif" font-size="16" font-weight="700" fill="#1F2D33">Tested to 40 lb</text>
+  </g>
+</svg>"""
+
+
 def page_home(ctx):
     yes = lambda t: f'<span class="yes">{ICON["check"]}<span>{t}</span></span>'
     no = lambda t: f'<span class="no">{ICON["no"]}<span>{t}</span></span>'
@@ -418,120 +485,181 @@ def page_home(ctx):
     table_rows = "".join(
         f'<tr><th scope="row">{r[0]}</th><td class="ours">{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td></tr>' for r in rows
     )
-    perch, bundle = ctx.link("/window-perch/"), ctx.link("/cozy-window-bundle/")
+    bundle = ctx.link("/cozy-window-bundle/")
+    day = [
+        ("7:00 a.m.", "photo-plush", "Fleece side up.", "A warm spot for cold-glass mornings.", "dawn"),
+        ("Noon", "photo-two-cats", "Right up at the glass.", "A front-row seat for whatever moves outside, with room for a friend.", "noon"),
+        ("3:00 p.m.", "photo-ragdoll", "Mesh side up.", "Breathable when the sun is strong. The cover flips and zips back on.", "after"),
+        ("6:00 p.m.", "perch-cups", "Nothing dangling.", "Two brackets, four suction cups, no cables to tangle or chew.", "gold"),
+        ("Bedtime", "perch-folded", "Folds flat.", "Pop the cups off and it slides behind a bookcase. Back up in about a minute.", "night"),
+    ]
+    day_html = "".join(f"""<article class="day-panel day-panel--{tone}">
+        <p class="day-time">{t}</p>
+        <div class="day-media">{ctx.img(img, alt='')}</div>
+        <h3>{h}</h3><p>{body}</p>
+      </article>""" for t, img, h, body, tone in day)
 
     return f"""
-<section class="hero">
-  <div class="wrap hero-copy" data-reveal>
-    <p class="eyebrow">Cordless Window Perch</p>
-    <h1>The window seat your cat already wants.</h1>
-    <p class="hero-sub">Four suction cups. Stainless steel. Tested to 40&nbsp;lb.</p>
-    <p class="hero-price">$32 with free shipping.</p>
-    <div class="btn-row btn-row--center">
-      <button type="button" class="btn" data-buy="window-perch">Buy the perch, $32</button>
-      <a class="btn btn--ghost" href="{bundle}">See the bundle</a>
+<section class="hero" data-hero>
+  <div class="hero-sky" aria-hidden="true"><span class="sun" data-depth="-18"></span></div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="kicker hero-kicker">The cordless window perch</p>
+      <h1 class="hero-title"><span class="line"><span>The window seat</span></span> <span class="line"><span>your cat</span></span> <span class="line"><span>already wants.</span></span></h1>
+      <p class="hero-lede">Four suction cups and a stainless steel frame, tested to 40&nbsp;lb. Up in about a minute, and the cover zips off to wash.</p>
+      <div class="hero-actions">
+        <button type="button" class="btn btn--primary" data-buy="window-perch"><span>Buy the perch, $32</span>{ICON['arrow']}</button>
+        <a class="link-arrow" href="{bundle}">See the bundle{ICON['arrow']}</a>
+      </div>
+      {checks(["Free shipping in the lower 48", "30-day returns from delivery", "Secure checkout by Stripe"], inline=True)}
     </div>
-    {checks(["Free shipping in the lower 48", "30-day returns from delivery", "Secure checkout by Stripe"], inline=True)}
+    <div class="hero-visual">
+      <div class="arch" data-depth="10">
+        <div class="arch-inner"><div class="arch-photo">{ctx.img('photo-ragdoll', eager=True)}</div></div>
+      </div>
+      <div class="floor-light" data-depth="-22" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <p class="hero-caption">Shown mesh side up.</p>
+    </div>
   </div>
-  <div class="wrap hero-media" data-reveal>{ctx.img('photo-ragdoll', eager=True)}</div>
+  <div class="sill" aria-hidden="true"><span>Scroll to follow the light</span></div>
 </section>
 
-<section class="spec-strip" aria-label="At a glance">
-  <div class="wrap spec-grid" data-reveal>
-    <div class="spec"><b>40 lb</b><span>tested load</span></div>
-    <div class="spec"><b>4 cups</b><span>suction grip</span></div>
-    <div class="spec"><b>1 minute</b><span>to set up</span></div>
-    <div class="spec"><b>30 days</b><span>to return it</span></div>
-  </div>
-</section>
-
-<section class="section section--tint" aria-labelledby="why-title">
-  <div class="wrap">
-    <div class="section-head center" data-reveal><h2 id="why-title">Made for the sunny spot.</h2>
-      <p>Cats go where the light is. This puts a soft, steady seat right at the glass, without cables, tools or a tower in the corner.</p></div>
-    <div class="tiles">
-      <article class="tile tile--wide" data-reveal>
-        <div class="tile-copy">
-          <h3>Holds on without cords or drilling.</h3>
-          <p>A rigid, painted stainless steel frame and four suction cups pressed flat against the glass. Nothing dangles, nothing gets screwed into your window frame, and it comes off clean.</p>
-          <p class="tile-note">Tested to 40 lb on clean, smooth glass. Press-test it by hand before your cat hops up.</p>
-        </div>
-        <div class="tile-media">{ctx.img('photo-plush')}</div>
-      </article>
-      <article class="tile" data-reveal>
-        <div class="tile-copy">
-          <h3>A cover for every season.</h3>
-          <p>Fleece side up for warm winter mornings. Mesh side up when the sun is strong. It zips off to wash.</p>
-        </div>
-        <div class="tile-media">{ctx.img('perch-cover')}</div>
-      </article>
-      <article class="tile" data-reveal>
-        <div class="tile-copy">
-          <h3>Folds flat when you want the window back.</h3>
-          <p>Pop the cups off and it slides behind a bookcase. Back up in about a minute.</p>
-        </div>
-        <div class="tile-media">{ctx.img('perch-folded')}</div>
-      </article>
+<section class="glance" aria-labelledby="glance-title">
+  {LIGHTFALL}
+  <div class="wrap glance-grid">
+    <div class="glance-copy" data-reveal>
+      <p class="kicker">At a glance</p>
+      <h2 id="glance-title">Four numbers that matter when a cat jumps onto glass.</h2>
+    </div>
+    <div class="spec-window" data-reveal>
+      <div class="spec"><b><span data-countup="40">40</span> lb</b><span>tested load</span></div>
+      <div class="spec"><b><span data-countup="4">4</span> cups</b><span>suction grip</span></div>
+      <div class="spec"><b><span data-countup="1">1</span> min</b><span>to set up</span></div>
+      <div class="spec"><b><span data-countup="30">30</span> days</b><span>to return it</span></div>
     </div>
   </div>
 </section>
 
-<section class="section" aria-labelledby="shop-title">
+<section class="holds" aria-labelledby="holds-title">
   <div class="wrap">
-    <div class="section-head center" data-reveal><h2 id="shop-title">Which one is right for you?</h2><p>The perch on its own, the Fur Lifter on its own, or both in a gift-ready box.</p></div>
-    <div class="grid-3">{"".join(product_card(ctx, pid) for pid in ORDER)}</div>
+    <p class="statement" data-scrub>{scrub("Cats go where the light is. This puts a soft, steady seat right at the glass, with no cables, no tools and no tower in the corner.")}</p>
+    <div class="holds-grid">
+      <div class="holds-media">
+        <figure class="holds-photo" data-parallax="-0.05">{ctx.img('photo-plush')}</figure>
+        <figure class="holds-detail" data-parallax="0.09">{ctx.img('perch-cups', alt='')}</figure>
+      </div>
+      <div class="holds-copy" data-reveal>
+        <p class="kicker">How it holds</p>
+        <h2 id="holds-title">Holds on without cords or drilling.</h2>
+        <p>A rigid, painted stainless steel frame and four suction cups pressed flat against the glass. Nothing dangles, nothing gets screwed into your window frame, and it comes off clean.</p>
+        <p class="note">Tested to 40 lb on clean, smooth glass. Press-test it by hand before your cat hops up.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="section section--tint" aria-labelledby="setup-title">
-  <div class="wrap">
-    <div class="section-head center" data-reveal><h2 id="setup-title">Up in three steps.</h2><p>No tools. The <a href="{ctx.link('/help/', 'setup')}">full setup guide</a> has extra tips.</p></div>
-    <ol class="steps" data-reveal>
-      <li><h3>Clean the glass</h3><p>Wipe the pane with glass cleaner or rubbing alcohol, then dry it. Rinse the cups in warm water.</p></li>
-      <li><h3>Press on the cups</h3><p>Hold the perch level at your cat's height and press each cup flat until the air is out.</p></li>
-      <li><h3>Test, then invite</h3><p>Press down hard on the bed with your hand. If nothing moves, it's ready for your cat.</p></li>
-    </ol>
+<section class="cover-demo" data-flip aria-labelledby="cover-title">
+  <div class="wrap cover-grid">
+    <div class="pad-stage" aria-hidden="true">
+      <div class="pad"><div class="pad-face pad-fleece"><span>Fleece</span></div><div class="pad-face pad-mesh"><span>Mesh</span></div></div>
+      <div class="pad-shadow"></div>
+    </div>
+    <div class="cover-copy" data-reveal>
+      <p class="kicker">Reversible cover</p>
+      <h2 id="cover-title">A cover for every season.</h2>
+      <p>One side is soft fleece, the other breathable mesh. Flip it to match the weather at your window. It zips off to wash.</p>
+      <div class="weather">
+        <label for="weather">Try it: the weather at your window</label>
+        <input type="range" id="weather" min="0" max="100" value="18" data-weather aria-describedby="cover-out">
+        <div class="weather-ends" aria-hidden="true"><span>Chilly morning</span><span>Strong sun</span></div>
+      </div>
+      <p class="cover-out" id="cover-out" aria-live="polite" data-cover-out><strong>Fleece side up.</strong> A warm spot for cold-glass mornings.</p>
+    </div>
   </div>
 </section>
 
-<section class="section section--dark" aria-labelledby="compare-title">
+<section class="day" data-hscroll aria-labelledby="day-title">
+  <div class="day-pin">
+    <div class="wrap day-head">
+      <h2 id="day-title">A day at the window.</h2>
+      <div class="day-dial" aria-hidden="true"><span class="day-dial-sun"></span></div>
+    </div>
+    <div class="day-track">{day_html}</div>
+  </div>
+</section>
+
+<section class="choose" aria-labelledby="shop-title">
   <div class="wrap">
-    <div class="section-head center" data-reveal><h2 id="compare-title">Why cordless.</h2><p>How the perch compares with the two usual ways to give a cat a view.</p></div>
+    <div class="split-head" data-reveal>
+      <h2 id="shop-title">Choose your seat.</h2>
+      <p>The perch on its own, the Fur Lifter on its own, or both in a gift-ready box.</p>
+    </div>
+    {shelf(ctx)}
+  </div>
+</section>
+
+<section class="story" data-story aria-labelledby="setup-title">
+  <div class="wrap story-grid">
+    <div class="story-visual" data-step="1">{SETUP_SVG}</div>
+    <div class="story-steps">
+      <div class="story-intro">
+        <p class="kicker">Setup</p>
+        <h2 id="setup-title">Up in about a minute.</h2>
+        <p>No tools. The <a href="{ctx.link('/help/', 'setup')}">full setup guide</a> has extra tips.</p>
+      </div>
+      <ol class="steps">
+        <li data-step-trigger="1"><span class="step-n">1</span><h3>Clean the glass</h3><p>Wipe the pane with glass cleaner or rubbing alcohol, then dry it. Rinse the cups in warm water.</p></li>
+        <li data-step-trigger="2"><span class="step-n">2</span><h3>Press on the cups</h3><p>Hold the perch level at your cat's height and press each cup flat until the air is out.</p></li>
+        <li data-step-trigger="3"><span class="step-n">3</span><h3>Test, then invite</h3><p>Press down hard on the bed with your hand. If nothing moves, it's ready for your cat.</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="compare-section" aria-labelledby="compare-title">
+  <div class="wrap">
+    <div class="split-head" data-reveal>
+      <h2 id="compare-title">Why cordless.</h2>
+      <p>How the perch compares with the two usual ways to give a cat a view.</p>
+    </div>
     <div class="table-card" data-reveal>
       <table class="compare">
         <thead><tr><th scope="col"><span class="visually-hidden">Feature</span></th><th scope="col" class="ours">Cordless perch</th><th scope="col">Corded hammock</th><th scope="col">Cat tree</th></tr></thead>
         <tbody>{table_rows}</tbody>
       </table>
     </div>
-    <p class="table-note center">Hammock and cat tree figures are typical for each type, not any one brand.</p>
-    <div class="btn-row btn-row--center" style="margin-top:28px">
-      <a class="btn" href="{perch}">Get the perch</a>
-    </div>
+    <p class="table-note">Hammock and cat tree figures are typical for each type, not any one brand.</p>
   </div>
 </section>
 
-<section class="section promise-section" aria-labelledby="promise-title">
-  <div class="narrow center" data-reveal>
+<section class="promise" data-draw aria-labelledby="promise-title">
+  <svg class="promise-arch" viewBox="0 0 400 520" aria-hidden="true" preserveAspectRatio="xMidYMax meet"><path class="draw" pathLength="1" d="M20 510 V200 A180 180 0 0 1 380 200 V510 M200 20 V510 M20 300 H380"/></svg>
+  <div class="wrap promise-inner" data-reveal>
+    <p class="kicker">Our promise</p>
     <h2 id="promise-title">If it doesn't suit your window, send it back.</h2>
-    <p class="lede center">You have 30 days from delivery. Email <a href="mailto:{EMAIL}">{EMAIL}</a> and you'll hear back within one business day from Brady, who runs the shop.</p>
-    <a class="link-more" href="{ctx.link('/policies/', 'returns')}">Read the return policy</a>
+    <p>You have 30 days from delivery. Email <a href="mailto:{EMAIL}">{EMAIL}</a> and you'll hear back within one business day from Brady, who runs the shop.</p>
+    <a class="link-arrow" href="{ctx.link('/policies/', 'returns')}">Read the return policy{ICON['arrow']}</a>
   </div>
 </section>
 
-<section class="section section--tint" aria-labelledby="faq-title" id="faq">
-  <div class="narrow">
-    <h2 id="faq-title" class="center">Questions.</h2>
+<section class="faq-section" aria-labelledby="faq-title" id="faq">
+  <div class="wrap faq-grid">
+    <div class="faq-aside">
+      <h2 id="faq-title">Questions, answered plainly.</h2>
+      <a class="link-arrow" href="{ctx.link('/help/', 'faq')}">More in Help{ICON['arrow']}</a>
+    </div>
     {faq_block(ctx, 'home')}
-    <p class="center" style="margin-top:24px"><a class="link-more" href="{ctx.link('/help/', 'faq')}">More answers in Help</a></p>
   </div>
 </section>
 
-<section class="section" aria-labelledby="reviews-title">
-  <div class="narrow center reviews-empty" data-reveal>
-    {ICON['quote']}
-    <h2 id="reviews-title">No reviews yet.</h2>
-    <p>We're a new shop, so there's nothing to show here yet, and we won't fill the space with made-up quotes or borrowed star ratings. When customers tell us how their perch is working, good or bad, their reviews will go here.</p>
-    <a class="link-more" href="{ctx.link('/thank-you/', 'review')}">Already have one? Leave a review</a>
+<section class="reviews-empty" aria-labelledby="reviews-title">
+  <div class="wrap reviews-grid" data-reveal>
+    <div class="empty-frame" aria-hidden="true"><span></span></div>
+    <div>
+      <h2 id="reviews-title">No reviews yet.</h2>
+      <p>We're a new shop, so this frame is empty, and we won't fill it with made-up quotes or borrowed star ratings. When customers tell us how their perch is working, good or bad, their reviews will go here.</p>
+      <a class="link-arrow" href="{ctx.link('/thank-you/', 'review')}">Already have one? Leave a review{ICON['arrow']}</a>
+    </div>
   </div>
 </section>
 {signup_section(ctx, 'home')}
@@ -722,7 +850,7 @@ def page_shop(ctx):
     return page_head("Shop", "Three things, chosen with care. Every order ships within 3 business days to the lower 48, with tracking by email.",
                      [f'<a href="{ctx.link("/")}">Home</a>', "<span>Shop</span>"]) + f"""
 <div class="wrap">
-  <div class="grid-3">{"".join(product_card(ctx, pid, eager=True) for pid in ORDER)}</div>
+  {shelf(ctx, eager=True)}
 </div>
 <section class="section" aria-labelledby="pick-title">
   <div class="wrap">

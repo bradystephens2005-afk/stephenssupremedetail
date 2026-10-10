@@ -64,6 +64,7 @@ const listen = (srv) => new Promise((r) => srv.listen(0, "127.0.0.1", () => r(sr
 // ---------- harness ----------
 const results = [];
 async function check(name, fn) {
+  if (process.env.ONLY && !name.includes(process.env.ONLY)) return;
   try { await fn(); results.push([true, name]); }
   catch (e) { results.push([false, name, e.message.split("\n")[0]]); }
 }
@@ -123,6 +124,10 @@ const versions = [
   { name: "multi", url: (p) => M + p, pages: MULTI_PAGES },
   { name: "single", url: (r) => S + r, pages: SINGLE_ROUTES },
 ];
+const countIs = (page, n) => page.waitForFunction((want) => {
+  const el = document.querySelector("[data-cart-count]");
+  return el && el.textContent === want;
+}, String(n), { timeout: 3000 }).then(() => true, () => false);
 const go = async (page, url) => {
   await page.goto(url, { waitUntil: "load" });
   await page.waitForTimeout(80);
@@ -267,6 +272,7 @@ for (const v of versions) {
       const { context, page } = await newPage(browser, "phone", { testLinks: true });
       await go(page, v.url(route(id)));
       const bar = page.locator(".buybar");
+      await page.waitForTimeout(1100); // the bar slides up on load
       assert(await bar.isVisible(), "buy bar hidden on phone");
       const box = await bar.boundingBox();
       assert(Math.abs(box.y + box.height - 844) < 2, `bar not pinned to bottom (y=${box.y})`);
@@ -327,7 +333,7 @@ for (const v of versions) {
     await page.waitForSelector("#cart.is-open");
     await page.click("#cart [data-close-cart]");
     await go(page, at("/shop/"));
-    assert((await page.textContent("[data-cart-count]")) === "1", "count not carried over");
+    assert(await countIs(page, 1), `count not carried over (shows ${await page.textContent("[data-cart-count]")})`);
     await page.click('[data-add="fur-lifter"]');
     await page.waitForSelector("#cart.is-open");
     const pays = await page.$$eval("#cart-foot [data-pay]", (as) => as.map((a) => [a.dataset.pay, a.href, a.target]));
@@ -338,13 +344,13 @@ for (const v of versions) {
     }
     assert(await page.isVisible("[data-switch-bundle]"), "bundle tip missing");
     await page.click('[data-qty="window-perch"][data-step="1"]');
-    assert((await page.textContent("[data-cart-count]")) === "3", "qty + did not update");
+    assert(await countIs(page, 3), `qty + did not update (badges ${await page.$$eval("[data-cart-count]", (e) => e.map((x) => x.textContent).join("/"))}, url ${page.url()}, errors ${page.errors.join(" | ")}, storage ${await page.evaluate(() => localStorage.getItem("pp-cart-v1"))})`);
     await page.click("[data-switch-bundle]");
     const lines = await page.$$eval("#cart-body .cart-line h3", (h) => h.map((x) => x.textContent));
     assert(lines.join("|") === "Cordless Window Perch|The Cozy Window Bundle", `after switch: ${lines.join("|")}`);
-    assert((await page.textContent("[data-cart-count]")) === "2", "switch to bundle should leave 1 perch + 1 bundle");
+    assert(await countIs(page, 2), `switch to bundle should leave 1 perch + 1 bundle (shows ${await page.textContent("[data-cart-count]")}, storage ${await page.evaluate(() => localStorage.getItem("pp-cart-v1"))})`);
     await go(page, at("/help/"));
-    assert((await page.textContent("[data-cart-count]")) === "2", "count lost after navigation");
+    assert(await countIs(page, 2), "count lost after navigation");
     assert(!page.errors.length, page.errors.join(" | "));
     await context.close();
   });
@@ -364,9 +370,11 @@ for (const v of versions) {
     await page.click("#cart [data-close-cart]");
     await page.waitForSelector("#cart", { state: "hidden" });
     await page.click('[data-add="window-perch"]');
+    await countIs(page, 2);
+    await page.waitForTimeout(300);
     const url = v.name === "multi" ? M + "/thank-you/?product=fur-lifter" : S + "#/thank-you?product=fur-lifter";
     await go(page, url);
-    assert((await page.textContent("[data-cart-count]")) === "1", "wrong count after thank-you");
+    assert(await countIs(page, 1), `wrong count after thank-you (shows ${await page.textContent("[data-cart-count]")})`);
     await context.close();
   });
 }

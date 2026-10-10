@@ -46,21 +46,38 @@ const PAYMENT_LINKS = {
     set(key, val) { try { localStorage.setItem(key, val); } catch (e) { /* cart lasts for this page only */ } },
   };
 
-  /* ---------- cart ---------- */
-  let memoryCart = [];
+  /* ---------- cart ----------
+     The page keeps the cart in memory and mirrors it to localStorage so it
+     carries across pages and tabs. Storage is read when the page opens and
+     when another tab changes it, never in the middle of this page's own edits. */
+  const clean = (list) => (Array.isArray(list) ? list : [])
+    .filter((l) => l && CATALOG[l.id])
+    .map((l) => ({ id: l.id, qty: Math.max(1, Math.min(20, parseInt(l.qty, 10) || 1)) }));
+  // Stored as {at, items}; "at" is when it was saved, so a stale copy never wins.
+  const parse = (raw) => {
+    try {
+      const data = raw ? JSON.parse(raw) : null;
+      if (Array.isArray(data)) return { at: 0, items: clean(data) };
+      return { at: (data && +data.at) || 0, items: clean(data && data.items) };
+    } catch (e) { return { at: 0, items: [] }; }
+  };
+  const loaded = parse(store.get(CART_KEY));
+  let memoryCart = loaded.items;
+  let version = loaded.at;
   const cart = {
-    items() {
-      let raw = store.get(CART_KEY);
-      let list;
-      try { list = raw ? JSON.parse(raw) : memoryCart; } catch (e) { list = []; }
-      if (!Array.isArray(list)) list = [];
-      return list
-        .filter((l) => l && CATALOG[l.id])
-        .map((l) => ({ id: l.id, qty: Math.max(1, Math.min(20, parseInt(l.qty, 10) || 1)) }));
-    },
+    items() { return memoryCart.map((l) => ({ ...l })); },
     save(list) {
-      memoryCart = list;
-      store.set(CART_KEY, JSON.stringify(list));
+      memoryCart = clean(list);
+      version = Math.max(Date.now(), version + 1);
+      store.set(CART_KEY, JSON.stringify({ at: version, items: memoryCart }));
+      renderCart();
+    },
+    // Take a newer cart saved by another tab or page; ignore older copies.
+    sync(raw) {
+      const incoming = parse(raw);
+      if (incoming.at <= version) return;
+      memoryCart = incoming.items;
+      version = incoming.at;
       renderCart();
     },
     add(id, qty = 1) {
@@ -88,6 +105,7 @@ const PAYMENT_LINKS = {
     return `<a class="btn btn--block" href="${esc(url)}"${target} data-pay="${id}">${esc(label)}</a>`;
   }
 
+  let renderedKey = null;
   function renderCart() {
     const items = cart.items();
     const count = items.reduce((n, l) => n + l.qty, 0);
@@ -101,6 +119,10 @@ const PAYMENT_LINKS = {
     const body = doc.getElementById("cart-body");
     const foot = doc.getElementById("cart-foot");
     if (!body || !foot) return;
+    // Only rebuild the drawer when its contents changed, so nothing shifts under the pointer.
+    const key = JSON.stringify(items);
+    if (key === renderedKey && body.childElementCount) return;
+    renderedKey = key;
 
     if (!items.length) {
       body.innerHTML = `<div class="cart-empty">
@@ -369,23 +391,271 @@ const PAYMENT_LINKS = {
     }
   }
 
-  /* ---------- reveal sections as they scroll into view ---------- */
-  const revealer = "IntersectionObserver" in window
+  /* ============================================================
+     MOTION — one scroll loop drives every scroll effect.
+     Everything below is decoration: with reduced motion, or without
+     JavaScript, the page shows its finished state.
+     ============================================================ */
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const isWide = () => window.innerWidth > 860;
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  let scrollers = [];   // page effects, rebuilt on every route
+  let layouts = [];     // things to re-measure on resize
+  let observers = [];
+  let ticking = false;
+
+  function frame() {
+    ticking = false;
+    const vh = window.innerHeight;
+    for (const fn of scrollers) fn(vh);
+  }
+  function requestFrame() {
+    if (!ticking) { ticking = true; requestAnimationFrame(frame); }
+  }
+  window.addEventListener("scroll", requestFrame, { passive: true });
+  window.addEventListener("resize", () => { layouts.forEach((fn) => fn()); requestFrame(); });
+
+  /* reveal on enter */
+  const revealer = "IntersectionObserver" in window && !reduceMotion
     ? new IntersectionObserver((entries) => {
       entries.forEach((en) => {
         if (en.isIntersecting) { en.target.classList.add("is-in"); revealer.unobserve(en.target); }
       });
-    }, { rootMargin: "0px 0px -8% 0px" })
+    }, { rootMargin: "0px 0px -10% 0px" })
     : null;
   if (revealer) doc.documentElement.classList.add("js-reveal");
-  function initReveal(scope) {
-    if (!revealer) return;
-    scope.querySelectorAll("[data-reveal]:not(.is-in)").forEach((el) => revealer.observe(el));
+
+  function observe(el, opts, fn) {
+    if (!("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver((entries) => entries.forEach(fn), opts);
+    io.observe(el);
+    observers.push(io);
+  }
+
+  /* numbers count up when the spec window comes into view */
+  function countUp(el) {
+    const target = parseInt(el.dataset.countup, 10);
+    if (reduceMotion || !target) return;
+    el.textContent = "0";
+    observe(el, { threshold: .6 }, (en) => {
+      if (!en.isIntersecting || el.dataset.done) return;
+      el.dataset.done = "1";
+      const t0 = performance.now();
+      const dur = 1400;
+      const step = (now) => {
+        const k = clamp((now - t0) / dur);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - k, 4)));
+        if (k < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+  }
+
+  /* reversible cover: the slider flips the pad and warms the room */
+  function initFlip(sec) {
+    const input = sec.querySelector("[data-weather]");
+    const pad = sec.querySelector(".pad");
+    const out = sec.querySelector("[data-cover-out]");
+    if (!input || !pad) return;
+    let side = null;
+    const update = () => {
+      const v = input.value / 100;
+      const deg = v * 180;
+      sec.style.setProperty("--warm", v.toFixed(3));
+      pad.style.setProperty("--flip", deg.toFixed(1) + "deg");
+      sec.style.setProperty("--edge", Math.abs(Math.cos(deg * Math.PI / 180)).toFixed(3));
+      const next = v < .5 ? "fleece" : "mesh";
+      if (next !== side) {
+        side = next;
+        out.innerHTML = next === "fleece"
+          ? "<strong>Fleece side up.</strong> A warm spot for cold-glass mornings."
+          : "<strong>Mesh side up.</strong> Breathable when the sun is strong.";
+      }
+    };
+    input.addEventListener("input", update);
+    // tapping the pad flips it the rest of the way
+    sec.querySelector(".pad-stage").addEventListener("click", () => {
+      const from = +input.value;
+      const to = from < 50 ? 82 : 18;
+      if (reduceMotion) { input.value = to; update(); return; }
+      const t0 = performance.now();
+      const step = (now) => {
+        const k = clamp((now - t0) / 900);
+        const e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+        input.value = from + (to - from) * e;
+        update();
+        if (k < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+    update();
+  }
+
+  /* a day at the window: vertical scroll moves the day sideways */
+  function initHScroll(sec) {
+    const track = sec.querySelector(".day-track");
+    const dial = sec.querySelector(".day-dial");
+    if (!track) return;
+    let dist = 0;
+    const layout = () => {
+      if (!isWide() || reduceMotion) {
+        sec.classList.remove("is-pinned");
+        sec.style.height = "";
+        track.style.transform = "";
+        return;
+      }
+      sec.classList.add("is-pinned");
+      dist = Math.max(0, track.scrollWidth - window.innerWidth);
+      sec.style.height = (dist + window.innerHeight) + "px";
+    };
+    layout();
+    layouts.push(layout);
+    scrollers.push((vh) => {
+      if (!sec.classList.contains("is-pinned")) return;
+      const r = sec.getBoundingClientRect();
+      const p = clamp(-r.top / Math.max(1, r.height - vh));
+      track.style.transform = `translate3d(${(-p * dist).toFixed(1)}px,0,0)`;
+      if (dial) dial.style.setProperty("--p", p.toFixed(3));
+    });
+    track.addEventListener("scroll", () => {
+      const max = track.scrollWidth - track.clientWidth;
+      if (dial && max > 0) dial.style.setProperty("--p", (track.scrollLeft / max).toFixed(3));
+    }, { passive: true });
+  }
+
+  /* setup story: the drawing follows whichever step is in the middle */
+  function initStory(sec) {
+    const visual = sec.querySelector(".story-visual");
+    const steps = [...sec.querySelectorAll("[data-step-trigger]")];
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      visual.dataset.step = "3";
+      steps.forEach((s) => s.classList.add("is-active"));
+      return;
+    }
+    visual.dataset.step = "0";
+    steps.forEach((s) => observe(s, { rootMargin: "-42% 0px -42% 0px" }, (en) => {
+      if (!en.isIntersecting) return;
+      steps.forEach((x) => x.classList.toggle("is-active", x === s));
+      visual.dataset.step = s.dataset.stepTrigger;
+    }));
+  }
+
+  /* hero: the arch leans toward the pointer, the light moves the other way */
+  function initHero(hero) {
+    const layers = [...hero.querySelectorAll("[data-depth]")];
+    const arch = hero.querySelector(".arch");
+    const photo = hero.querySelector(".arch-photo");
+    if (!reduceMotion) {
+      scrollers.push((vh) => {
+        const p = clamp(window.scrollY / vh);
+        if (photo) photo.style.setProperty("--zoom", (1.1 - p * .1).toFixed(3));
+      });
+    }
+    if (!finePointer || reduceMotion || !layers.length) return;
+    let tx = 0, ty = 0, x = 0, y = 0, raf = 0;
+    const tick = () => {
+      x += (tx - x) * .08;
+      y += (ty - y) * .08;
+      layers.forEach((el) => {
+        const d = parseFloat(el.dataset.depth);
+        const rot = el === arch ? ` rotateY(${(x * 7).toFixed(2)}deg) rotateX(${(-y * 5).toFixed(2)}deg)` : "";
+        el.style.transform = `translate3d(${(x * d).toFixed(1)}px,${(y * d).toFixed(1)}px,0)${rot}`;
+      });
+      raf = Math.abs(tx - x) + Math.abs(ty - y) > .001 ? requestAnimationFrame(tick) : 0;
+    };
+    hero.addEventListener("pointermove", (e) => {
+      const r = hero.getBoundingClientRect();
+      tx = (e.clientX - r.left) / r.width - .5;
+      ty = (e.clientY - r.top) / r.height - .5;
+      if (!raf) raf = requestAnimationFrame(tick);
+    });
+    hero.addEventListener("pointerleave", () => { tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(tick); });
+  }
+
+  function initMotion(scope) {
+    scrollers = [];
+    layouts = [];
+    observers.forEach((io) => io.disconnect());
+    observers = [];
+
+    if (revealer) scope.querySelectorAll("[data-reveal]:not(.is-in)").forEach((el) => revealer.observe(el));
+    scope.querySelectorAll("[data-countup]").forEach(countUp);
+    scope.querySelectorAll("[data-flip]").forEach(initFlip);
+    scope.querySelectorAll("[data-hscroll]").forEach(initHScroll);
+    scope.querySelectorAll("[data-story]").forEach(initStory);
+    scope.querySelectorAll("[data-hero]").forEach(initHero);
+
+    // spotlight that follows the pointer across the featured product
+    scope.querySelectorAll("[data-spot]").forEach((el) => {
+      el.addEventListener("pointermove", (e) => {
+        const r = el.getBoundingClientRect();
+        el.style.setProperty("--sx", `${e.clientX - r.left}px`);
+        el.style.setProperty("--sy", `${e.clientY - r.top}px`);
+      });
+    });
+
+    if (!reduceMotion) {
+      // depth: light and photos drift at different speeds
+      scope.querySelectorAll("[data-parallax], .lightfall").forEach((el) => {
+        const f = parseFloat(el.dataset.parallax || "0.14");
+        const ref = el.parentElement;
+        scrollers.push((vh) => {
+          const r = ref.getBoundingClientRect();
+          if (r.bottom < -200 || r.top > vh + 200) return;
+          el.style.setProperty("--py", `${(-(r.top + r.height / 2 - vh / 2) * f).toFixed(1)}px`);
+        });
+      });
+
+      // the statement lights up word by word as it crosses the screen
+      scope.querySelectorAll("[data-scrub]").forEach((el) => {
+        const words = [...el.querySelectorAll(".w")];
+        scrollers.push((vh) => {
+          const r = el.getBoundingClientRect();
+          const p = clamp((vh * .85 - r.top) / (vh * .4 + r.height));
+          const lit = Math.round(p * words.length);
+          words.forEach((w, i) => w.classList.toggle("is-lit", i < lit));
+        });
+      });
+
+      // the promise arch draws itself; the dusk sun sets
+      scope.querySelectorAll("[data-draw]").forEach((sec) => {
+        const path = sec.querySelector(".draw");
+        scrollers.push((vh) => {
+          const r = sec.getBoundingClientRect();
+          const p = clamp((vh - r.top) / (r.height * .9));
+          path.style.setProperty("--draw", (1 - p).toFixed(3));
+        });
+      });
+      scope.querySelectorAll("[data-sunset]").forEach((sec) => {
+        scrollers.push((vh) => {
+          const r = sec.getBoundingClientRect();
+          sec.style.setProperty("--p", clamp((vh - r.top) / (vh + r.height)).toFixed(3));
+        });
+      });
+    } else {
+      scope.querySelectorAll("[data-scrub] .w").forEach((w) => w.classList.add("is-lit"));
+    }
+    requestFrame();
+  }
+
+  /* header shrinks and shows the day's progress */
+  const header = doc.querySelector(".site-header");
+  scrollersGlobal();
+  function scrollersGlobal() {
+    const update = () => {
+      if (!header) return;
+      const max = Math.max(1, doc.documentElement.scrollHeight - window.innerHeight);
+      header.classList.toggle("is-scrolled", window.scrollY > 24);
+      header.style.setProperty("--progress", clamp(window.scrollY / max).toFixed(4));
+    };
+    window.addEventListener("scroll", () => requestAnimationFrame(update), { passive: true });
+    window.addEventListener("resize", update);
+    update();
   }
 
   /* ---------- per-page setup (runs on load, and on every route in the single file) ---------- */
   function initPage(scope) {
-    initReveal(scope);
     if (SINGLE) {
       scope.querySelectorAll("img[data-img]").forEach((img) => { img.src = imgSrc(img.dataset.img); });
     }
@@ -403,6 +673,7 @@ const PAYMENT_LINKS = {
       else if (params.get("paid") === "all") cart.clear();
     }
     initOwner(scope);
+    initMotion(scope);
   }
 
   /* ---------- single-file router: #/window-perch, #/policies/returns ---------- */
@@ -437,6 +708,7 @@ const PAYMENT_LINKS = {
       if (a.dataset.nav === navPath) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
     });
     doc.getElementById("site-nav").classList.remove("is-open");
+    doc.documentElement.classList.remove("menu-open");
     doc.querySelectorAll("[data-menu]").forEach((b) => b.setAttribute("aria-expanded", "false"));
     initPage(main);
     if (anchor) {
@@ -510,6 +782,7 @@ const PAYMENT_LINKS = {
       const nav = doc.getElementById("site-nav");
       const open = !nav.classList.contains("is-open");
       nav.classList.toggle("is-open", open);
+      doc.documentElement.classList.toggle("menu-open", open);
       t.setAttribute("aria-expanded", String(open));
       return;
     }
@@ -552,14 +825,11 @@ const PAYMENT_LINKS = {
     if (e.target.matches("dialog.dialog")) e.target.close(); // click on the backdrop
   });
 
-  window.addEventListener("storage", (e) => { if (e.key === CART_KEY) renderCart(); });
+  window.addEventListener("storage", (e) => { if (e.key === CART_KEY) cart.sync(e.newValue); });
+  window.addEventListener("pageshow", (e) => { if (e.persisted) cart.sync(store.get(CART_KEY)); });
 
-  const header = doc.querySelector(".site-header");
-  const onScroll = () => header && header.classList.toggle("is-scrolled", window.scrollY > 8);
-  window.addEventListener("scroll", onScroll, { passive: true });
 
   /* ---------- start ---------- */
-  onScroll();
   renderCart();
   scheduleMidnightRefresh();
   if (SINGLE) {
