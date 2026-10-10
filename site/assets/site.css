@@ -434,7 +434,7 @@ p { margin: 0 0 1em; }
 /* ---------- promise (dusk) ---------- */
 .promise { position: relative; background: var(--dusk); color: var(--on-dark); padding-block: clamp(110px, 14vw, 200px); }
 .promise-arch { position: absolute; right: max(var(--gutter), (100vw - var(--wrap)) / 2); bottom: 0; height: 88%; width: auto; pointer-events: none; }
-.promise-arch .draw { fill: none; stroke: var(--honey); stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: var(--draw, 0); opacity: .6; }
+.promise-arch .draw { fill: none; stroke: var(--honey); stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: var(--draw, 0); opacity: .38; }
 .promise-inner { position: relative; z-index: 1; }
 .promise .kicker { color: var(--on-dark-soft); }
 .promise h2 { color: var(--on-dark); font-size: clamp(2.4rem, 6vw, 5.6rem); max-width: 12em; }
