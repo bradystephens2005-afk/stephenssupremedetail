@@ -1821,7 +1821,6 @@ main:has(> .dusk:last-child) + .site-footer, main:has(.dusk) + .site-footer { pa
   <section class="panel" aria-labelledby="o-launch">
     <h2 id="o-launch">Before launch</h2>
     <ol>
-      <li>Fix the perch Payment Link in Stripe so it charges $32.00 with free shipping, then paste it into <code>site.js</code>.</li>
       <li>Swap the drawings in <code>/images</code> for your own photos. Don't use Amazon or manufacturer photos without written permission.</li>
       <li>Measure the folded perch box and run the calculator above to make sure free shipping still pays.</li>
       <li>Add the perch size to <code>PERCH_SIZE</code> in <code>build.py</code>.</li>
@@ -1871,12 +1870,9 @@ main:has(> .dusk:last-child) + .site-footer, main:has(.dusk) + .site-footer { pa
    Paste each link from Stripe → Payment Links → Copy link.
    Any link that still contains "REPLACE" is treated as not ready:
    its buttons say "Checkout opening soon — join the launch list".
-
-   Note: the perch link currently charges $32.99 + $5.99 shipping in
-   Stripe, while the site shows $32.00 with free shipping.
    ============================================================ */
 const PAYMENT_LINKS = {
-  "window-perch": "https://buy.stripe.com/28EaEY3ch4gc2TN61f5wI00",
+  "window-perch": "https://buy.stripe.com/4gM5kE6otaEA2TN75j5wI03",
   "fur-lifter": "https://buy.stripe.com/fZu00k9AF5kg1PJ75j5wI01",
   "cozy-window-bundle": "https://buy.stripe.com/9B6aEY7sx7soeCvblz5wI02",
 };
