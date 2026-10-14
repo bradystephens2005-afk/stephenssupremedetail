@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-mode="multi">
+<html lang="en" data-mode="multi" data-chat="beta">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -163,6 +163,25 @@
   </div>
 </dialog>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<button type="button" class="chat-launch" data-chat-open aria-controls="chat" aria-expanded="false" hidden><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 5.5h16v10H10l-4.5 3.5v-3.5H4z"/><circle cx="9" cy="10.5" r="1" fill="#E9B04F" stroke="none"/><circle cx="12" cy="10.5" r="1" fill="#E9B04F" stroke="none"/><circle cx="15" cy="10.5" r="1" fill="#E9B04F" stroke="none"/></svg><span>Ask a question</span></button>
+<section class="chat" id="chat" role="dialog" aria-labelledby="chat-title" data-greeting="Hi, I&#x27;m the Perch &amp; Purr assistant. Ask me about the perch, the bundle, the Fur Lifter, shipping or returns." hidden>
+  <div class="chat-head">
+    <div>
+      <h2 id="chat-title">Ask Perch &amp; Purr</h2>
+      <p>Answers come from our help and policy pages.</p>
+    </div>
+    <button type="button" class="chat-reset" data-chat-reset hidden>Start over</button>
+    <button type="button" class="icon-btn" data-chat-close aria-label="Close chat"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+  </div>
+  <div class="chat-log" id="chat-log" role="log" aria-live="polite" aria-label="Conversation"></div>
+  <div class="chat-chips" data-chat-chips><button type="button" class="chat-chip" data-chat-ask>Will it work on my window?</button><button type="button" class="chat-chip" data-chat-ask>How long does shipping take?</button><button type="button" class="chat-chip" data-chat-ask>How do returns work?</button></div>
+  <form class="chat-form" data-chat-form>
+    <label class="visually-hidden" for="chat-input">Your question</label>
+    <textarea class="input" id="chat-input" rows="1" maxlength="800" placeholder="Type your question" autocomplete="off"></textarea>
+    <button type="submit" class="btn btn--primary btn--small">Send</button>
+  </form>
+  <p class="chat-note">An automated assistant that can make mistakes. For orders and returns, email <a href="mailto:perchandpurr@gmail.com">perchandpurr@gmail.com</a>. Chats are saved so we can check the answers, so please don't share card numbers.</p>
+</section>
 <script type="application/json" id="pp-catalog">{"window-perch":{"name":"Cordless Window Perch","price":3200,"ship":0,"compare":null,"path":"/window-perch/","img":"/images/photo-two-cats.jpg"},"fur-lifter":{"name":"Reusable Fur Lifter","price":1999,"ship":599,"compare":null,"path":"/fur-lifter/","img":"/images/fur-lifter.svg"},"cozy-window-bundle":{"name":"The Cozy Window Bundle","price":4999,"ship":0,"compare":5199,"path":"/cozy-window-bundle/","img":"/images/bundle.svg"}}</script>
 <script src="/assets/site.js" defer></script>
 </body>

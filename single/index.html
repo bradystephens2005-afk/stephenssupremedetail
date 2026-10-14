@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-mode="single">
+<html lang="en" data-mode="single" data-chat="beta">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -739,6 +739,57 @@ main:has(> .dusk:last-child) + .site-footer, main:has(.dusk) + .site-footer { pa
 .toast.is-on { opacity: 1; transform: translate(-50%, 0); }
 .has-buybar .toast { bottom: 96px; }
 
+/* ---------- chat assistant ---------- */
+.chat-launch {
+  position: fixed; z-index: 50; right: 20px; bottom: 20px; display: inline-flex; align-items: center; gap: 9px;
+  min-height: 52px; padding: 0 20px 0 16px; border: 0; border-radius: 999px; background: var(--ink); color: var(--paper);
+  font: 800 .95rem var(--sans); cursor: pointer; box-shadow: var(--shadow); transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+.chat-launch:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -14px rgba(31, 45, 51, .55); }
+.chat-launch svg { width: 24px; height: 24px; flex: none; }
+.chat {
+  position: fixed; z-index: 55; right: 20px; bottom: 20px; width: min(400px, 100vw - 32px); height: min(620px, 100dvh - 120px);
+  display: flex; flex-direction: column; background: var(--paper); border-radius: var(--r-lg); overflow: hidden;
+  box-shadow: 0 2px 6px rgba(31, 45, 51, .08), 0 30px 80px -24px rgba(31, 45, 51, .45); border: 1px solid var(--line);
+}
+.chat-head { display: flex; align-items: flex-start; gap: 6px; padding: 16px 10px 14px 20px; background: var(--dawn); border-bottom: 1px solid var(--line); }
+.chat-head > div { flex: 1; min-width: 0; }
+.chat-head h2 { font-size: 1.35rem; margin: 2px 0 2px; }
+.chat-head p { margin: 0; font-size: .84rem; color: var(--ink-faint); line-height: 1.4; }
+.chat-reset { align-self: center; border: 0; background: none; color: var(--ink-soft); font: 700 .82rem var(--sans); text-decoration: underline; text-decoration-color: var(--honey); text-underline-offset: 3px; cursor: pointer; padding: 8px 4px; white-space: nowrap; }
+.chat-log { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 18px 16px 8px; display: flex; flex-direction: column; gap: 10px; }
+.chat-msg { max-width: 88%; padding: 10px 14px; border-radius: 16px; font-size: .95rem; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; }
+.chat-msg--assistant { align-self: flex-start; background: var(--white); border: 1px solid var(--line); border-bottom-left-radius: 4px; }
+.chat-msg--user { align-self: flex-end; background: var(--ink); color: var(--paper); border-bottom-right-radius: 4px; }
+.chat-dots { display: inline-flex; gap: 4px; padding: 4px 0; }
+.chat-dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--honey); animation: chatDot 1.2s infinite ease-in-out; }
+.chat-dots i:nth-child(2) { animation-delay: .15s; }
+.chat-dots i:nth-child(3) { animation-delay: .3s; }
+@keyframes chatDot { 0%, 80%, 100% { opacity: .3; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-3px); } }
+.chat-chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 4px 16px 10px; }
+.chat-chip { border: 1px solid var(--line-strong); background: var(--white); color: var(--ink); border-radius: 999px; padding: 7px 13px; font: 700 .84rem var(--sans); cursor: pointer; transition: background .25s, border-color .25s; }
+.chat-chip:hover { background: var(--honey-soft); border-color: var(--honey); }
+.chat-form { display: flex; align-items: flex-end; gap: 8px; padding: 10px 12px 6px; border-top: 1px solid var(--line); background: var(--white); }
+.chat-form textarea.input { flex: 1; min-width: 0; min-height: 44px; max-height: 132px; resize: none; padding: 10px 12px; font-size: 16px; line-height: 1.4; }
+.chat-form .btn { min-height: 44px; flex: none; }
+.chat-form .btn:disabled { opacity: .55; cursor: default; transform: none; }
+.chat-note { margin: 0; padding: 4px 14px 12px; background: var(--white); font-size: .74rem; line-height: 1.4; color: var(--ink-faint); }
+.usage-table { width: 100%; border-collapse: collapse; font-size: .9rem; white-space: nowrap; }
+.usage-table th, .usage-table td { text-align: right; padding: 9px 10px; border-bottom: 1px solid var(--line); }
+.usage-table th:first-child, .usage-table td:first-child { text-align: left; padding-left: 0; }
+.usage-table thead th { font-weight: 800; border-bottom: 2px solid var(--ink); }
+.usage-table tbody th { font-weight: 700; }
+.table-scroll { overflow-x: auto; }
+@media (max-width: 760px) {
+  .has-buybar .chat-launch { bottom: 88px; }
+  .chat-launch span { display: none; }
+  .chat-launch { padding: 0 14px; }
+}
+@media (max-width: 640px) {
+  .chat { inset: 0; width: 100%; height: 100dvh; border-radius: 0; border: 0; }
+  html.chat-open { overflow: hidden; }
+}
+
 /* ---------- responsive ---------- */
 @media (max-width: 1080px) {
   .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -899,6 +950,25 @@ main:has(> .dusk:last-child) + .site-footer, main:has(.dusk) + .site-footer { pa
   </div>
 </dialog>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<button type="button" class="chat-launch" data-chat-open aria-controls="chat" aria-expanded="false" hidden><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 5.5h16v10H10l-4.5 3.5v-3.5H4z"/><circle cx="9" cy="10.5" r="1" fill="#E9B04F" stroke="none"/><circle cx="12" cy="10.5" r="1" fill="#E9B04F" stroke="none"/><circle cx="15" cy="10.5" r="1" fill="#E9B04F" stroke="none"/></svg><span>Ask a question</span></button>
+<section class="chat" id="chat" role="dialog" aria-labelledby="chat-title" data-greeting="Hi, I&#x27;m the Perch &amp; Purr assistant. Ask me about the perch, the bundle, the Fur Lifter, shipping or returns." hidden>
+  <div class="chat-head">
+    <div>
+      <h2 id="chat-title">Ask Perch &amp; Purr</h2>
+      <p>Answers come from our help and policy pages.</p>
+    </div>
+    <button type="button" class="chat-reset" data-chat-reset hidden>Start over</button>
+    <button type="button" class="icon-btn" data-chat-close aria-label="Close chat"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+  </div>
+  <div class="chat-log" id="chat-log" role="log" aria-live="polite" aria-label="Conversation"></div>
+  <div class="chat-chips" data-chat-chips><button type="button" class="chat-chip" data-chat-ask>Will it work on my window?</button><button type="button" class="chat-chip" data-chat-ask>How long does shipping take?</button><button type="button" class="chat-chip" data-chat-ask>How do returns work?</button></div>
+  <form class="chat-form" data-chat-form>
+    <label class="visually-hidden" for="chat-input">Your question</label>
+    <textarea class="input" id="chat-input" rows="1" maxlength="800" placeholder="Type your question" autocomplete="off"></textarea>
+    <button type="submit" class="btn btn--primary btn--small">Send</button>
+  </form>
+  <p class="chat-note">An automated assistant that can make mistakes. For orders and returns, email <a href="mailto:perchandpurr@gmail.com">perchandpurr@gmail.com</a>. Chats are saved so we can check the answers, so please don't share card numbers.</p>
+</section>
 <div hidden aria-hidden="true">
   <form name="launch-list" data-netlify="true" netlify-honeypot="bot-field" hidden>
     <input name="email"><input name="source"><input name="bot-field">
@@ -1711,10 +1781,10 @@ main:has(> .dusk:last-child) + .site-footer, main:has(.dusk) + .site-footer { pa
     <section id="privacy" class="policy" aria-labelledby="priv-h">
       <h2 id="priv-h">Privacy</h2>
       <p class="updated">Last updated October 2026</p>
-      <p><strong>What we collect.</strong> When you buy, Stripe collects your name, email, shipping address and payment details on its secure checkout page. We receive your name, email, address and what you ordered. We never see your full card number. If you join the launch list or leave a review, we get what you type into that form.</p>
-      <p><strong>What stays in your browser.</strong> Your cart is saved in your own browser (local storage) so it's still there when you change pages. It isn't sent to us. This site has no advertising trackers and no analytics cookies.</p>
+      <p><strong>What we collect.</strong> When you buy, Stripe collects your name, email, shipping address and payment details on its secure checkout page. We receive your name, email, address and what you ordered. We never see your full card number. If you join the launch list or leave a review, we get what you type into that form. If you use the chat assistant, we keep what you type and its replies so we can check its answers.</p>
+      <p><strong>What stays in your browser.</strong> Your cart is saved in your own browser (local storage) so it's still there when you change pages. It isn't sent to us. A chat conversation is kept in your browser until you close the tab. This site has no advertising trackers and no analytics cookies.</p>
       <p><strong>How we use it.</strong> To fill and ship your order, send tracking, answer your emails, and send launch-list emails if you signed up. We don't sell or rent your information.</p>
-      <p><strong>Who else handles it.</strong> Stripe (payments and sales tax), Netlify (hosting this site and receiving form entries), and the shipping carrier and supplier that get your order to you, who see only your name and address.</p>
+      <p><strong>Who else handles it.</strong> Stripe (payments and sales tax), Netlify (hosting this site and receiving form entries), Anthropic (its Claude AI model writes the chat assistant's replies, so it receives chat messages), and the shipping carrier and supplier that get your order to you, who see only your name and address.</p>
       <p><strong>Your choices.</strong> Email <a href="mailto:perchandpurr@gmail.com">perchandpurr@gmail.com</a> to see, correct or delete what we have about you, or to leave the launch list.</p>
     </section>
     <section id="terms" class="policy" aria-labelledby="terms-h">
@@ -1851,10 +1921,50 @@ main:has(> .dusk:last-child) + .site-footer, main:has(.dusk) + .site-footer { pa
     <ul>
       <li><a href="https://dashboard.stripe.com/payment-links" rel="noopener">Stripe Payment Links</a></li>
       <li><a href="https://app.netlify.com/" rel="noopener">Netlify (form entries under Forms)</a></li>
+      <li><a href="#/owner/chat">Chat assistant: usage, cost and on/off switch</a></li>
       <li><a href="https://www.pirateship.com/" rel="noopener">Pirate Ship</a></li>
       <li><a href="https://dor.sc.gov/" rel="noopener">SC Department of Revenue (MyDORWAY)</a></li>
     </ul>
     <button type="button" class="btn btn--ghost btn--small" data-clear-cart>Clear this browser's cart</button>
+  </section>
+</div>
+</div>
+
+</template><template data-path="/owner/chat" data-title="Chat assistant | Perch &amp; Purr" data-description="" data-noindex="true">
+
+<div data-chat-owner>
+<div class="page-head"><div class="lightfall" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="wrap"><h1>Chat assistant</h1><p>Usage, cost and the on/off switch for the website chat. Not linked anywhere public.</p></div></div>
+<div class="wrap owner-grid" style="padding-bottom:24px">
+  <section class="panel" aria-labelledby="c-sign">
+    <h2 id="c-sign">Owner token</h2>
+    <form data-chat-token>
+      <div class="field"><label for="chat-token">The CHAT_ADMIN_TOKEN value from Netlify</label>
+        <input class="input" id="chat-token" name="token" type="password" autocomplete="off" required></div>
+      <button class="btn btn--primary btn--small" type="submit">Show numbers</button>
+    </form>
+    <p class="small muted" style="margin-top:14px">The token is kept in this tab only and is never saved in the site.</p>
+    <p class="form-msg" role="alert" data-chat-msg></p>
+  </section>
+  <section class="panel" aria-labelledby="c-switch">
+    <h2 id="c-switch">On or off</h2>
+    <ul class="status-list" data-chat-status><li><span>Status</span><span>Enter the token to see it</span></li></ul>
+    <div class="btn-row" style="margin-top:16px"><button type="button" class="btn btn--small" data-chat-toggle hidden>Turn chat off</button></div>
+    <p class="small muted" style="margin-top:14px">The switch takes effect on the next message, with no redeploy. Who sees the chat button is set by <code>CHAT_MODE</code> in <code>build.py</code> (now <code>beta</code>).</p>
+  </section>
+</div>
+<div class="wrap" style="padding-bottom:24px">
+  <section class="panel" aria-labelledby="c-days">
+    <h2 id="c-days">Last 14 days</h2>
+    <div class="table-scroll"><table class="usage-table" data-chat-days>
+      <thead><tr><th scope="col">Day (Eastern)</th><th scope="col">Chats</th><th scope="col">Messages</th><th scope="col">Cost</th><th scope="col">Cache hits</th><th scope="col">First word</th><th scope="col">Out of scope</th><th scope="col">Filtered</th><th scope="col">Errors</th></tr></thead>
+      <tbody><tr><td colspan="9" class="muted">Enter the token to load.</td></tr></tbody>
+    </table></div>
+    <p class="small muted" style="margin-top:12px">Cache hits should stay above 70%. First word is how long visitors wait before the reply starts.</p>
+  </section>
+  <section class="panel" aria-labelledby="c-recent" style="margin-top:24px">
+    <h2 id="c-recent">Recent questions</h2>
+    <ul class="status-list" data-chat-recent><li><span class="muted">Enter the token to load.</span></li></ul>
+    <p class="small muted" style="margin-top:12px">If people keep asking something the assistant can't answer, add the answer to a help or policy page. The assistant learns it on the next deploy.</p>
   </section>
 </div>
 </div>
@@ -2254,6 +2364,270 @@ const PAYMENT_LINKS = {
   }
 
   /* ============================================================
+     CHAT ASSISTANT — talks to /api/chat (netlify/functions/chat.mjs).
+     <html data-chat> says who sees it: "on", "off", or "beta" (only
+     browsers that opened a page with ?chat=beta; ?chat=off undoes it).
+     The conversation lives in sessionStorage so it follows the visitor
+     from page to page and ends when the tab closes.
+     ============================================================ */
+  const CHAT_KEY = "pp-chat-v1";
+  const CHAT_BETA_KEY = "pp-chat-beta";
+  const CHAT_API = "/api/chat";
+  const CHAT_OFFLINE = "Chat isn't available right now. Please email perchandpurr@gmail.com and you'll get a reply within one business day.";
+  const tabStore = {
+    get(key) { try { return sessionStorage.getItem(key); } catch (e) { return null; } },
+    set(key, val) { try { sessionStorage.setItem(key, val); } catch (e) { /* chat lasts for this page only */ } },
+  };
+  const PAGE_PATHS = "shop|window-perch|cozy-window-bundle|fur-lifter|help|policies|about";
+  const CHAT_LINKS = new RegExp(`(https?:\\/\\/[^\\s<>()]+[^\\s<>().,;:!?'"]|[\\w.+-]+@[\\w-]+(?:\\.[\\w-]+)+|\\/(?:${PAGE_PATHS})\\/(?:#[\\w-]+)?)`, "g");
+  const pagePath = () => (SINGLE ? (location.hash.replace(/^#/, "") || "/") : location.pathname);
+  const linkTo = (path, anchor) => (SINGLE
+    ? "#" + (path.replace(/\/$/, "") || "/") + (anchor ? "/" + anchor : "")
+    : path + (anchor ? "#" + anchor : ""));
+
+  // Escape the reply, then turn emails, site paths and web addresses into links.
+  function chatHtml(text) {
+    return String(text).split(CHAT_LINKS).map((part, i) => {
+      if (i % 2 === 0) return esc(part);
+      if (part.includes("@") && !part.startsWith("http")) return `<a href="mailto:${esc(part)}">${esc(part)}</a>`;
+      if (part.startsWith("/")) {
+        const [path, anchor] = part.split("#");
+        return `<a href="${esc(linkTo(path, anchor))}" data-chat-link>${esc(part)}</a>`;
+      }
+      return `<a href="${esc(part)}" rel="noopener" target="_blank">${esc(part)}</a>`;
+    }).join("");
+  }
+
+  function chatAllowed() {
+    if (location.protocol === "file:") return false; // the one-file store opened from disk has no server
+    const mode = doc.documentElement.dataset.chat || "off";
+    const flag = new URLSearchParams(location.search).get("chat");
+    if (flag === "beta") store.set(CHAT_BETA_KEY, "1");
+    if (flag === "off") store.set(CHAT_BETA_KEY, "0");
+    if (mode === "on") return true;
+    return mode === "beta" && store.get(CHAT_BETA_KEY) === "1";
+  }
+
+  function initChat() {
+    const panel = doc.getElementById("chat");
+    const launch = doc.querySelector("[data-chat-open]");
+    if (!panel || !launch || !chatAllowed()) return;
+    const log = panel.querySelector(".chat-log");
+    const form = panel.querySelector("[data-chat-form]");
+    const input = panel.querySelector("#chat-input");
+    const send = form.querySelector('button[type="submit"]');
+    const chips = panel.querySelector("[data-chat-chips]");
+    const reset = panel.querySelector("[data-chat-reset]");
+    const greeting = panel.dataset.greeting;
+
+    let state = { sessionId: null, messages: [], open: false };
+    try { state = { ...state, ...JSON.parse(tabStore.get(CHAT_KEY) || "{}") }; } catch (e) { /* start fresh */ }
+    state.messages = (Array.isArray(state.messages) ? state.messages : [])
+      .filter((m) => m && (m.role === "user" || m.role === "assistant") && typeof m.text === "string").slice(-60);
+    const persist = () => tabStore.set(CHAT_KEY, JSON.stringify(state));
+    let busy = false;
+    let offline = false;
+
+    const bubble = (role, text) => {
+      const el = doc.createElement("div");
+      el.className = `chat-msg chat-msg--${role}`;
+      if (role === "assistant") el.innerHTML = chatHtml(text); else el.textContent = text;
+      return el;
+    };
+    function render() {
+      log.replaceChildren(bubble("assistant", greeting), ...state.messages.map((m) => bubble(m.role, m.text)));
+      chips.hidden = state.messages.length > 0 || offline;
+      reset.hidden = state.messages.length === 0;
+      log.scrollTop = log.scrollHeight;
+    }
+    const setBusy = (on) => {
+      busy = on;
+      send.disabled = on || offline;
+      log.setAttribute("aria-busy", String(on));
+    };
+    const fit = () => {
+      input.style.height = "auto";
+      input.style.height = Math.min(input.scrollHeight, 132) + "px";
+    };
+
+    function open(focus = true) {
+      state.open = true;
+      persist();
+      panel.hidden = false;
+      launch.hidden = true;
+      launch.setAttribute("aria-expanded", "true");
+      doc.documentElement.classList.add("chat-open");
+      render();
+      if (focus) input.focus();
+    }
+    function close() {
+      state.open = false;
+      persist();
+      panel.hidden = true;
+      launch.hidden = false;
+      launch.setAttribute("aria-expanded", "false");
+      doc.documentElement.classList.remove("chat-open");
+      launch.focus();
+    }
+
+    async function ask(text) {
+      text = text.trim();
+      if (!text || busy || offline) return;
+      setBusy(true);
+      state.messages.push({ role: "user", text });
+      persist();
+      render();
+      const reply = bubble("assistant", "");
+      reply.classList.add("is-typing");
+      reply.innerHTML = '<span class="chat-dots" aria-label="Typing"><i></i><i></i><i></i></span>';
+      log.append(reply);
+      log.scrollTop = log.scrollHeight;
+
+      let answer = "";
+      const show = () => {
+        reply.classList.remove("is-typing");
+        reply.innerHTML = chatHtml(answer);
+        log.scrollTop = log.scrollHeight;
+      };
+      try {
+        const res = await fetch(CHAT_API, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ message: text, sessionId: state.sessionId, page: pagePath() }),
+        });
+        if (!res.ok || !res.body) {
+          const data = await res.json().catch(() => ({}));
+          if (res.status === 503) { offline = true; answer = data.message || CHAT_OFFLINE; }
+          else if (res.status === 429) answer = "You're sending messages quickly. Please wait a minute and try again.";
+          else answer = data.error || CHAT_OFFLINE;
+          show();
+        } else {
+          const reader = res.body.getReader();
+          const dec = new TextDecoder();
+          let buf = "";
+          for (;;) {
+            const { value, done } = await reader.read();
+            if (done) break;
+            buf += dec.decode(value, { stream: true });
+            const lines = buf.split("\n");
+            buf = lines.pop();
+            for (const line of lines) {
+              if (!line.trim()) continue;
+              let ev;
+              try { ev = JSON.parse(line); } catch (e) { continue; }
+              if (ev.t === "start" && ev.sessionId) state.sessionId = ev.sessionId;
+              else if (ev.t === "delta") { answer += ev.text; show(); }
+              else if (ev.t === "replace") { answer = ev.text; show(); }
+            }
+          }
+          if (!answer) { answer = CHAT_OFFLINE; show(); }
+        }
+      } catch (e) {
+        answer = answer || CHAT_OFFLINE;
+        show();
+      }
+      state.messages.push({ role: "assistant", text: answer });
+      persist();
+      setBusy(false);
+      render();
+      if (offline) input.disabled = true;
+    }
+
+    launch.hidden = false;
+    launch.addEventListener("click", () => open());
+    panel.querySelector("[data-chat-close]").addEventListener("click", close);
+    reset.addEventListener("click", () => {
+      state = { sessionId: null, messages: [], open: true };
+      persist();
+      render();
+      input.focus();
+    });
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const text = input.value;
+      input.value = "";
+      fit();
+      ask(text);
+    });
+    input.addEventListener("input", fit);
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); form.requestSubmit(); }
+    });
+    chips.addEventListener("click", (e) => {
+      const chip = e.target.closest("[data-chat-ask]");
+      if (chip) ask(chip.textContent);
+    });
+    panel.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+    // On a phone the panel covers the page, so following a link closes it.
+    log.addEventListener("click", (e) => {
+      if (e.target.closest("[data-chat-link]") && window.innerWidth <= 640) close();
+    });
+    if (state.open) open(false); else render();
+  }
+
+  /* ---------- owner page: chat usage and on/off switch ---------- */
+  const OWNER_TOKEN_KEY = "pp-chat-owner";
+  function initChatOwner(scope) {
+    const root = scope.querySelector("[data-chat-owner]");
+    if (!root) return;
+    const form = root.querySelector("[data-chat-token]");
+    const msg = root.querySelector("[data-chat-msg]");
+    const toggle = root.querySelector("[data-chat-toggle]");
+    const tokenInput = form.querySelector('input[name="token"]');
+    tokenInput.value = tabStore.get(OWNER_TOKEN_KEY) || "";
+    let enabled = null;
+    const usd = (n) => (n >= 1 ? "$" + n.toFixed(2) : n > 0 ? "$" + n.toFixed(4) : "$0");
+    const pct = (n) => (n === null || n === undefined ? "—" : Math.round(n * 100) + "%");
+    const secs = (ms) => (ms ? (ms / 1000).toFixed(1) + " s" : "—");
+
+    function show(data) {
+      enabled = data.settings.enabled;
+      const live = data.envEnabled && data.hasKey && enabled;
+      const rows = [
+        ["Status", live ? '<span class="status-ok">On</span>' : '<span class="status-warn">Off</span>'],
+        ["Switch on this page", enabled ? "On" : "Off"],
+        ["CHAT_ENABLED in Netlify", data.envEnabled ? "Not blocking" : '<span class="status-warn">false (chat off for this deploy)</span>'],
+        ["Anthropic API key", data.hasKey ? "Set" : '<span class="status-warn">Missing</span>'],
+        ["Model", esc(data.model)],
+        ["Daily spending cap", usd(data.dailyBudgetUsd)],
+        ["Knowledge version", esc(data.knowledge)],
+      ];
+      root.querySelector("[data-chat-status]").innerHTML = rows.map(([k, v]) => `<li><span>${k}</span><span>${v}</span></li>`).join("");
+      toggle.hidden = false;
+      toggle.textContent = enabled ? "Turn chat off" : "Turn chat on";
+      root.querySelector("[data-chat-days] tbody").innerHTML = data.days.map((d) => `<tr>
+        <th scope="row">${esc(d.day)}</th><td>${d.sessions}</td><td>${d.messages}</td><td>${usd(d.usd)}</td>
+        <td>${pct(d.cacheHitRate)}</td><td>${secs(d.avgFirstTokenMs)}</td><td>${d.refusals}</td><td>${d.filtered}</td><td>${d.errors}</td></tr>`).join("");
+      const recent = root.querySelector("[data-chat-recent]");
+      recent.innerHTML = data.recent.length
+        ? data.recent.map((r) => `<li><span>${esc(r.q || "(filtered)")}</span><span class="muted">${esc(r.outcome)} · ${new Date(r.at).toLocaleString()}</span></li>`).join("")
+        : '<li><span class="muted">No questions yet.</span></li>';
+    }
+
+    async function call(method, body) {
+      msg.textContent = "";
+      msg.classList.remove("is-error");
+      try {
+        const res = await fetch("/api/chat-admin", {
+          method,
+          headers: { authorization: "Bearer " + tokenInput.value, "content-type": "application/json" },
+          body: body ? JSON.stringify(body) : undefined,
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.error || `The server said ${res.status}.`);
+        tabStore.set(OWNER_TOKEN_KEY, tokenInput.value);
+        show(data);
+      } catch (e) {
+        msg.classList.add("is-error");
+        msg.textContent = e.message || "Couldn't reach the chat server.";
+      }
+    }
+    form.addEventListener("submit", (e) => { e.preventDefault(); call("GET"); });
+    toggle.addEventListener("click", () => call("POST", { enabled: !enabled }));
+    if (tokenInput.value) call("GET");
+  }
+
+  /* ============================================================
      MOTION — one scroll loop drives every scroll effect.
      Everything below is decoration: with reduced motion, or without
      JavaScript, the page shows its finished state.
@@ -2535,6 +2909,7 @@ const PAYMENT_LINKS = {
       else if (params.get("paid") === "all") cart.clear();
     }
     initOwner(scope);
+    initChatOwner(scope);
     initMotion(scope);
   }
 
@@ -2693,6 +3068,7 @@ const PAYMENT_LINKS = {
 
   /* ---------- start ---------- */
   renderCart();
+  initChat();
   scheduleMidnightRefresh();
   if (SINGLE) {
     window.addEventListener("hashchange", route);
