@@ -1359,6 +1359,52 @@ class _PageText(HTMLParser):
         self.buf = []
 
 
+class _Links(HTMLParser):
+    """Internal links (href, text) and element ids in a chunk of HTML."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.links, self.ids, self._href, self._text = [], set(), None, []
+
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        if a.get("id"):
+            self.ids.add(a["id"])
+        if tag == "a" and (a.get("href") or "").startswith("/"):
+            self._href, self._text = a["href"], []
+
+    def handle_data(self, data):
+        if self._href:
+            self._text.append(data)
+
+    def handle_endtag(self, tag):
+        if tag == "a" and self._href:
+            self.links.append((self._href, " ".join("".join(self._text).split())))
+            self._href = None
+
+
+def page_links(ctx):
+    """Every page and section the site itself links to, so the assistant never guesses an anchor."""
+    by_path = {p["path"]: p for p in PAGES}
+    ids = {}
+    found = _Links()
+    for path in KNOWLEDGE_PAGES:
+        one = _Links()
+        one.feed(by_path[path]["body"](ctx))
+        ids[path] = one.ids
+        found.feed(by_path[path]["body"](ctx))
+    found.feed(header(ctx, {}) + footer(ctx))
+    out = {path: by_path[path]["title"].split(" | ")[0] for path in KNOWLEDGE_PAGES}
+    for href, text in found.links:
+        path, _, anchor = href.partition("#")
+        if path not in ids or href in out or not text:
+            continue
+        if anchor and anchor not in ids[path]:
+            continue  # a link to a section that isn't on the page; leave it out
+        out[href] = text
+    return out
+
+
 def page_text(html_body):
     parser = _PageText()
     parser.feed(html_body)
@@ -1377,7 +1423,8 @@ def knowledge_text():
         facts.append(f"- {p['name']}: {money(p['price'])}{compare}. {short_price(p)}; {delivered_text(p)}. "
                      f"Page: {p['path']}. {p['sub']}")
     facts.append("- Perch folded size: " + (PERCH_SIZE or "not listed on the site yet."))
-    seen, out = set(), ["\n".join(facts)]
+    links = "\n".join(f"- {href} ({label})" for href, label in page_links(ctx).items())
+    seen, out = set(), ["\n".join(facts), "# Page links (the only pages and sections that exist)\n" + links]
     by_path = {p["path"]: p for p in PAGES}
     for path in KNOWLEDGE_PAGES:
         page = by_path[path]

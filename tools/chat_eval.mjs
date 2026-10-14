@@ -9,10 +9,17 @@
 //   refusals on out-of-scope questions >= 80%
 import Anthropic from "@anthropic-ai/sdk";
 import { createChatHandler, dayKey } from "../netlify/lib/chat-core.mjs";
+import { KNOWLEDGE } from "../netlify/lib/knowledge.mjs";
 import { NO_INFO } from "../netlify/lib/prompt.mjs";
 import { memoryStores } from "./memory-store.mjs";
 
 const has = (...patterns) => (a) => patterns.every((p) => p.test(a));
+// Every site path in an answer must be one the site really has (listed under "Page links").
+const LINKS = new Set([...KNOWLEDGE.matchAll(/^- (\/\S*) \(/gm)].map((m) => m[1]));
+const badLinks = (a) => [...a.matchAll(/(?<![\w.])\/(?:shop|window-perch|cozy-window-bundle|fur-lifter|help|policies|about)\/(?:#[\w-]+)?/g)]
+  .map((m) => m[0]).filter((path) => !LINKS.has(path));
+// The site never gives Brady's pronouns, so the assistant shouldn't either.
+const pronounFor = (a) => /\bBrady\b/.test(a) && /\b(he|him|his|she|her|hers)\b/i.test(a);
 const refused = (a) => a.toLowerCase().includes(NO_INFO.toLowerCase());
 
 // In scope: the answer must contain the facts from the site, and must not refuse.
@@ -75,9 +82,11 @@ for (const item of [...IN_SCOPE, ...OUT_OF_SCOPE]) {
       if (ev.t === "replace") answer = ev.text;
     }
   }
-  const pass = item.ok(answer);
+  const bad = badLinks(answer);
+  const problems = [...(bad.length ? [`made-up link ${bad.join(", ")}`] : []), ...(pronounFor(answer) ? ["guessed Brady's pronoun"] : [])];
+  const pass = item.ok(answer) && !problems.length;
   rows.push({ ...item, answer, firstMs, pass });
-  console.log(`${pass ? "PASS" : "FAIL"} [${item.scope}] ${item.q}  (${firstMs === null ? "—" : Math.round(firstMs) + " ms"})\n     ${answer.replace(/\n+/g, " ")}`);
+  console.log(`${pass ? "PASS" : "FAIL"} [${item.scope}] ${item.q}  (${firstMs === null ? "—" : Math.round(firstMs) + " ms"})${problems.length ? "  <- " + problems.join("; ") : ""}\n     ${answer.replace(/\n+/g, " ")}`);
 }
 
 const median = (xs) => { const s = [...xs].sort((a, b) => a - b); return s[Math.floor((s.length - 1) / 2)]; };

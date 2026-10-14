@@ -55,6 +55,16 @@ test("system prompt carries the shop knowledge and stays the same between reques
   assert.doesNotMatch(SYSTEM_PROMPT, /\b20\d\d-\d\d-\d\d\b/, "no dates that would break the prompt cache");
 });
 
+test("knowledge lists only page links whose sections exist", () => {
+  const links = [...KNOWLEDGE.matchAll(/^- (\/\S*) \(/gm)].map((m) => m[1]);
+  for (const want of ["/help/#setup", "/help/#care", "/policies/#returns", "/policies/#shipping", "/window-perch/"]) {
+    assert.ok(links.includes(want), `missing ${want}`);
+  }
+  assert.ok(!links.includes("/help/#cover") && !links.includes("/window-perch/#fit"), "listed a section that doesn't exist");
+  assert.match(SYSTEM_PROMPT, /Page links/);
+  assert.match(SYSTEM_PROMPT, /Call the owner "Brady"/);
+});
+
 // ---------- chat ----------
 test("streams an answer, caches the system prompt and saves the session", async () => {
   const s = stores();
