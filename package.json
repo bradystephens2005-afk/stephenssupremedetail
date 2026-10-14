@@ -1,0 +1,15 @@
+{
+  "name": "perch-and-purr",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "python3 build.py",
+    "test": "node --test tests/chat.test.mjs && node tests/site.test.mjs",
+    "eval:chat": "node tools/chat_eval.mjs",
+    "deploy": "python3 build.py && netlify deploy --prod"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.133.0",
+    "@netlify/blobs": "^11.1.4"
+  }
+}

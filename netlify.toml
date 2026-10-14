@@ -1,0 +1,8 @@
+# Deployed with the Netlify CLI (`npm run deploy`), not drag-and-drop, so the
+# chat functions ship with the site. The live site is the one-file build.
+[build]
+  publish = "single"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"

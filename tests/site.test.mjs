@@ -21,9 +21,9 @@ const SINGLE = path.join(ROOT, "single");
 const VIEWPORTS = { desktop: { width: 1280, height: 900 }, phone: { width: 390, height: 844 } };
 
 const MULTI_PAGES = ["/", "/shop/", "/window-perch/", "/fur-lifter/", "/cozy-window-bundle/", "/about/", "/help/",
-  "/policies/", "/thank-you/", "/404.html", "/owner/"];
+  "/policies/", "/thank-you/", "/404.html", "/owner/", "/owner/chat/"];
 const SINGLE_ROUTES = ["#/", "#/shop", "#/window-perch", "#/fur-lifter", "#/cozy-window-bundle", "#/about", "#/help",
-  "#/policies", "#/policies/returns", "#/help/setup", "#/thank-you", "#/no-such-page", "#/owner"];
+  "#/policies", "#/policies/returns", "#/help/setup", "#/thank-you", "#/no-such-page", "#/owner", "#/owner/chat"];
 const PRODUCTS = ["window-perch", "fur-lifter", "cozy-window-bundle"];
 
 // Payment links as configured, plus a stand-in for any that are still placeholders.
@@ -426,6 +426,149 @@ for (const v of versions) {
     await page.waitForSelector("#review .form-done", { timeout: 3000 });
     const sent = posts.find((p) => p["form-name"] === "review");
     assert(sent && sent.rating === "4" && sent.publish_ok === "yes", `posted ${JSON.stringify(posts)}`);
+    await context.close();
+  });
+}
+
+// 4. Chat assistant. /api/chat and /api/chat-admin are stubbed; tests never call a model.
+const SESSION = "0f8d2c1e-3b4a-4c5d-9e6f-7a8b9c0d1e2f";
+async function stubChat(page, { status = 200, reply = "It ships free in 3 business days. Setup steps are at /help/#setup, or email perchandpurr@gmail.com." } = {}) {
+  const sent = [];
+  await page.route("**/api/chat", async (r) => {
+    sent.push(JSON.parse(r.request().postData() || "{}"));
+    if (status !== 200) {
+      return r.fulfill({ status, contentType: "application/json", body: JSON.stringify({ disabled: true, message: "Chat is turned off right now." }) });
+    }
+    const words = reply.split(/(?<= )/);
+    const body = [{ t: "start", sessionId: SESSION }, ...words.map((text) => ({ t: "delta", text })), { t: "done" }]
+      .map((e) => JSON.stringify(e)).join("\n") + "\n";
+    r.fulfill({ status: 200, contentType: "application/x-ndjson", body });
+  });
+  return sent;
+}
+const chatUrl = (v, p, flag = "?chat=beta") => (v.name === "multi" ? M + p + flag : S + flag + (p === "/" ? "#/" : "#" + p.replace(/\/$/, "")));
+
+for (const v of versions) {
+  await check(`${v.name}: chat stays hidden without the beta flag`, async () => {
+    const { context, page } = await newPage(browser, "desktop");
+    await go(page, v.name === "multi" ? M + "/" : S);
+    assert(await page.isHidden("[data-chat-open]"), "launcher visible without ?chat=beta");
+    assert(await page.isHidden("#chat"), "panel visible");
+    await context.close();
+  });
+
+  await check(`${v.name}: chat answers a suggested question with a streamed, linked reply`, async () => {
+    const { context, page } = await newPage(browser, "desktop");
+    const sent = await stubChat(page);
+    await go(page, chatUrl(v, "/window-perch/"));
+    await page.click("[data-chat-open]");
+    assert(await page.isVisible("#chat"), "panel did not open");
+    assert(await page.evaluate(() => document.activeElement.id === "chat-input"), "input not focused");
+    assert((await page.textContent(".chat-msg--assistant")).includes("Perch & Purr assistant"), "greeting missing");
+    await page.click(".chat-chip >> nth=1");
+    await page.waitForFunction(() => document.querySelectorAll(".chat-msg--assistant").length === 2
+      && !document.querySelector(".chat-msg.is-typing") && document.querySelector("#chat-log").getAttribute("aria-busy") === "false");
+    const last = page.locator(".chat-msg--assistant").last();
+    assert((await last.textContent()).includes("ships free"), "reply text missing");
+    const help = await last.locator("[data-chat-link]").getAttribute("href");
+    assert(help === (v.name === "multi" ? "/help/#setup" : "#/help/setup"), `help link ${help}`);
+    assert((await last.locator('a[href^="mailto:"]').getAttribute("href")) === "mailto:perchandpurr@gmail.com", "email not linked");
+    assert(sent[0].message === "How long does shipping take?" && !sent[0].sessionId, `first request ${JSON.stringify(sent[0])}`);
+    assert(sent[0].page.includes("window-perch"), `page ${sent[0].page}`);
+    assert(await page.isHidden("[data-chat-chips]"), "suggestions still showing");
+
+    await page.fill("#chat-input", "And returns?");
+    await page.keyboard.press("Enter");
+    await page.waitForFunction(() => document.querySelectorAll(".chat-msg--assistant").length === 3 && document.querySelector("#chat-log").getAttribute("aria-busy") === "false");
+    assert(sent[1].sessionId === SESSION, "second message didn't carry the session id");
+    assert(!page.errors.length, page.errors.join(" | "));
+    await context.close();
+  });
+
+  await check(`${v.name}: chat conversation follows the visitor to another page`, async () => {
+    const { context, page } = await newPage(browser, "desktop");
+    await stubChat(page);
+    await go(page, chatUrl(v, "/"));
+    await page.click("[data-chat-open]");
+    await page.fill("#chat-input", "Do you ship to Hawaii?");
+    await page.click('.chat-form button[type="submit"]');
+    await page.waitForFunction(() => document.querySelectorAll(".chat-msg--assistant").length === 2 && document.querySelector("#chat-log").getAttribute("aria-busy") === "false");
+    await go(page, v.name === "multi" ? M + "/policies/" : S + "#/policies");
+    if (v.name === "multi") await page.waitForSelector("#chat:not([hidden])");
+    assert(await page.isVisible("#chat"), "panel didn't stay open");
+    const texts = await page.locator(".chat-msg--user").allTextContents();
+    assert(texts.includes("Do you ship to Hawaii?"), `messages ${texts}`);
+    await page.keyboard.press("Escape").catch(() => {});
+    await page.click("[data-chat-close]");
+    assert(await page.isHidden("#chat") && await page.isVisible("[data-chat-open]"), "close didn't work");
+    assert(await page.evaluate(() => document.activeElement.matches("[data-chat-open]")), "focus not returned to launcher");
+    await context.close();
+  });
+
+  await check(`${v.name}: chat turned off shows the email fallback`, async () => {
+    const { context, page } = await newPage(browser, "desktop");
+    await stubChat(page, { status: 503 });
+    await go(page, chatUrl(v, "/"));
+    await page.click("[data-chat-open]");
+    await page.fill("#chat-input", "Hello");
+    await page.keyboard.press("Enter");
+    await page.waitForFunction(() => document.querySelectorAll(".chat-msg--assistant").length === 2 && document.querySelector("#chat-log").getAttribute("aria-busy") === "false");
+    assert((await page.locator(".chat-msg--assistant").last().textContent()).includes("turned off"), "offline text missing");
+    assert(await page.isDisabled("#chat-input"), "input still enabled");
+    const errs = page.errors.filter((e) => !/status of 503/.test(e)); // the browser logs the 503 itself
+    assert(!errs.length, errs.join(" | "));
+    await context.close();
+  });
+
+  await check(`${v.name}: chat on a phone fills the screen and clears the buy bar`, async () => {
+    const { context, page } = await newPage(browser, "phone");
+    await stubChat(page);
+    await go(page, chatUrl(v, "/window-perch/"));
+    await page.evaluate(() => window.scrollTo(0, 900));
+    await page.waitForTimeout(200);
+    const launch = await page.locator("[data-chat-open]").boundingBox();
+    const bar = await page.locator(".buybar").boundingBox();
+    assert(launch && bar && launch.y + launch.height <= bar.y, `launcher ${JSON.stringify(launch)} overlaps buy bar ${JSON.stringify(bar)}`);
+    await page.click("[data-chat-open]");
+    const box = await page.locator("#chat").boundingBox();
+    assert(box.x === 0 && box.width === 390 && box.height >= 800, `panel box ${JSON.stringify(box)}`);
+    await pageHealth(page, `${v.name} phone chat open`);
+    await context.close();
+  });
+
+  await check(`${v.name}: owner chat page loads usage and flips the switch`, async () => {
+    const { context, page } = await newPage(browser, "desktop");
+    const calls = [];
+    let enabled = true;
+    await page.route("**/api/chat-admin", async (r) => {
+      const req = r.request();
+      calls.push({ method: req.method(), auth: req.headers().authorization, body: req.postData() });
+      if (req.headers().authorization !== "Bearer letmein") {
+        return r.fulfill({ status: 401, contentType: "application/json", body: JSON.stringify({ error: "Wrong owner token." }) });
+      }
+      if (req.method() === "POST") enabled = JSON.parse(req.postData()).enabled;
+      r.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({
+        settings: { enabled }, envEnabled: true, hasKey: true, model: "claude-haiku-5-5", dailyBudgetUsd: 5, knowledge: "abc123",
+        days: [{ day: "2026-10-14", sessions: 3, messages: 7, usd: 0.0021, cacheHitRate: 0.93, avgFirstTokenMs: 820, refusals: 1, filtered: 0, errors: 0 }],
+        recent: [{ at: Date.now(), q: "Do you ship to <b>Hawaii</b>?", outcome: "answered", usd: 0.0003 }],
+      }) });
+    });
+    await go(page, v.name === "multi" ? M + "/owner/chat/" : S + "#/owner/chat");
+    await page.fill("#chat-token", "nope");
+    await page.click('[data-chat-token] button[type="submit"]');
+    await page.waitForSelector("[data-chat-msg].is-error");
+    await page.fill("#chat-token", "letmein");
+    await page.click('[data-chat-token] button[type="submit"]');
+    await page.waitForSelector("[data-chat-days] tbody th");
+    const row = await page.textContent("[data-chat-days] tbody tr");
+    assert(row.includes("2026-10-14") && row.includes("93%") && row.includes("0.8 s"), `row ${row}`);
+    const recent = await page.innerHTML("[data-chat-recent]");
+    assert(recent.includes("&lt;b&gt;Hawaii"), "recent question not escaped");
+    assert((await page.textContent("[data-chat-toggle]")) === "Turn chat off", "toggle label");
+    await page.click("[data-chat-toggle]");
+    await page.waitForFunction(() => document.querySelector("[data-chat-toggle]").textContent === "Turn chat on");
+    assert(calls.at(-1).method === "POST" && JSON.parse(calls.at(-1).body).enabled === false, "toggle didn't POST");
+    assert((await page.textContent("[data-chat-status]")).includes("Off"), "status not updated");
     await context.close();
   });
 }

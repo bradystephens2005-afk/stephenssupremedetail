@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-mode="multi">
+<html lang="en" data-mode="multi" data-chat="beta">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -78,10 +78,10 @@
     <section id="privacy" class="policy" aria-labelledby="priv-h">
       <h2 id="priv-h">Privacy</h2>
       <p class="updated">Last updated October 2026</p>
-      <p><strong>What we collect.</strong> When you buy, Stripe collects your name, email, shipping address and payment details on its secure checkout page. We receive your name, email, address and what you ordered. We never see your full card number. If you join the launch list or leave a review, we get what you type into that form.</p>
-      <p><strong>What stays in your browser.</strong> Your cart is saved in your own browser (local storage) so it's still there when you change pages. It isn't sent to us. This site has no advertising trackers and no analytics cookies.</p>
+      <p><strong>What we collect.</strong> When you buy, Stripe collects your name, email, shipping address and payment details on its secure checkout page. We receive your name, email, address and what you ordered. We never see your full card number. If you join the launch list or leave a review, we get what you type into that form. If you use the chat assistant, we keep what you type and its replies so we can check its answers.</p>
+      <p><strong>What stays in your browser.</strong> Your cart is saved in your own browser (local storage) so it's still there when you change pages. It isn't sent to us. A chat conversation is kept in your browser until you close the tab. This site has no advertising trackers and no analytics cookies.</p>
       <p><strong>How we use it.</strong> To fill and ship your order, send tracking, answer your emails, and send launch-list emails if you signed up. We don't sell or rent your information.</p>
-      <p><strong>Who else handles it.</strong> Stripe (payments and sales tax), Netlify (hosting this site and receiving form entries), and the shipping carrier and supplier that get your order to you, who see only your name and address.</p>
+      <p><strong>Who else handles it.</strong> Stripe (payments and sales tax), Netlify (hosting this site and receiving form entries), Anthropic (its Claude AI model writes the chat assistant's replies, so it receives chat messages), and the shipping carrier and supplier that get your order to you, who see only your name and address.</p>
       <p><strong>Your choices.</strong> Email <a href="mailto:perchandpurr@gmail.com">perchandpurr@gmail.com</a> to see, correct or delete what we have about you, or to leave the launch list.</p>
     </section>
     <section id="terms" class="policy" aria-labelledby="terms-h">
@@ -179,6 +179,25 @@
   </div>
 </dialog>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<button type="button" class="chat-launch" data-chat-open aria-controls="chat" aria-expanded="false" hidden><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 5.5h16v10H10l-4.5 3.5v-3.5H4z"/><circle cx="9" cy="10.5" r="1" fill="#E9B04F" stroke="none"/><circle cx="12" cy="10.5" r="1" fill="#E9B04F" stroke="none"/><circle cx="15" cy="10.5" r="1" fill="#E9B04F" stroke="none"/></svg><span>Ask a question</span></button>
+<section class="chat" id="chat" role="dialog" aria-labelledby="chat-title" data-greeting="Hi, I&#x27;m the Perch &amp; Purr assistant. Ask me about the perch, the bundle, the Fur Lifter, shipping or returns." hidden>
+  <div class="chat-head">
+    <div>
+      <h2 id="chat-title">Ask Perch &amp; Purr</h2>
+      <p>Answers come from our help and policy pages.</p>
+    </div>
+    <button type="button" class="chat-reset" data-chat-reset hidden>Start over</button>
+    <button type="button" class="icon-btn" data-chat-close aria-label="Close chat"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+  </div>
+  <div class="chat-log" id="chat-log" role="log" aria-live="polite" aria-label="Conversation"></div>
+  <div class="chat-chips" data-chat-chips><button type="button" class="chat-chip" data-chat-ask>Will it work on my window?</button><button type="button" class="chat-chip" data-chat-ask>How long does shipping take?</button><button type="button" class="chat-chip" data-chat-ask>How do returns work?</button></div>
+  <form class="chat-form" data-chat-form>
+    <label class="visually-hidden" for="chat-input">Your question</label>
+    <textarea class="input" id="chat-input" rows="1" maxlength="800" placeholder="Type your question" autocomplete="off"></textarea>
+    <button type="submit" class="btn btn--primary btn--small">Send</button>
+  </form>
+  <p class="chat-note">An automated assistant that can make mistakes. For orders and returns, email <a href="mailto:perchandpurr@gmail.com">perchandpurr@gmail.com</a>. Chats are saved so we can check the answers, so please don't share card numbers.</p>
+</section>
 <script type="application/json" id="pp-catalog">{"window-perch":{"name":"Cordless Window Perch","price":3200,"ship":0,"compare":null,"path":"/window-perch/","img":"/images/photo-two-cats.jpg"},"fur-lifter":{"name":"Reusable Fur Lifter","price":1999,"ship":599,"compare":null,"path":"/fur-lifter/","img":"/images/fur-lifter.svg"},"cozy-window-bundle":{"name":"The Cozy Window Bundle","price":4999,"ship":0,"compare":5199,"path":"/cozy-window-bundle/","img":"/images/bundle.svg"}}</script>
 <script src="/assets/site.js" defer></script>
 </body>

@@ -12,9 +12,11 @@ at the top of assets/site.js. Photos live in /images and are listed in IMAGES.
 """
 import base64
 import datetime
+import hashlib
 import html
 import json
 import shutil
+from html.parser import HTMLParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -23,6 +25,7 @@ OUT_SINGLE = ROOT / "single"
 
 SITE_URL = "https://perch-and-purr.netlify.app"
 EMAIL = "perchandpurr@gmail.com"
+STORE_NAME = "Perch & Purr"
 YEAR = datetime.date.today().year
 
 # ---------------------------------------------------------------- photos
@@ -92,6 +95,11 @@ PRODUCTS = {
 }
 ORDER = ["window-perch", "cozy-window-bundle", "fur-lifter"]
 
+# Chat assistant (the server side is in netlify/). "off" hides it, "beta" shows it
+# only to visitors who opened a page with ?chat=beta (and ?chat=off undoes that),
+# "on" shows it to everyone. The owner page can also switch it off without a rebuild.
+CHAT_MODE = "beta"
+
 # Fill in once the folded perch has been measured, e.g. "22 x 12 in, folds to 1.5 in thick".
 PERCH_SIZE = None
 
@@ -133,6 +141,7 @@ ICON = {
     "close": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg>',
     "mail": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1F2D33" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.5 6.5 8.5 7 8.5-7"/></svg>',
     "arrow": '<svg class="arrow" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg>',
+    "chat": '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 5.5h16v10H10l-4.5 3.5v-3.5H4z"/><circle cx="9" cy="10.5" r="1" fill="#E9B04F" stroke="none"/><circle cx="12" cy="10.5" r="1" fill="#E9B04F" stroke="none"/><circle cx="15" cy="10.5" r="1" fill="#E9B04F" stroke="none"/></svg>',
     "quote": '<svg viewBox="0 0 56 56" aria-hidden="true"><path d="M8 50V24a20 20 0 0 1 40 0v26Z" fill="#EBF0F3" stroke="#C5D4DC" stroke-width="2.5"/><path d="M28 4v46M8 32h40" stroke="#C5D4DC" stroke-width="2.5"/><circle cx="40" cy="14" r="5" fill="#E9B04F" opacity=".7"/></svg>',
 }
 
@@ -299,7 +308,36 @@ def overlays(ctx):
     <p class="small muted" style="margin:14px 0 0">Questions in the meantime? <a href="mailto:{EMAIL}">{EMAIL}</a></p>
   </div>
 </dialog>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>"""
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+{chat_widget()}"""
+
+
+CHAT_GREETING = "Hi, I'm the Perch & Purr assistant. Ask me about the perch, the bundle, the Fur Lifter, shipping or returns."
+CHAT_SUGGESTIONS = ["Will it work on my window?", "How long does shipping take?", "How do returns work?"]
+
+
+def chat_widget():
+    """The chat button and panel. site.js shows them when CHAT_MODE allows."""
+    chips = "".join(f'<button type="button" class="chat-chip" data-chat-ask>{esc(q)}</button>' for q in CHAT_SUGGESTIONS)
+    return f"""<button type="button" class="chat-launch" data-chat-open aria-controls="chat" aria-expanded="false" hidden>{ICON['chat']}<span>Ask a question</span></button>
+<section class="chat" id="chat" role="dialog" aria-labelledby="chat-title" data-greeting="{esc(CHAT_GREETING)}" hidden>
+  <div class="chat-head">
+    <div>
+      <h2 id="chat-title">Ask Perch &amp; Purr</h2>
+      <p>Answers come from our help and policy pages.</p>
+    </div>
+    <button type="button" class="chat-reset" data-chat-reset hidden>Start over</button>
+    <button type="button" class="icon-btn" data-chat-close aria-label="Close chat">{ICON['close']}</button>
+  </div>
+  <div class="chat-log" id="chat-log" role="log" aria-live="polite" aria-label="Conversation"></div>
+  <div class="chat-chips" data-chat-chips>{chips}</div>
+  <form class="chat-form" data-chat-form>
+    <label class="visually-hidden" for="chat-input">Your question</label>
+    <textarea class="input" id="chat-input" rows="1" maxlength="800" placeholder="Type your question" autocomplete="off"></textarea>
+    <button type="submit" class="btn btn--primary btn--small">Send</button>
+  </form>
+  <p class="chat-note">An automated assistant that can make mistakes. For orders and returns, email <a href="mailto:{EMAIL}">{EMAIL}</a>. Chats are saved so we can check the answers, so please don't share card numbers.</p>
+</section>"""
 
 
 def checks(items, inline=False):
@@ -1002,10 +1040,10 @@ def page_policies(ctx):
     <section id="privacy" class="policy" aria-labelledby="priv-h">
       <h2 id="priv-h">Privacy</h2>
       <p class="updated">{updated}</p>
-      <p><strong>What we collect.</strong> When you buy, Stripe collects your name, email, shipping address and payment details on its secure checkout page. We receive your name, email, address and what you ordered. We never see your full card number. If you join the launch list or leave a review, we get what you type into that form.</p>
-      <p><strong>What stays in your browser.</strong> Your cart is saved in your own browser (local storage) so it's still there when you change pages. It isn't sent to us. This site has no advertising trackers and no analytics cookies.</p>
+      <p><strong>What we collect.</strong> When you buy, Stripe collects your name, email, shipping address and payment details on its secure checkout page. We receive your name, email, address and what you ordered. We never see your full card number. If you join the launch list or leave a review, we get what you type into that form. If you use the chat assistant, we keep what you type and its replies so we can check its answers.</p>
+      <p><strong>What stays in your browser.</strong> Your cart is saved in your own browser (local storage) so it's still there when you change pages. It isn't sent to us. A chat conversation is kept in your browser until you close the tab. This site has no advertising trackers and no analytics cookies.</p>
       <p><strong>How we use it.</strong> To fill and ship your order, send tracking, answer your emails, and send launch-list emails if you signed up. We don't sell or rent your information.</p>
-      <p><strong>Who else handles it.</strong> Stripe (payments and sales tax), Netlify (hosting this site and receiving form entries), and the shipping carrier and supplier that get your order to you, who see only your name and address.</p>
+      <p><strong>Who else handles it.</strong> Stripe (payments and sales tax), Netlify (hosting this site and receiving form entries), Anthropic (its Claude AI model writes the chat assistant's replies, so it receives chat messages), and the shipping carrier and supplier that get your order to you, who see only your name and address.</p>
       <p><strong>Your choices.</strong> Email <a href="mailto:{EMAIL}">{EMAIL}</a> to see, correct or delete what we have about you, or to leave the launch list.</p>
     </section>
     <section id="terms" class="policy" aria-labelledby="terms-h">
@@ -1154,10 +1192,52 @@ def page_owner(ctx):
     <ul>
       <li><a href="https://dashboard.stripe.com/payment-links" rel="noopener">Stripe Payment Links</a></li>
       <li><a href="https://app.netlify.com/" rel="noopener">Netlify (form entries under Forms)</a></li>
+      <li><a href="{ctx.link('/owner/chat/')}">Chat assistant: usage, cost and on/off switch</a></li>
       <li><a href="https://www.pirateship.com/" rel="noopener">Pirate Ship</a></li>
       <li><a href="https://dor.sc.gov/" rel="noopener">SC Department of Revenue (MyDORWAY)</a></li>
     </ul>
     <button type="button" class="btn btn--ghost btn--small" data-clear-cart>Clear this browser's cart</button>
+  </section>
+</div>
+</div>
+"""
+
+
+def page_owner_chat(ctx):
+    return f"""
+<div data-chat-owner>
+{page_head("Chat assistant", "Usage, cost and the on/off switch for the website chat. Not linked anywhere public.")}
+<div class="wrap owner-grid" style="padding-bottom:24px">
+  <section class="panel" aria-labelledby="c-sign">
+    <h2 id="c-sign">Owner token</h2>
+    <form data-chat-token>
+      <div class="field"><label for="chat-token">The CHAT_ADMIN_TOKEN value from Netlify</label>
+        <input class="input" id="chat-token" name="token" type="password" autocomplete="off" required></div>
+      <button class="btn btn--primary btn--small" type="submit">Show numbers</button>
+    </form>
+    <p class="small muted" style="margin-top:14px">The token is kept in this tab only and is never saved in the site.</p>
+    <p class="form-msg" role="alert" data-chat-msg></p>
+  </section>
+  <section class="panel" aria-labelledby="c-switch">
+    <h2 id="c-switch">On or off</h2>
+    <ul class="status-list" data-chat-status><li><span>Status</span><span>Enter the token to see it</span></li></ul>
+    <div class="btn-row" style="margin-top:16px"><button type="button" class="btn btn--small" data-chat-toggle hidden>Turn chat off</button></div>
+    <p class="small muted" style="margin-top:14px">The switch takes effect on the next message, with no redeploy. Who sees the chat button is set by <code>CHAT_MODE</code> in <code>build.py</code> (now <code>{CHAT_MODE}</code>).</p>
+  </section>
+</div>
+<div class="wrap" style="padding-bottom:24px">
+  <section class="panel" aria-labelledby="c-days">
+    <h2 id="c-days">Last 14 days</h2>
+    <div class="table-scroll"><table class="usage-table" data-chat-days>
+      <thead><tr><th scope="col">Day (Eastern)</th><th scope="col">Chats</th><th scope="col">Messages</th><th scope="col">Cost</th><th scope="col">Cache hits</th><th scope="col">First word</th><th scope="col">Out of scope</th><th scope="col">Filtered</th><th scope="col">Errors</th></tr></thead>
+      <tbody><tr><td colspan="9" class="muted">Enter the token to load.</td></tr></tbody>
+    </table></div>
+    <p class="small muted" style="margin-top:12px">Cache hits should stay above 70%. First word is how long visitors wait before the reply starts.</p>
+  </section>
+  <section class="panel" aria-labelledby="c-recent" style="margin-top:24px">
+    <h2 id="c-recent">Recent questions</h2>
+    <ul class="status-list" data-chat-recent><li><span class="muted">Enter the token to load.</span></li></ul>
+    <p class="small muted" style="margin-top:12px">If people keep asking something the assistant can't answer, add the answer to a help or policy page. The assistant learns it on the next deploy.</p>
   </section>
 </div>
 </div>
@@ -1191,6 +1271,8 @@ PAGES = [
          description="We couldn't find that page.", body=page_404, noindex=True),
     dict(path="/owner/", out="owner/index.html", nav=None, title="Owner notes | Perch & Purr",
          description="", body=page_owner, noindex=True),
+    dict(path="/owner/chat/", out="owner/chat/index.html", nav=None, title="Chat assistant | Perch & Purr",
+         description="", body=page_owner_chat, noindex=True),
 ]
 
 
@@ -1225,6 +1307,105 @@ def head_common(title, description, noindex):
 {FONTS}"""
 
 
+# ---------------------------------------------------------------- chat knowledge
+# The chat assistant answers only from this text: the product facts below plus
+# what the public pages say. It's rebuilt with the site, so it never drifts.
+KNOWLEDGE_OUT = ROOT / "netlify/lib/knowledge.mjs"
+KNOWLEDGE_PAGES = ["/", "/shop/", "/window-perch/", "/cozy-window-bundle/", "/fur-lifter/", "/help/", "/policies/", "/about/"]
+
+
+class _PageText(HTMLParser):
+    """Visible text of a page body, one block per line. Skips decoration and controls."""
+    SKIP = {"script", "style", "svg", "button", "form", "nav", "select", "template", "dialog"}
+    BLOCK = {"p", "li", "h1", "h2", "h3", "h4", "tr", "summary", "div", "section", "article", "dt", "dd", "br"}
+    VOID = {"br", "img", "input", "meta", "link", "hr", "source"}
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.lines, self.buf, self.stack = [], [], []
+
+    def _hidden(self):
+        return any(self.stack)
+
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        if tag in self.BLOCK:
+            self.flush()
+        if tag in self.VOID:
+            return
+        hide = tag in self.SKIP or a.get("aria-hidden") == "true" or "hidden" in a or "visually-hidden" in (a.get("class") or "")
+        self.stack.append(hide)
+        if tag in ("h1", "h2", "h3", "h4") and not self._hidden():
+            self.buf.append("#" * int(tag[1]) + " ")
+        if tag in ("td", "th") and not self._hidden():
+            self.buf.append(" | ")
+
+    def handle_endtag(self, tag):
+        if tag in self.VOID:
+            return
+        if self.stack:
+            self.stack.pop()
+        if tag in self.BLOCK:
+            self.flush()
+
+    def handle_data(self, data):
+        if not self._hidden():
+            self.buf.append(data)
+
+    def flush(self):
+        text = " ".join("".join(self.buf).split()).strip(" |")
+        if text and text.strip("#").strip():
+            self.lines.append(text)
+        self.buf = []
+
+
+def page_text(html_body):
+    parser = _PageText()
+    parser.feed(html_body)
+    parser.close()
+    parser.flush()
+    return parser.lines
+
+
+def knowledge_text():
+    ctx = Ctx("multi")
+    facts = [f"# {STORE_NAME}: store facts",
+             f"Contact: {EMAIL}. Replies within 1 business day. Based in Greenville, South Carolina. Website: {SITE_URL}"]
+    for pid in ORDER:
+        p = PRODUCTS[pid]
+        compare = f" (was {money(p['compare'])} if bought separately)" if p["compare"] else ""
+        facts.append(f"- {p['name']}: {money(p['price'])}{compare}. {short_price(p)}; {delivered_text(p)}. "
+                     f"Page: {p['path']}. {p['sub']}")
+    facts.append("- Perch folded size: " + (PERCH_SIZE or "not listed on the site yet."))
+    seen, out = set(), ["\n".join(facts)]
+    by_path = {p["path"]: p for p in PAGES}
+    for path in KNOWLEDGE_PAGES:
+        page = by_path[path]
+        lines = []
+        for line in page_text(page["body"](ctx)):
+            key = line.lower()
+            if len(line) > 30 and key in seen:
+                continue  # the FAQ and shipping lines repeat across pages; keep the first
+            seen.add(key)
+            lines.append(line)
+        out.append(f"# Page {path} ({page['title']})\n" + "\n".join(lines))
+    return "\n\n".join(out) + "\n"
+
+
+def build_knowledge():
+    text = knowledge_text()
+    digest = hashlib.sha256(text.encode()).hexdigest()[:12]
+    KNOWLEDGE_OUT.parent.mkdir(parents=True, exist_ok=True)
+    KNOWLEDGE_OUT.write_text(
+        "// Made by build.py from the site's own pages. Don't edit; run python3 build.py.\n"
+        f"export const STORE_NAME = {json.dumps(STORE_NAME)};\n"
+        f"export const CONTACT_EMAIL = {json.dumps(EMAIL)};\n"
+        f"export const KNOWLEDGE_VERSION = {json.dumps(digest)};\n"
+        f"export const KNOWLEDGE = {json.dumps(text, ensure_ascii=False)};\n",
+        encoding="utf-8")
+    print(f"chat knowledge: {KNOWLEDGE_OUT.relative_to(ROOT)} ({len(text) / 1024:.1f} KB, version {digest})")
+
+
 # ---------------------------------------------------------------- multi-page build
 def build_multi():
     ctx = Ctx("multi")
@@ -1240,7 +1421,7 @@ def build_multi():
         extra = product_ld(page["product"]) if page.get("product") else ""
         body_cls = ' class="has-buybar"' if page.get("buybar") else ""
         doc = f"""<!doctype html>
-<html lang="en" data-mode="multi">
+<html lang="en" data-mode="multi" data-chat="{CHAT_MODE}">
 <head>
 {head_common(page['title'], page['description'], page.get('noindex'))}
 <link rel="canonical" href="{canonical}">
@@ -1329,7 +1510,7 @@ def build_single():
 
     home = PAGES[0]
     doc = f"""<!doctype html>
-<html lang="en" data-mode="single">
+<html lang="en" data-mode="single" data-chat="{CHAT_MODE}">
 <head>
 {head_common(home['title'], home['description'], False)}
 <link rel="canonical" href="{SITE_URL}/">
@@ -1369,3 +1550,4 @@ def build_single():
 if __name__ == "__main__":
     build_multi()
     build_single()
+    build_knowledge()

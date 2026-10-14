@@ -389,6 +389,270 @@ const PAYMENT_LINKS = {
   }
 
   /* ============================================================
+     CHAT ASSISTANT — talks to /api/chat (netlify/functions/chat.mjs).
+     <html data-chat> says who sees it: "on", "off", or "beta" (only
+     browsers that opened a page with ?chat=beta; ?chat=off undoes it).
+     The conversation lives in sessionStorage so it follows the visitor
+     from page to page and ends when the tab closes.
+     ============================================================ */
+  const CHAT_KEY = "pp-chat-v1";
+  const CHAT_BETA_KEY = "pp-chat-beta";
+  const CHAT_API = "/api/chat";
+  const CHAT_OFFLINE = "Chat isn't available right now. Please email perchandpurr@gmail.com and you'll get a reply within one business day.";
+  const tabStore = {
+    get(key) { try { return sessionStorage.getItem(key); } catch (e) { return null; } },
+    set(key, val) { try { sessionStorage.setItem(key, val); } catch (e) { /* chat lasts for this page only */ } },
+  };
+  const PAGE_PATHS = "shop|window-perch|cozy-window-bundle|fur-lifter|help|policies|about";
+  const CHAT_LINKS = new RegExp(`(https?:\\/\\/[^\\s<>()]+[^\\s<>().,;:!?'"]|[\\w.+-]+@[\\w-]+(?:\\.[\\w-]+)+|\\/(?:${PAGE_PATHS})\\/(?:#[\\w-]+)?)`, "g");
+  const pagePath = () => (SINGLE ? (location.hash.replace(/^#/, "") || "/") : location.pathname);
+  const linkTo = (path, anchor) => (SINGLE
+    ? "#" + (path.replace(/\/$/, "") || "/") + (anchor ? "/" + anchor : "")
+    : path + (anchor ? "#" + anchor : ""));
+
+  // Escape the reply, then turn emails, site paths and web addresses into links.
+  function chatHtml(text) {
+    return String(text).split(CHAT_LINKS).map((part, i) => {
+      if (i % 2 === 0) return esc(part);
+      if (part.includes("@") && !part.startsWith("http")) return `<a href="mailto:${esc(part)}">${esc(part)}</a>`;
+      if (part.startsWith("/")) {
+        const [path, anchor] = part.split("#");
+        return `<a href="${esc(linkTo(path, anchor))}" data-chat-link>${esc(part)}</a>`;
+      }
+      return `<a href="${esc(part)}" rel="noopener" target="_blank">${esc(part)}</a>`;
+    }).join("");
+  }
+
+  function chatAllowed() {
+    if (location.protocol === "file:") return false; // the one-file store opened from disk has no server
+    const mode = doc.documentElement.dataset.chat || "off";
+    const flag = new URLSearchParams(location.search).get("chat");
+    if (flag === "beta") store.set(CHAT_BETA_KEY, "1");
+    if (flag === "off") store.set(CHAT_BETA_KEY, "0");
+    if (mode === "on") return true;
+    return mode === "beta" && store.get(CHAT_BETA_KEY) === "1";
+  }
+
+  function initChat() {
+    const panel = doc.getElementById("chat");
+    const launch = doc.querySelector("[data-chat-open]");
+    if (!panel || !launch || !chatAllowed()) return;
+    const log = panel.querySelector(".chat-log");
+    const form = panel.querySelector("[data-chat-form]");
+    const input = panel.querySelector("#chat-input");
+    const send = form.querySelector('button[type="submit"]');
+    const chips = panel.querySelector("[data-chat-chips]");
+    const reset = panel.querySelector("[data-chat-reset]");
+    const greeting = panel.dataset.greeting;
+
+    let state = { sessionId: null, messages: [], open: false };
+    try { state = { ...state, ...JSON.parse(tabStore.get(CHAT_KEY) || "{}") }; } catch (e) { /* start fresh */ }
+    state.messages = (Array.isArray(state.messages) ? state.messages : [])
+      .filter((m) => m && (m.role === "user" || m.role === "assistant") && typeof m.text === "string").slice(-60);
+    const persist = () => tabStore.set(CHAT_KEY, JSON.stringify(state));
+    let busy = false;
+    let offline = false;
+
+    const bubble = (role, text) => {
+      const el = doc.createElement("div");
+      el.className = `chat-msg chat-msg--${role}`;
+      if (role === "assistant") el.innerHTML = chatHtml(text); else el.textContent = text;
+      return el;
+    };
+    function render() {
+      log.replaceChildren(bubble("assistant", greeting), ...state.messages.map((m) => bubble(m.role, m.text)));
+      chips.hidden = state.messages.length > 0 || offline;
+      reset.hidden = state.messages.length === 0;
+      log.scrollTop = log.scrollHeight;
+    }
+    const setBusy = (on) => {
+      busy = on;
+      send.disabled = on || offline;
+      log.setAttribute("aria-busy", String(on));
+    };
+    const fit = () => {
+      input.style.height = "auto";
+      input.style.height = Math.min(input.scrollHeight, 132) + "px";
+    };
+
+    function open(focus = true) {
+      state.open = true;
+      persist();
+      panel.hidden = false;
+      launch.hidden = true;
+      launch.setAttribute("aria-expanded", "true");
+      doc.documentElement.classList.add("chat-open");
+      render();
+      if (focus) input.focus();
+    }
+    function close() {
+      state.open = false;
+      persist();
+      panel.hidden = true;
+      launch.hidden = false;
+      launch.setAttribute("aria-expanded", "false");
+      doc.documentElement.classList.remove("chat-open");
+      launch.focus();
+    }
+
+    async function ask(text) {
+      text = text.trim();
+      if (!text || busy || offline) return;
+      setBusy(true);
+      state.messages.push({ role: "user", text });
+      persist();
+      render();
+      const reply = bubble("assistant", "");
+      reply.classList.add("is-typing");
+      reply.innerHTML = '<span class="chat-dots" aria-label="Typing"><i></i><i></i><i></i></span>';
+      log.append(reply);
+      log.scrollTop = log.scrollHeight;
+
+      let answer = "";
+      const show = () => {
+        reply.classList.remove("is-typing");
+        reply.innerHTML = chatHtml(answer);
+        log.scrollTop = log.scrollHeight;
+      };
+      try {
+        const res = await fetch(CHAT_API, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ message: text, sessionId: state.sessionId, page: pagePath() }),
+        });
+        if (!res.ok || !res.body) {
+          const data = await res.json().catch(() => ({}));
+          if (res.status === 503) { offline = true; answer = data.message || CHAT_OFFLINE; }
+          else if (res.status === 429) answer = "You're sending messages quickly. Please wait a minute and try again.";
+          else answer = data.error || CHAT_OFFLINE;
+          show();
+        } else {
+          const reader = res.body.getReader();
+          const dec = new TextDecoder();
+          let buf = "";
+          for (;;) {
+            const { value, done } = await reader.read();
+            if (done) break;
+            buf += dec.decode(value, { stream: true });
+            const lines = buf.split("\n");
+            buf = lines.pop();
+            for (const line of lines) {
+              if (!line.trim()) continue;
+              let ev;
+              try { ev = JSON.parse(line); } catch (e) { continue; }
+              if (ev.t === "start" && ev.sessionId) state.sessionId = ev.sessionId;
+              else if (ev.t === "delta") { answer += ev.text; show(); }
+              else if (ev.t === "replace") { answer = ev.text; show(); }
+            }
+          }
+          if (!answer) { answer = CHAT_OFFLINE; show(); }
+        }
+      } catch (e) {
+        answer = answer || CHAT_OFFLINE;
+        show();
+      }
+      state.messages.push({ role: "assistant", text: answer });
+      persist();
+      setBusy(false);
+      render();
+      if (offline) input.disabled = true;
+    }
+
+    launch.hidden = false;
+    launch.addEventListener("click", () => open());
+    panel.querySelector("[data-chat-close]").addEventListener("click", close);
+    reset.addEventListener("click", () => {
+      state = { sessionId: null, messages: [], open: true };
+      persist();
+      render();
+      input.focus();
+    });
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const text = input.value;
+      input.value = "";
+      fit();
+      ask(text);
+    });
+    input.addEventListener("input", fit);
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); form.requestSubmit(); }
+    });
+    chips.addEventListener("click", (e) => {
+      const chip = e.target.closest("[data-chat-ask]");
+      if (chip) ask(chip.textContent);
+    });
+    panel.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+    // On a phone the panel covers the page, so following a link closes it.
+    log.addEventListener("click", (e) => {
+      if (e.target.closest("[data-chat-link]") && window.innerWidth <= 640) close();
+    });
+    if (state.open) open(false); else render();
+  }
+
+  /* ---------- owner page: chat usage and on/off switch ---------- */
+  const OWNER_TOKEN_KEY = "pp-chat-owner";
+  function initChatOwner(scope) {
+    const root = scope.querySelector("[data-chat-owner]");
+    if (!root) return;
+    const form = root.querySelector("[data-chat-token]");
+    const msg = root.querySelector("[data-chat-msg]");
+    const toggle = root.querySelector("[data-chat-toggle]");
+    const tokenInput = form.querySelector('input[name="token"]');
+    tokenInput.value = tabStore.get(OWNER_TOKEN_KEY) || "";
+    let enabled = null;
+    const usd = (n) => (n >= 1 ? "$" + n.toFixed(2) : n > 0 ? "$" + n.toFixed(4) : "$0");
+    const pct = (n) => (n === null || n === undefined ? "—" : Math.round(n * 100) + "%");
+    const secs = (ms) => (ms ? (ms / 1000).toFixed(1) + " s" : "—");
+
+    function show(data) {
+      enabled = data.settings.enabled;
+      const live = data.envEnabled && data.hasKey && enabled;
+      const rows = [
+        ["Status", live ? '<span class="status-ok">On</span>' : '<span class="status-warn">Off</span>'],
+        ["Switch on this page", enabled ? "On" : "Off"],
+        ["CHAT_ENABLED in Netlify", data.envEnabled ? "Not blocking" : '<span class="status-warn">false (chat off for this deploy)</span>'],
+        ["Anthropic API key", data.hasKey ? "Set" : '<span class="status-warn">Missing</span>'],
+        ["Model", esc(data.model)],
+        ["Daily spending cap", usd(data.dailyBudgetUsd)],
+        ["Knowledge version", esc(data.knowledge)],
+      ];
+      root.querySelector("[data-chat-status]").innerHTML = rows.map(([k, v]) => `<li><span>${k}</span><span>${v}</span></li>`).join("");
+      toggle.hidden = false;
+      toggle.textContent = enabled ? "Turn chat off" : "Turn chat on";
+      root.querySelector("[data-chat-days] tbody").innerHTML = data.days.map((d) => `<tr>
+        <th scope="row">${esc(d.day)}</th><td>${d.sessions}</td><td>${d.messages}</td><td>${usd(d.usd)}</td>
+        <td>${pct(d.cacheHitRate)}</td><td>${secs(d.avgFirstTokenMs)}</td><td>${d.refusals}</td><td>${d.filtered}</td><td>${d.errors}</td></tr>`).join("");
+      const recent = root.querySelector("[data-chat-recent]");
+      recent.innerHTML = data.recent.length
+        ? data.recent.map((r) => `<li><span>${esc(r.q || "(filtered)")}</span><span class="muted">${esc(r.outcome)} · ${new Date(r.at).toLocaleString()}</span></li>`).join("")
+        : '<li><span class="muted">No questions yet.</span></li>';
+    }
+
+    async function call(method, body) {
+      msg.textContent = "";
+      msg.classList.remove("is-error");
+      try {
+        const res = await fetch("/api/chat-admin", {
+          method,
+          headers: { authorization: "Bearer " + tokenInput.value, "content-type": "application/json" },
+          body: body ? JSON.stringify(body) : undefined,
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.error || `The server said ${res.status}.`);
+        tabStore.set(OWNER_TOKEN_KEY, tokenInput.value);
+        show(data);
+      } catch (e) {
+        msg.classList.add("is-error");
+        msg.textContent = e.message || "Couldn't reach the chat server.";
+      }
+    }
+    form.addEventListener("submit", (e) => { e.preventDefault(); call("GET"); });
+    toggle.addEventListener("click", () => call("POST", { enabled: !enabled }));
+    if (tokenInput.value) call("GET");
+  }
+
+  /* ============================================================
      MOTION — one scroll loop drives every scroll effect.
      Everything below is decoration: with reduced motion, or without
      JavaScript, the page shows its finished state.
@@ -670,6 +934,7 @@ const PAYMENT_LINKS = {
       else if (params.get("paid") === "all") cart.clear();
     }
     initOwner(scope);
+    initChatOwner(scope);
     initMotion(scope);
   }
 
@@ -828,6 +1093,7 @@ const PAYMENT_LINKS = {
 
   /* ---------- start ---------- */
   renderCart();
+  initChat();
   scheduleMidnightRefresh();
   if (SINGLE) {
     window.addEventListener("hashchange", route);
